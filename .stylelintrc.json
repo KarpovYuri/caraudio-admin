@@ -26,6 +26,12 @@
 				"ignoreAtRules": ["tailwind"]
 			}
 		],
+		"function-no-unknown": [
+			true,
+			{
+				"ignoreFunctions": ["theme"]
+			}
+		],
 		"comment-no-empty": true,
 		"no-empty-source": true,
 		"no-invalid-double-slash-comments": true,
