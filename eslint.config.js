@@ -1,29 +1,57 @@
 import globals from 'globals'
 import pluginJs from '@eslint/js'
-import tseslint from 'typescript-eslint'
+import tsESLint from 'typescript-eslint'
 import pluginVue from 'eslint-plugin-vue'
+import prettierPlugin from 'eslint-plugin-prettier'
 import eslintConfigPrettier from 'eslint-config-prettier'
+import vueParser from 'vue-eslint-parser'
+import pluginESLintComments from 'eslint-plugin-eslint-comments'
+import importPlugin from 'eslint-plugin-import'
 
 export default [
-	{ files: ['**/*.{js,jsx,mjs,cjs,ts,tsx,vue}'] },
-	{ languageOptions: { globals: { ...globals.browser, ...globals.node } } },
 	pluginJs.configs.recommended,
-	...tseslint.configs.recommended,
-	...pluginVue.configs['flat/essential'],
+	...tsESLint.configs.recommended,
+	...pluginVue.configs['flat/recommended'],
 	eslintConfigPrettier,
 	{
-		files: ['**/*.vue'],
-		languageOptions: { parserOptions: { parser: tseslint.parser } },
+		plugins: {
+			'typescript-eslint': tsESLint.plugin,
+			'eslint-comments': pluginESLintComments,
+			vue: pluginVue,
+			prettier: prettierPlugin,
+			import: importPlugin.flatConfigs.recommended,
+		},
 	},
 	{
-		ignores: [
-			'node_modules',
-			'public',
-			'eslintrc.config.js',
-			'build',
-			'dist',
-			'package*.json',
-			'*.d.ts',
-		],
+		languageOptions: {
+			globals: { ...globals.browser, ...globals.node, ...globals.es2020 },
+		},
+	},
+	{
+		files: ['**/*.{js,ts,jsx,tsx,vue}'],
+		languageOptions: {
+			sourceType: 'module',
+			parserOptions: {
+				warnOnUnsupportedTypeScriptVersion: false,
+			},
+		},
+	},
+	{
+		files: ['**/*.{ts,tsx}'],
+		languageOptions: {
+			parser: tsESLint.parser,
+		},
+	},
+	{
+		files: ['**/*.vue'],
+		languageOptions: {
+			parser: vueParser,
+			parserOptions: {
+				parser: tsESLint.parser,
+			},
+		},
+	},
+	{
+		ignores: ['node_modules', 'public', 'build', 'dist'],
 	},
 ]
