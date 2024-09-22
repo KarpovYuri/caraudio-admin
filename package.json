@@ -11,7 +11,13 @@
 		"stylelint:fix": "stylelint \"src/**/*.{css,scss,sass}\" --fix",
 		"lint": "eslint --fix",
 		"format": "prettier --write \"./src/**/*.{js,ts,jsx,tsx,json,css,scss,sass,md,vue}\" --ignore-path ./.prettierignore",
-		"check": "npm run stylelint:fix && npm run lint && npm run format"
+		"check": "npm run stylelint:fix && npm run lint && npm run format",
+		"prepare": "husky"
+	},
+	"lint-staged": {
+		"*.{css,scss,sass}": "npm run stylelint:fix",
+		"*.{js,jsx,ts,tsx,vue}": "npm run lint",
+		"*.{js,jsx,ts,tsx,json,css,scss,sass,md,vue}": "npm run format"
 	},
 	"dependencies": {
 		"pinia": "^2.2.2",
@@ -29,6 +35,8 @@
 		"eslint-plugin-prettier": "^5.2.1",
 		"eslint-plugin-vue": "^9.28.0",
 		"globals": "^15.9.0",
+		"husky": "^9.1.6",
+		"lint-staged": "^15.2.10",
 		"postcss": "^8.4.47",
 		"prettier": "^3.3.3",
 		"sass": "^1.79.3",
