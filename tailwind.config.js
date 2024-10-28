@@ -3,6 +3,70 @@ export default {
 	content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
 	theme: {
 		extend: {
+			fontFamily: {
+				body: ['Plus Jakarta Sans'],
+				sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+			},
+			fontSize: {
+				xs: [
+					'20px',
+					{
+						lineHeight: '28px',
+					},
+				],
+				s: [
+					'24px',
+					{
+						lineHeight: '32px',
+					},
+				],
+				m: [
+					'28px',
+					{
+						lineHeight: '36px',
+					},
+				],
+				l: [
+					'32px',
+					{
+						lineHeight: '40px',
+					},
+				],
+				xl: [
+					'36px',
+					{
+						lineHeight: '44px',
+					},
+				],
+				bodyS: [
+					'12px',
+					{
+						lineHeight: '18px',
+						letterSpacing: '0.15px',
+					},
+				],
+				bodyM: [
+					'14px',
+					{
+						lineHeight: '20px',
+						letterSpacing: '0.15px',
+					},
+				],
+				bodyL: [
+					'16px',
+					{
+						lineHeight: '24px',
+						letterSpacing: '0.15px',
+					},
+				],
+				bodyXL: [
+					'18px',
+					{
+						lineHeight: '28px',
+						letterSpacing: '0.15px',
+					},
+				],
+			},
 			colors: {
 				'noble-black': {
 					100: '#e8e9e9',
