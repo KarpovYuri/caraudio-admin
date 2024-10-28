@@ -1,12 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400..700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
 	color: theme('colors.noble-black.100');
-	font-weight: 400;
-	font-family: 'Inter', system-ui, 'Avenir', 'Helvetica', 'Arial', sans-serif;
-	line-height: 1.5;
 	background-color: theme('colors.noble-black.700');
 	font-synthesis: none;
 	text-rendering: optimizelegibility;
