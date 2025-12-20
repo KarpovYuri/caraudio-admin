@@ -7,11 +7,23 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:karaudio-admin": "node dist/karaudio-admin/server/server.mjs"
+    "serve:ssr:karaudio-admin": "node dist/karaudio-admin/server/server.mjs",
+    "lint": "ng lint",
+    "format": "prettier --write \"**/*.{js,ts,json,scss,html}\"",
+    "check-format": "prettier --check \"**/*.{js,ts,json,scss,html}\"",
+    "test:vitest": "vitest",
+    "test:watch": "vitest --watch",
+    "test:coverage": "vitest run --coverage"
   },
   "prettier": {
-    "printWidth": 100,
+    "semi": false,
+    "trailingComma": "es5",
     "singleQuote": true,
+    "jsxSingleQuote": true,
+    "printWidth": 80,
+    "useTabs": true,
+    "tabWidth": 2,
+    "endOfLine": "lf",
     "overrides": [
       {
         "files": "*.html",
@@ -47,8 +59,14 @@
     "@angular/compiler-cli": "^21.0.0",
     "@types/express": "^5.0.1",
     "@types/node": "^20.17.19",
+    "angular-eslint": "21.1.0",
+    "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
     "jsdom": "^27.1.0",
+    "prettier": "^3.7.4",
     "typescript": "~5.9.2",
+    "typescript-eslint": "8.47.0",
     "vitest": "^4.0.8"
   }
 }
