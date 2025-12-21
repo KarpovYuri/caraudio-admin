@@ -1,0 +1,8 @@
+echo "🔍 Pre-commit checks..."
+
+if npx lint-staged; then
+  echo "✅ All checks passed!"
+else
+  echo "❌ Checks failed! Fix errors and try again."
+  exit 1
+fi
