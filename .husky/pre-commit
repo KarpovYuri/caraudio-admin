@@ -1,4 +1,3 @@
-
 echo "🔍 Pre-commit checks..."
 
 if npx lint-staged; then
