@@ -1,0 +1,22 @@
+<mat-toolbar class="toolbar">
+	<nav class="toolbar__left gap-2">
+		<button mat-button>Каталог</button>
+		<button mat-button>Поставщики</button>
+		<button mat-button>Парсер</button>
+	</nav>
+
+	<div class="toolbar__right gap-2">
+		<button mat-icon-button (click)="toggleTheme()">
+			<mat-icon>dark_mode</mat-icon>
+		</button>
+
+		<button mat-icon-button [matMenuTriggerFor]="langMenu">
+			<mat-icon>language</mat-icon>
+		</button>
+
+		<mat-menu #langMenu="matMenu">
+			<button mat-menu-item (click)="changeLanguage('ru')">🇷🇺 Русский</button>
+			<button mat-menu-item (click)="changeLanguage('en')">🇬🇧 English</button>
+		</mat-menu>
+	</div>
+</mat-toolbar>
