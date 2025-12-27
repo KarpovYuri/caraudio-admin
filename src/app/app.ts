@@ -1,7 +1,7 @@
-import { Component, inject } from '@angular/core'
-import { RouterOutlet } from '@angular/router'
-import { Toolbar } from '../shared/ui/layout/toolbar/toolbar'
-import { ThemeService } from './core/services/theme.service'
+import { Component, inject } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { ThemeService } from '@core/services';
+import { Toolbar } from '@shared/ui/layout/toolbar';
 
 @Component({
 	selector: 'app-root',
@@ -10,9 +10,9 @@ import { ThemeService } from './core/services/theme.service'
 	styleUrl: './app.scss',
 })
 export class App {
-	private themeService = inject(ThemeService)
+	private themeService = inject(ThemeService);
 
 	constructor() {
-		this.themeService.init()
+		this.themeService.init();
 	}
 }

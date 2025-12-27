@@ -1,9 +1,9 @@
-import { Component } from '@angular/core'
-import { MatToolbar } from '@angular/material/toolbar'
-import { MatButton, MatIconButton } from '@angular/material/button'
-import { MatIcon } from '@angular/material/icon'
-import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu'
-import { ThemeToggle } from '../../controls/theme-toggle/theme-toggle'
+import { Component } from '@angular/core';
+import { MatToolbar } from '@angular/material/toolbar';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
+import { ThemeToggle } from '@shared/ui/controls/theme-toggle';
 
 @Component({
 	selector: 'app-toolbar',
@@ -22,6 +22,6 @@ import { ThemeToggle } from '../../controls/theme-toggle/theme-toggle'
 })
 export class Toolbar {
 	changeLanguage(lang: 'ru' | 'en'): void {
-		console.log('change language:', lang)
+		console.log('change language:', lang);
 	}
 }

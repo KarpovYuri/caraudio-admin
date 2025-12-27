@@ -1,10 +1,10 @@
 // @ts-check
-const eslint = require('@eslint/js')
-const { defineConfig } = require('eslint/config')
-const tseslint = require('typescript-eslint')
-const angular = require('angular-eslint')
-const prettierConfig = require('eslint-config-prettier')
-const prettierPlugin = require('eslint-plugin-prettier')
+const eslint = require('@eslint/js');
+const { defineConfig } = require('eslint/config');
+const tseslint = require('typescript-eslint');
+const angular = require('angular-eslint');
+const prettierConfig = require('eslint-config-prettier');
+const prettierPlugin = require('eslint-plugin-prettier');
 
 module.exports = defineConfig([
 	{
@@ -53,4 +53,4 @@ module.exports = defineConfig([
 			'prettier/prettier': 'error',
 		},
 	},
-])
+]);

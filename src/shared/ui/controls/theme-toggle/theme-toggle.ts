@@ -1,18 +1,21 @@
-import { Component, inject } from '@angular/core'
-import { MatIconButton } from '@angular/material/button'
-import { MatIcon } from '@angular/material/icon'
-import { ThemeService } from '../../../../app/core/services/theme.service'
+import { Component, computed, inject, signal } from '@angular/core';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { ThemeService } from '@core/services';
 
 @Component({
 	selector: 'app-theme-toggle',
 	imports: [MatIconButton, MatIcon],
 	templateUrl: './theme-toggle.html',
-	styleUrl: './theme-toggle.scss',
 })
 export class ThemeToggle {
-	private themeService = inject(ThemeService)
+	private themeService = inject(ThemeService);
+
+	isDark = signal(this.themeService.isDark);
+	icon = computed(() => (this.isDark() ? 'dark_mode' : 'light_mode'));
 
 	toggle(): void {
-		this.themeService.toggle()
+		this.themeService.toggle();
+		this.isDark.set(this.themeService.isDark);
 	}
 }

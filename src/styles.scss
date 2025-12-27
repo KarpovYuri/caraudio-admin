@@ -1,28 +1,33 @@
 @use '@angular/material' as mat;
+@use 'sass:map';
 
-html {
-	@include mat.theme(
+$common-theme: (
+	color: (
+		primary: mat.$azure-palette,
+		tertiary: mat.$blue-palette,
+	),
+	typography: roboto,
+	density: 0,
+);
+
+@function create-theme($type) {
+	@return map.merge(
+		$common-theme,
 		(
-			color: (
-				primary: mat.$azure-palette,
-				tertiary: mat.$blue-palette,
-			),
-			typography: Roboto,
-			density: 0,
+			color: map.merge(
+					map.get($common-theme, color),
+					(
+						theme-type: $type,
+					)
+				),
 		)
 	);
 }
 
+html {
+	@include mat.theme(create-theme(light));
+}
+
 html.dark-theme {
-	@include mat.theme(
-		(
-			color: (
-				theme-type: dark,
-				primary: mat.$azure-palette,
-				tertiary: mat.$blue-palette,
-			),
-			typography: Roboto,
-			density: 0,
-		)
-	);
+	@include mat.theme(create-theme(dark));
 }
