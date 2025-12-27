@@ -5,18 +5,6 @@
 		"order/properties-alphabetical-order": true,
 		"color-function-notation": "modern",
 		"alpha-value-notation": "number",
-		"at-rule-no-unknown": null,
-		"scss/at-rule-no-unknown": [
-			true,
-			{
-				"ignoreAtRules": [
-					"tailwind",
-					"apply",
-					"layer",
-					"responsive",
-					"variants"
-				]
-			}
-		]
+		"at-rule-no-unknown": null
 	}
 }
