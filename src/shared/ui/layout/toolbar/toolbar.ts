@@ -3,6 +3,7 @@ import { MatToolbar } from '@angular/material/toolbar'
 import { MatButton, MatIconButton } from '@angular/material/button'
 import { MatIcon } from '@angular/material/icon'
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu'
+import { ThemeToggle } from '../../controls/theme-toggle/theme-toggle'
 
 @Component({
 	selector: 'app-toolbar',
@@ -14,15 +15,12 @@ import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu'
 		MatMenuTrigger,
 		MatMenuItem,
 		MatIconButton,
+		ThemeToggle,
 	],
 	templateUrl: './toolbar.html',
 	styleUrl: './toolbar.scss',
 })
 export class Toolbar {
-	toggleTheme(): void {
-		console.log('toggle theme')
-	}
-
 	changeLanguage(lang: 'ru' | 'en'): void {
 		console.log('change language:', lang)
 	}
