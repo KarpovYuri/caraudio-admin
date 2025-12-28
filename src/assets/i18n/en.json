@@ -1,0 +1,11 @@
+{
+	"mainMenu": {
+		"suppliers": "Suppliers",
+		"parser": "Parser",
+		"catalog": "Catalog"
+	},
+	"language": {
+		"ru": "Russian",
+		"en": "English"
+	}
+}
