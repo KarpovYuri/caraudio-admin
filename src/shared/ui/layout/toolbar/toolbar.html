@@ -1,10 +1,5 @@
 <mat-toolbar class="toolbar">
-	<nav class="toolbar__left gap-2">
-		<button mat-button>{{ 'mainMenu.catalog' | translate }}</button>
-		<button mat-button>{{ 'mainMenu.suppliers' | translate }}</button>
-		<button mat-button>{{ 'mainMenu.parser' | translate }}</button>
-	</nav>
-
+	<app-main-menu />
 	<div class="toolbar__right gap-2">
 		<app-theme-toggle />
 		<app-language-menu />

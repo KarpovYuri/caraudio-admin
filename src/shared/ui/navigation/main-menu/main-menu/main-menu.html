@@ -1,0 +1,7 @@
+<nav class="main-menu gap-2">
+	@for (menu of menuItems; track menu.name) {
+		<button mat-button [routerLink]="menu.route">
+			{{ menu.name | translate }}
+		</button>
+	}
+</nav>

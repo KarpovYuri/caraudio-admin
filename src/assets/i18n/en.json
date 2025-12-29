@@ -2,7 +2,8 @@
 	"mainMenu": {
 		"suppliers": "Suppliers",
 		"parser": "Parser",
-		"catalog": "Catalog"
+		"catalog": "Catalog",
+		"settings": "Settings"
 	},
 	"language": {
 		"ru": "Russian",
