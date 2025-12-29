@@ -1,13 +1,20 @@
 import { Component } from '@angular/core';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatButton } from '@angular/material/button';
-import { ThemeToggle } from '@shared/ui/controls/theme-toggle';
+import { LanguageMenu, ThemeToggle } from '@shared/ui/controls';
 import { TranslatePipe } from '@ngx-translate/core';
-import { LanguageMenu } from '@shared/ui/controls/language-menu/language-menu';
+import { MainMenu } from '@shared/ui/navigation/main-menu';
 
 @Component({
 	selector: 'app-toolbar',
-	imports: [MatToolbar, MatButton, ThemeToggle, LanguageMenu, TranslatePipe],
+	imports: [
+		MatToolbar,
+		MatButton,
+		ThemeToggle,
+		LanguageMenu,
+		TranslatePipe,
+		MainMenu,
+	],
 	templateUrl: './toolbar.html',
 	styleUrl: './toolbar.scss',
 })

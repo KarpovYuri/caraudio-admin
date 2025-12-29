@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ThemeService } from '@core/services';
-import { Toolbar } from '@shared/ui/layout/toolbar';
+import { Toolbar } from '@shared/ui/layout';
 
 @Component({
 	selector: 'app-root',
