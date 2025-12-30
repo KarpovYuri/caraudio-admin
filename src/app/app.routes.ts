@@ -8,16 +8,21 @@ import { authGuard } from '@core/guards';
 import { loginRedirectGuard } from '@core/guards/loginRedirect.guard';
 
 export const routes: Routes = [
-	{ path: '', component: AuthPage, canActivate: [loginRedirectGuard] },
+	{
+		path: '',
+		component: AuthPage,
+		canActivate: [loginRedirectGuard],
+		title: 'SignIn',
+	},
 
 	{
 		path: '',
 		canActivate: [authGuard],
 		children: [
-			{ path: 'catalog', component: CatalogPage },
-			{ path: 'suppliers', component: SuppliersPage },
-			{ path: 'parser', component: ParserPage },
-			{ path: 'settings', component: SettingsPage },
+			{ path: 'catalog', component: CatalogPage, title: 'Catalog' },
+			{ path: 'suppliers', component: SuppliersPage, title: 'Suppliers' },
+			{ path: 'parser', component: ParserPage, title: 'Parser' },
+			{ path: 'settings', component: SettingsPage, title: 'Settings' },
 		],
 	},
 
