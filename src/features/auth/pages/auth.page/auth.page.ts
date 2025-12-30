@@ -12,8 +12,8 @@ export class AuthPage {
 	private auth = inject(AuthService);
 	private router = inject(Router);
 
-	login() {
+	async login(): Promise<void> {
 		this.auth.login();
-		this.router.navigateByUrl('/catalog');
+		await this.router.navigate(['/catalog']);
 	}
 }
