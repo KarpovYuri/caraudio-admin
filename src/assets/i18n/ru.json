@@ -8,5 +8,12 @@
 	"language": {
 		"ru": "Русский",
 		"en": "Английский"
+	},
+	"authPage": {
+		"title": "Вход",
+		"username": "Логин",
+		"password": "Пароль",
+		"rememberMe": "Запомнить меня",
+		"signIn": "Войти"
 	}
 }
