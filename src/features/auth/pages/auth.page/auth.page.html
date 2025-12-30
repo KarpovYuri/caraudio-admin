@@ -1,4 +1,29 @@
-<div class="auth-page">
-	<h1>Авторизация</h1>
-	<button mat-raised-button color="primary" (click)="login()">Войти</button>
+<div class="auth-page p-4">
+	<mat-card class="auth-page__card px-6 py-8 gap-6">
+		<h2 class="text-xl font-bold">{{ 'authPage.title' | translate }}</h2>
+
+		<div class="auth-page__form gap-2">
+			<mat-form-field appearance="outline">
+				<mat-label>{{ 'authPage.username' | translate }}</mat-label>
+				<input matInput [(ngModel)]="login" />
+			</mat-form-field>
+
+			<mat-form-field appearance="outline">
+				<mat-label>{{ 'authPage.password' | translate }}</mat-label>
+				<input matInput type="password" [(ngModel)]="password" />
+			</mat-form-field>
+			<mat-checkbox [(ngModel)]="remember">
+				{{ 'authPage.rememberMe' | translate }}
+			</mat-checkbox>
+		</div>
+
+		<button
+			class="min-h-12"
+			matButton="filled"
+			[disabled]="!formValid()"
+			(click)="onLogin()"
+		>
+			{{ 'authPage.signIn' | translate }}
+		</button>
+	</mat-card>
 </div>

@@ -31,3 +31,9 @@ html {
 html.dark-theme {
 	@include mat.theme(create-theme(dark));
 }
+
+body {
+	background-color: var(--mat-sys-background);
+	color: var(--mat-sys-on-background);
+	min-width: 320px;
+}

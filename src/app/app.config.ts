@@ -2,12 +2,13 @@ import {
 	ApplicationConfig,
 	provideBrowserGlobalErrorListeners,
 } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, TitleStrategy } from '@angular/router';
 import { provideTranslateService } from '@ngx-translate/core';
 
 import { routes } from './app.routes';
 import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 import { provideHttpClient } from '@angular/common/http';
+import { AppTitleStrategy } from '@core/strategies';
 
 export const appConfig: ApplicationConfig = {
 	providers: [
@@ -22,5 +23,6 @@ export const appConfig: ApplicationConfig = {
 			fallbackLang: 'en',
 			lang: 'en',
 		}),
+		{ provide: TitleStrategy, useClass: AppTitleStrategy },
 	],
 };
