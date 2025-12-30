@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { ThemeService } from '@core/services';
+import { AuthService, ThemeService } from '@core/services';
 import { Toolbar } from '@shared/ui/layout';
 
 @Component({
@@ -11,6 +11,7 @@ import { Toolbar } from '@shared/ui/layout';
 })
 export class App {
 	private themeService = inject(ThemeService);
+	auth = inject(AuthService);
 
 	constructor() {
 		this.themeService.init();
