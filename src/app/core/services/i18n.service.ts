@@ -8,23 +8,16 @@ export class I18nService {
 	private readonly storageKey = 'lang';
 	private translate = inject(TranslateService);
 
-	constructor() {
-		const saved = this.getSavedLang();
-		this.translate.use(saved);
+	init(): void {
+		const saved = localStorage.getItem(this.storageKey) as TLang | null;
+		const lang =
+			saved ||
+			(navigator.language.toLowerCase().startsWith('ru') ? 'ru' : 'en');
+		this.translate.use(lang);
 	}
 
 	change(lang: TLang): void {
 		this.translate.use(lang);
 		localStorage.setItem(this.storageKey, lang);
-	}
-
-	private getSavedLang(): TLang {
-		const stored = localStorage.getItem(this.storageKey) as TLang | null;
-		if (stored) return stored;
-
-		const browserLang = navigator.language.toLowerCase();
-		if (browserLang.startsWith('ru')) return 'ru';
-
-		return 'en';
 	}
 }
