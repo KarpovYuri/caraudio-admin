@@ -5,11 +5,21 @@ import { SettingsPage } from '@features/settings/pages';
 import { SuppliersPage } from '@features/suppliers/pages';
 import { AuthPage } from '@features/auth/pages';
 import { authGuard } from '@core/guards';
+import { loginRedirectGuard } from '@core/guards/loginRedirect.guard';
 
 export const routes: Routes = [
-	{ path: '', component: AuthPage },
-	{ path: 'catalog', component: CatalogPage, canActivate: [authGuard] },
-	{ path: 'suppliers', component: SuppliersPage, canActivate: [authGuard] },
-	{ path: 'parser', component: ParserPage, canActivate: [authGuard] },
-	{ path: 'settings', component: SettingsPage, canActivate: [authGuard] },
+	{ path: '', component: AuthPage, canActivate: [loginRedirectGuard] },
+
+	{
+		path: '',
+		canActivate: [authGuard],
+		children: [
+			{ path: 'catalog', component: CatalogPage },
+			{ path: 'suppliers', component: SuppliersPage },
+			{ path: 'parser', component: ParserPage },
+			{ path: 'settings', component: SettingsPage },
+		],
+	},
+
+	{ path: '**', redirectTo: '' },
 ];
