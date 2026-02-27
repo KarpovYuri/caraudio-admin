@@ -4,9 +4,10 @@ import { MatCard } from '@angular/material/card';
 import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { MatCheckbox } from '@angular/material/checkbox';
-import { AuthService } from '@core/services';
+import { AuthService } from '@core/auth';
 import { Router } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
 	selector: 'app-auth.page',
@@ -22,6 +23,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 	],
 	templateUrl: './auth.page.html',
 	styleUrl: './auth.page.scss',
+	standalone: true,
 })
 export class AuthPage {
 	private auth = inject(AuthService);
@@ -37,14 +39,16 @@ export class AuthPage {
 
 	async onLogin() {
 		if (this.formValid()) {
-			console.log('Форма отправлена:', {
-				login: this.login(),
-				password: this.password(),
-				remember: this.remember(),
-			});
-
-			this.auth.login();
-			await this.router.navigate(['/catalog']);
+			try {
+				const loginData = {
+					login: this.login(),
+					password: this.password(),
+				};
+				await firstValueFrom(this.auth.login(loginData));
+				await this.router.navigate(['/catalog']);
+			} catch (error) {
+				console.error('Ошибка при входе:', error);
+			}
 		}
 	}
 }

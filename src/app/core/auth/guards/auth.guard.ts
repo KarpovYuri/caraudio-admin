@@ -1,14 +1,14 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router, UrlTree } from '@angular/router';
-import { AuthService } from '@core/services';
+import { AuthService } from '@core/auth';
 
 export const authGuard: CanActivateFn = (): boolean | UrlTree => {
-	const auth = inject(AuthService);
+	const authService = inject(AuthService);
 	const router = inject(Router);
 
-	if (!auth.isAuthenticated()) {
-		return router.createUrlTree(['/']);
+	if (authService.isAuthenticated()) {
+		return true;
 	}
 
-	return true;
+	return router.createUrlTree(['/']);
 };

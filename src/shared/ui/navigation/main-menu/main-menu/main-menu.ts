@@ -13,6 +13,7 @@ export interface MenuItem {
 	imports: [TranslatePipe, MatButton, RouterLink],
 	templateUrl: './main-menu.html',
 	styleUrl: './main-menu.scss',
+	standalone: true,
 })
 export class MainMenu {
 	private router = inject(Router);

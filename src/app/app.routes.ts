@@ -4,8 +4,7 @@ import { ParserPage } from '@features/parser/pages';
 import { SettingsPage } from '@features/settings/pages';
 import { SuppliersPage } from '@features/suppliers/pages';
 import { AuthPage } from '@features/auth/pages';
-import { authGuard } from '@core/guards';
-import { loginRedirectGuard } from '@core/guards/loginRedirect.guard';
+import { authGuard, loginRedirectGuard } from '@core/auth';
 
 export const routes: Routes = [
 	{
