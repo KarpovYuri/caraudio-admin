@@ -13,7 +13,7 @@ export class AuthService {
 
 	login(data: LoginRequest) {
 		return this.http
-			.post<LoginResponse>('http://localhost:8080/auth/login', data, {
+			.post<LoginResponse>('http://localhost:8080/v1/auth/login', data, {
 				withCredentials: true,
 			})
 			.pipe(
@@ -27,7 +27,7 @@ export class AuthService {
 	refresh() {
 		return this.http
 			.post<RefreshResponse>(
-				'http://localhost:8080/auth/refresh',
+				'http://localhost:8080/v1/auth/refresh',
 				{},
 				{ withCredentials: true }
 			)
@@ -41,7 +41,11 @@ export class AuthService {
 
 	logout() {
 		return this.http
-			.post('http://localhost:8080/auth/logout', {}, { withCredentials: true })
+			.post(
+				'http://localhost:8080/v1/auth/logout',
+				{},
+				{ withCredentials: true }
+			)
 			.pipe(
 				tap(() => {
 					this.clear();
