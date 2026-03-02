@@ -7,16 +7,15 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 	const authService = inject(AuthService);
 	const token = authService.getToken();
 
-	const isAuthRequest = req.url === '/login' || req.url.includes('/refresh');
+	let authReq = req.clone({
+		withCredentials: true,
+	});
 
-	if (isAuthRequest) {
-		return next(req);
-	}
+	const isAuthRequest =
+		req.url.includes('/login') || req.url.includes('/refresh');
 
-	let authReq = req;
-
-	if (token) {
-		authReq = req.clone({
+	if (token && !isAuthRequest) {
+		authReq = authReq.clone({
 			setHeaders: {
 				Authorization: `Bearer ${token}`,
 			},
@@ -33,6 +32,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 				return authService.refresh().pipe(
 					switchMap((res) => {
 						const retryReq = req.clone({
+							withCredentials: true,
 							setHeaders: {
 								Authorization: `Bearer ${res.accessToken}`,
 							},

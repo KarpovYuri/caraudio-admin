@@ -22,16 +22,13 @@ export class AuthService {
 
 	login(data: LoginRequest) {
 		return this.http
-			.post<LoginResponse>('http://localhost:8080/v1/auth/login', data, {
-				withCredentials: true,
-			})
+			.post<LoginResponse>('http://localhost:8080/v1/auth/login', data)
 			.pipe(
 				tap((res) => {
 					this.accessToken = res.accessToken;
 					this._isAuthenticated.set(true);
 					const storage = data.rememberMe ? localStorage : sessionStorage;
 					storage.setItem('token', res.accessToken);
-					storage.setItem('refreshToken', res.refreshToken);
 				})
 			);
 	}
@@ -47,22 +44,26 @@ export class AuthService {
 				tap((res) => {
 					this.accessToken = res.accessToken;
 					this._isAuthenticated.set(true);
+					const storage = localStorage.getItem('token')
+						? localStorage
+						: sessionStorage;
+					storage.setItem('token', res.accessToken);
 				})
 			);
 	}
 
 	logout() {
-		const refreshToken =
-			localStorage.getItem('refreshToken') ||
-			sessionStorage.getItem('refreshToken') ||
-			'';
 		return this.http
 			.post(
 				'http://localhost:8080/v1/auth/logout',
-				{ refresh_token: refreshToken },
+				{},
 				{ withCredentials: true }
 			)
-			.pipe(finalize(() => this.clear()));
+			.pipe(
+				finalize(() => {
+					this.clear();
+				})
+			);
 	}
 
 	getToken() {
@@ -70,9 +71,9 @@ export class AuthService {
 	}
 
 	clear() {
-		this.accessToken = null;
-		this._isAuthenticated.set(false);
 		localStorage.removeItem('token');
 		sessionStorage.removeItem('token');
+		this.accessToken = null;
+		this._isAuthenticated.set(false);
 	}
 }
