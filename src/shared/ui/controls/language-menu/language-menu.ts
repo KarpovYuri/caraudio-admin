@@ -3,7 +3,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { TranslatePipe } from '@ngx-translate/core';
-import { I18nService, TLang } from '@core/services';
+import { I18nService, TLang } from '@core/i18n';
 
 export interface ILanguageMenu {
 	code: TLang;
@@ -21,6 +21,7 @@ export interface ILanguageMenu {
 		MatMenuTrigger,
 	],
 	templateUrl: './language-menu.html',
+	standalone: true,
 })
 export class LanguageMenu {
 	private readonly i18n = inject(I18nService);

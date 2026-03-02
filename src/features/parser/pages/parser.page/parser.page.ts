@@ -4,5 +4,6 @@ import { Component } from '@angular/core';
 	selector: 'app-parser.page',
 	imports: [],
 	templateUrl: './parser.page.html',
+	standalone: true,
 })
 export class ParserPage {}

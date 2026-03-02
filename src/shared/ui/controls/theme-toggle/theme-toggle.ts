@@ -1,12 +1,13 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { ThemeService } from '@core/services';
+import { ThemeService } from '@core/theme';
 
 @Component({
 	selector: 'app-theme-toggle',
 	imports: [MatIconButton, MatIcon],
 	templateUrl: './theme-toggle.html',
+	standalone: true,
 })
 export class ThemeToggle {
 	private themeService = inject(ThemeService);

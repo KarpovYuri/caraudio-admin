@@ -4,7 +4,7 @@ import { LanguageMenu, ThemeToggle } from '@shared/ui/controls';
 import { MainMenu } from '@shared/ui/navigation/main-menu';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { AuthService } from '@core/services';
+import { AuthService } from '@core/auth';
 import { Router } from '@angular/router';
 
 @Component({
@@ -19,13 +19,16 @@ import { Router } from '@angular/router';
 	],
 	templateUrl: './toolbar.html',
 	styleUrl: './toolbar.scss',
+	standalone: true,
 })
 export class Toolbar {
 	private auth = inject(AuthService);
 	private router = inject(Router);
 
-	async logout(): Promise<void> {
-		this.auth.logout();
-		await this.router.navigate(['/']);
+	logout() {
+		this.auth.logout().subscribe({
+			next: () => this.router.navigate(['/']),
+			error: () => this.router.navigate(['/']),
+		});
 	}
 }

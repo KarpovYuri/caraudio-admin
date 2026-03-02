@@ -4,5 +4,6 @@ import { Component } from '@angular/core';
 	selector: 'app-suppliers.page',
 	imports: [],
 	templateUrl: './suppliers.page.html',
+	standalone: true,
 })
 export class SuppliersPage {}

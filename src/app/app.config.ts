@@ -7,14 +7,15 @@ import { provideTranslateService } from '@ngx-translate/core';
 
 import { routes } from './app.routes';
 import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { AppTitleStrategy } from '@core/strategies';
+import { authInterceptor } from '@core/auth';
 
 export const appConfig: ApplicationConfig = {
 	providers: [
 		provideBrowserGlobalErrorListeners(),
 		provideRouter(routes),
-		provideHttpClient(),
+		provideHttpClient(withInterceptors([authInterceptor])),
 		provideTranslateService({
 			loader: provideTranslateHttpLoader({
 				prefix: '/assets/i18n/',

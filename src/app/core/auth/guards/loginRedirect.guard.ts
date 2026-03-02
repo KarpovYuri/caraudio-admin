@@ -1,10 +1,14 @@
 import { CanActivateFn, Router, UrlTree } from '@angular/router';
 import { inject } from '@angular/core';
-import { AuthService } from '@core/services';
+import { AuthService } from '@core/auth';
 
 export const loginRedirectGuard: CanActivateFn = (): boolean | UrlTree => {
 	const auth = inject(AuthService);
 	const router = inject(Router);
 
-	return auth.isAuthenticated() ? router.createUrlTree(['/catalog']) : true;
+	if (auth.isAuthenticated()) {
+		return router.createUrlTree(['/catalog']);
+	}
+
+	return true;
 };
