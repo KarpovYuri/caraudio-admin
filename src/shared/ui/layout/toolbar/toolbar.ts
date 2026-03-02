@@ -25,8 +25,10 @@ export class Toolbar {
 	private auth = inject(AuthService);
 	private router = inject(Router);
 
-	async logout(): Promise<void> {
-		this.auth.logout();
-		await this.router.navigate(['/']);
+	logout() {
+		this.auth.logout().subscribe({
+			next: () => this.router.navigate(['/']),
+			error: () => this.router.navigate(['/']),
+		});
 	}
 }

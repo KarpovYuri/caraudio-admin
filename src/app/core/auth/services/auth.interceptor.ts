@@ -5,8 +5,13 @@ import { catchError, switchMap, throwError } from 'rxjs';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
 	const authService = inject(AuthService);
-
 	const token = authService.getToken();
+
+	const isAuthRequest = req.url === '/login' || req.url.includes('/refresh');
+
+	if (isAuthRequest) {
+		return next(req);
+	}
 
 	let authReq = req;
 
@@ -20,22 +25,23 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
 	return next(authReq).pipe(
 		catchError((err) => {
+			if (isAuthRequest) {
+				return throwError(() => err);
+			}
+
 			if (err.status === 401) {
 				return authService.refresh().pipe(
-					switchMap(() => {
-						const newToken = authService.getToken();
-
+					switchMap((res) => {
 						const retryReq = req.clone({
 							setHeaders: {
-								Authorization: `Bearer ${newToken}`,
+								Authorization: `Bearer ${res.accessToken}`,
 							},
 						});
-
 						return next(retryReq);
 					}),
-					catchError(() => {
+					catchError((refreshErr) => {
 						authService.clear();
-						return throwError(() => err);
+						return throwError(() => refreshErr);
 					})
 				);
 			}

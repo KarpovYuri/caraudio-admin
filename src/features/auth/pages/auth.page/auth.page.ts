@@ -43,6 +43,7 @@ export class AuthPage {
 				const loginData = {
 					login: this.login(),
 					password: this.password(),
+					rememberMe: this.remember(),
 				};
 				await firstValueFrom(this.auth.login(loginData));
 				await this.router.navigate(['/catalog']);
