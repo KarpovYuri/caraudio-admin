@@ -2,10 +2,12 @@ import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { finalize, tap } from 'rxjs';
 import { LoginRequest, LoginResponse, RefreshResponse } from '@core/auth';
+import { environment } from '@environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 	private http = inject(HttpClient);
+	private apiUrl = environment.apiUrl;
 
 	private accessToken: string | null = null;
 	private _isAuthenticated = signal<boolean>(false);
@@ -22,7 +24,7 @@ export class AuthService {
 
 	login(data: LoginRequest) {
 		return this.http
-			.post<LoginResponse>('http://localhost:8080/v1/auth/login', data)
+			.post<LoginResponse>(`${this.apiUrl}/auth/login`, data)
 			.pipe(
 				tap((res) => {
 					this.accessToken = res.accessToken;
@@ -36,7 +38,7 @@ export class AuthService {
 	refresh() {
 		return this.http
 			.post<RefreshResponse>(
-				'http://localhost:8080/v1/auth/refresh',
+				`${this.apiUrl}/auth/refresh`,
 				{},
 				{ withCredentials: true }
 			)
@@ -54,11 +56,7 @@ export class AuthService {
 
 	logout() {
 		return this.http
-			.post(
-				'http://localhost:8080/v1/auth/logout',
-				{},
-				{ withCredentials: true }
-			)
+			.post(`${this.apiUrl}/auth/logout`, {}, { withCredentials: true })
 			.pipe(
 				finalize(() => {
 					this.clear();
