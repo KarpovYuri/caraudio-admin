@@ -1,7 +1,7 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { ThemeService } from '@core/theme';
+import { ThemeService } from '@core/services';
 
 @Component({
 	selector: 'app-theme-toggle',

@@ -1,8 +1,8 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { finalize, tap } from 'rxjs';
-import { LoginRequest, LoginResponse, RefreshResponse } from '@core/auth';
 import { environment } from '@environments/environment';
+import { LoginRequest, LoginResponse, RefreshResponse } from '@core/models';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {

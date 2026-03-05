@@ -1,6 +1,6 @@
 import { CanActivateFn, Router, UrlTree } from '@angular/router';
 import { inject } from '@angular/core';
-import { AuthService } from '@core/auth';
+import { AuthService } from '@core/services';
 
 export const loginRedirectGuard: CanActivateFn = (): boolean | UrlTree => {
 	const auth = inject(AuthService);

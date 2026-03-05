@@ -3,7 +3,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { TranslatePipe } from '@ngx-translate/core';
-import { I18nService, TLang } from '@core/i18n';
+import { I18nService, TLang } from '@core/services';
 
 export interface ILanguageMenu {
 	code: TLang;
