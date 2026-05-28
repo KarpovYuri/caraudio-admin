@@ -4,8 +4,8 @@ import { LanguageMenu, ThemeToggle } from '@shared/ui/controls';
 import { MainMenu } from '@shared/ui/navigation/main-menu';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { AuthService } from '@core/auth';
 import { Router } from '@angular/router';
+import { AuthService } from '@core/services';
 
 @Component({
 	selector: 'app-toolbar',

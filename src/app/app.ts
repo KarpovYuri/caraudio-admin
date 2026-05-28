@@ -1,9 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { AuthService } from '@core/auth';
 import { Toolbar } from '@shared/ui/layout';
-import { ThemeService } from '@core/theme';
-import { I18nService } from '@core/i18n';
+import { AuthService, I18nService, ThemeService } from '@core/services';
 
 @Component({
 	selector: 'app-root',

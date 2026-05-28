@@ -1,4 +1,8 @@
 {
+	"common": {
+		"close": "Закрыть",
+		"ok": "ОК"
+	},
 	"mainMenu": {
 		"suppliers": "Поставщики",
 		"parser": "Парсер",

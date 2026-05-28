@@ -9,13 +9,13 @@ import { routes } from './app.routes';
 import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { AppTitleStrategy } from '@core/strategies';
-import { authInterceptor } from '@core/auth';
+import { authInterceptor, errorInterceptor } from '@core/interceptors';
 
 export const appConfig: ApplicationConfig = {
 	providers: [
 		provideBrowserGlobalErrorListeners(),
 		provideRouter(routes),
-		provideHttpClient(withInterceptors([authInterceptor])),
+		provideHttpClient(withInterceptors([errorInterceptor, authInterceptor])),
 		provideTranslateService({
 			loader: provideTranslateHttpLoader({
 				prefix: '/assets/i18n/',

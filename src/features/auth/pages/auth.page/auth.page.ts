@@ -4,10 +4,10 @@ import { MatCard } from '@angular/material/card';
 import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { MatCheckbox } from '@angular/material/checkbox';
-import { AuthService } from '@core/auth';
 import { Router } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { firstValueFrom } from 'rxjs';
+import { AuthService } from '@core/services';
 
 @Component({
 	selector: 'app-auth.page',

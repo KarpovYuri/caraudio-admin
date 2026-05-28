@@ -1,4 +1,8 @@
 {
+	"common": {
+		"close": "Close",
+		"ok": "OK"
+	},
 	"mainMenu": {
 		"suppliers": "Suppliers",
 		"parser": "Parser",
