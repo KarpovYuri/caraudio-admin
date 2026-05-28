@@ -1,4 +1,4 @@
 export const environment = {
 	production: true,
-	apiUrl: 'https://api.yourdomain.com/v1',
+	apiUrl: 'https://api.karaudio.kardev.ru/v1',
 };
