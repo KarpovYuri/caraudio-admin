@@ -1,1 +1,13 @@
-<p>suppliers.page works!</p>
+<section class="suppliers-page">
+	<app-page-title titleKey="suppliersPage.title" />
+
+	@if (loading()) {
+		<div class="suppliers-page__loader">
+			<mat-spinner diameter="50" />
+		</div>
+	} @else if (suppliers().length === 0) {
+		<p>{{ 'suppliersPage.empty' | translate }}</p>
+	} @else {
+		suppliers()
+	}
+</section>

@@ -1,0 +1,13 @@
+.suppliers-page {
+	display: flex;
+	flex-direction: column;
+	min-height: 100%;
+	width: 100%;
+
+	&__loader {
+		display: flex;
+		flex-grow: 1;
+		justify-content: center;
+		width: 100%;
+	}
+}

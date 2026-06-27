@@ -9,7 +9,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
 
 	return next(req).pipe(
 		catchError((error: HttpErrorResponse) => {
-			let message = 'Произошла непредвиденная ошибка';
+			let message: string;
 
 			if (error.error instanceof ErrorEvent) {
 				message = `Ошибка сети: ${error.error.message}`;
@@ -17,6 +17,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
 				message = error.error?.message || `Ошибка сервера: ${error.status}`;
 
 				if (error.status === 401 && !req.url.includes('/login')) {
+					notify.showError('errors.unauthorized');
 					return throwError(() => error);
 				}
 			}

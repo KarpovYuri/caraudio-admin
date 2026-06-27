@@ -3,6 +3,9 @@
 		"close": "Закрыть",
 		"ok": "ОК"
 	},
+	"errors": {
+		"unauthorized": "Ошибка авторизации"
+	},
 	"mainMenu": {
 		"suppliers": "Поставщики",
 		"parser": "Парсер",
@@ -12,6 +15,20 @@
 	"language": {
 		"ru": "Русский",
 		"en": "Английский"
+	},
+	"suppliersPage": {
+		"title": "Поставщики",
+		"empty": "Поставщики не найдены",
+		"columns": {
+			"name": "Название",
+			"code": "Код",
+			"apiUrl": "API URL",
+			"isActive": "Статус"
+		},
+		"status": {
+			"active": "Активен",
+			"inactive": "Неактивен"
+		}
 	},
 	"authPage": {
 		"title": "Вход",

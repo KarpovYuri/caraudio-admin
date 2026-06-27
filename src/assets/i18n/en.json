@@ -3,6 +3,9 @@
 		"close": "Close",
 		"ok": "OK"
 	},
+	"errors": {
+		"unauthorized": "Authorization error"
+	},
 	"mainMenu": {
 		"suppliers": "Suppliers",
 		"parser": "Parser",
@@ -12,6 +15,20 @@
 	"language": {
 		"ru": "Russian",
 		"en": "English"
+	},
+	"suppliersPage": {
+		"title": "Suppliers",
+		"empty": "No suppliers found",
+		"columns": {
+			"name": "Name",
+			"code": "Code",
+			"apiUrl": "API URL",
+			"isActive": "Status"
+		},
+		"status": {
+			"active": "Active",
+			"inactive": "Inactive"
+		}
 	},
 	"authPage": {
 		"title": "Sign in",
