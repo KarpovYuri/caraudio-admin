@@ -1,10 +1,12 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { catchError, switchMap, throwError } from 'rxjs';
 import { AuthService } from '@core/services';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
 	const authService = inject(AuthService);
+	const router = inject(Router);
 	const token = authService.getToken();
 
 	let authReq = req.clone({
@@ -41,6 +43,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 					}),
 					catchError((refreshErr) => {
 						authService.clear();
+						void router.navigate(['/']);
 						return throwError(() => refreshErr);
 					})
 				);

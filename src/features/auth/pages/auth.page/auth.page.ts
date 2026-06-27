@@ -10,7 +10,7 @@ import { firstValueFrom } from 'rxjs';
 import { AuthService } from '@core/services';
 
 @Component({
-	selector: 'app-auth.page',
+	selector: 'app-auth-page',
 	imports: [
 		MatButton,
 		MatCard,
