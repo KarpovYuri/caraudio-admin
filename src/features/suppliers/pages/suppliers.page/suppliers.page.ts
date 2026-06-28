@@ -7,10 +7,11 @@ import { PageTitle } from '@shared/ui/layout';
 import { firstValueFrom } from 'rxjs';
 import { Supplier } from '@features/suppliers/models/supplier.models';
 import { SuppliersService } from '@features/suppliers/services/suppliers.service';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
 	selector: 'app-suppliers-page',
-	imports: [MatProgressSpinner, PageTitle, TranslatePipe],
+	imports: [MatProgressSpinner, PageTitle, TranslatePipe, MatIcon],
 	templateUrl: './suppliers.page.html',
 	styleUrl: './suppliers.page.scss',
 	standalone: true,

@@ -6,7 +6,10 @@
 			<mat-spinner diameter="50" />
 		</div>
 	} @else if (suppliers().length === 0) {
-		<p>{{ 'suppliersPage.empty' | translate }}</p>
+		<div class="suppliers-page__empty">
+			<mat-icon class="suppliers-page__empty-icon">search_off</mat-icon>
+			<p>{{ 'suppliersPage.empty' | translate }}</p>
+		</div>
 	} @else {
 		suppliers()
 	}
