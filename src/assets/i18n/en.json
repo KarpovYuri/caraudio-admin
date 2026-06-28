@@ -19,6 +19,7 @@
 	"suppliersPage": {
 		"title": "Suppliers",
 		"empty": "No suppliers found",
+		"addSupplier": "Add supplier",
 		"columns": {
 			"name": "Name",
 			"code": "Code",

@@ -19,6 +19,7 @@
 	"suppliersPage": {
 		"title": "Поставщики",
 		"empty": "Поставщики не найдены",
+		"addSupplier": "Добавить поставщика",
 		"columns": {
 			"name": "Название",
 			"code": "Код",

@@ -8,10 +8,11 @@ import { firstValueFrom } from 'rxjs';
 import { Supplier } from '@features/suppliers/models/supplier.models';
 import { SuppliersService } from '@features/suppliers/services/suppliers.service';
 import { MatIcon } from '@angular/material/icon';
+import { MatButton } from '@angular/material/button';
 
 @Component({
 	selector: 'app-suppliers-page',
-	imports: [MatProgressSpinner, PageTitle, TranslatePipe, MatIcon],
+	imports: [MatProgressSpinner, PageTitle, TranslatePipe, MatIcon, MatButton],
 	templateUrl: './suppliers.page.html',
 	styleUrl: './suppliers.page.scss',
 	standalone: true,
@@ -39,5 +40,10 @@ export class SuppliersPage implements OnInit {
 		} finally {
 			this.loading.set(false);
 		}
+	}
+
+	addSupplier() {
+		// TODO: реализовать открытие модального окна добавления поставщика
+		console.log('Добавление поставщика');
 	}
 }

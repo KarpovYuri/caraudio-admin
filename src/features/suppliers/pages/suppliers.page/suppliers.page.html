@@ -1,5 +1,11 @@
 <section class="suppliers-page">
-	<app-page-title titleKey="suppliersPage.title" />
+	<div class="suppliers-page__header">
+		<app-page-title titleKey="suppliersPage.title" />
+		<button mat-flat-button color="primary" (click)="addSupplier()">
+			<mat-icon>add</mat-icon>
+			{{ 'suppliersPage.addSupplier' | translate }}
+		</button>
+	</div>
 
 	@if (loading()) {
 		<div class="suppliers-page__loader">
