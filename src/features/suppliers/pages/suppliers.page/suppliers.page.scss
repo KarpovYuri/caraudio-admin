@@ -1,12 +1,18 @@
+:host {
+	display: contents;
+}
+
 .suppliers-page {
 	display: flex;
+	flex: 1;
 	flex-direction: column;
 	min-height: 100%;
 	width: 100%;
 
 	&__loader {
+		align-items: center;
 		display: flex;
-		flex-grow: 1;
+		flex: 1;
 		justify-content: center;
 		width: 100%;
 	}
