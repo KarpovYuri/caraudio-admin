@@ -17,6 +17,8 @@
 			<p>{{ 'suppliersPage.empty' | translate }}</p>
 		</div>
 	} @else {
-		suppliers()
+		@for (supplier of suppliers(); track supplier.id) {
+			{{ supplier | json }}
+		}
 	}
 </section>
