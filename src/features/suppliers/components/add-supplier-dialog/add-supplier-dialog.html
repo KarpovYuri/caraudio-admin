@@ -1,0 +1,57 @@
+<h2 mat-dialog-title>
+	{{ 'suppliersPage.addSupplierDialog.title' | translate }}
+</h2>
+
+<mat-dialog-content class="add-supplier-dialog__content">
+	<div class="add-supplier-dialog__form">
+		<mat-form-field appearance="outline">
+			<mat-label>
+				{{ 'suppliersPage.addSupplierDialog.name' | translate }}
+			</mat-label>
+			<input matInput [(ngModel)]="name" />
+		</mat-form-field>
+
+		<mat-form-field appearance="outline">
+			<mat-label>
+				{{ 'suppliersPage.addSupplierDialog.code' | translate }}
+			</mat-label>
+			<input matInput [(ngModel)]="code" />
+		</mat-form-field>
+
+		<mat-form-field appearance="outline">
+			<mat-label>
+				{{ 'suppliersPage.addSupplierDialog.logo' | translate }}
+			</mat-label>
+			<input matInput [(ngModel)]="logo" />
+		</mat-form-field>
+
+		<mat-form-field appearance="outline">
+			<mat-label>
+				{{ 'suppliersPage.addSupplierDialog.apiUrl' | translate }}
+			</mat-label>
+			<input matInput [(ngModel)]="apiUrl" />
+		</mat-form-field>
+
+		<mat-checkbox [(ngModel)]="isActive">
+			{{ 'suppliersPage.addSupplierDialog.isActive' | translate }}
+		</mat-checkbox>
+	</div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+	<button mat-button mat-dialog-close [disabled]="submitting()">
+		{{ 'common.cancel' | translate }}
+	</button>
+	<button
+		mat-flat-button
+		color="primary"
+		[disabled]="!formValid()"
+		(click)="submit()"
+	>
+		@if (submitting()) {
+			<mat-spinner diameter="20" />
+		} @else {
+			{{ 'common.save' | translate }}
+		}
+	</button>
+</mat-dialog-actions>

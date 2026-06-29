@@ -1,7 +1,9 @@
 {
 	"common": {
 		"close": "Close",
-		"ok": "OK"
+		"ok": "OK",
+		"cancel": "Cancel",
+		"save": "Save"
 	},
 	"errors": {
 		"unauthorized": "Authorization error"
@@ -29,6 +31,14 @@
 		"status": {
 			"active": "Active",
 			"inactive": "Inactive"
+		},
+		"addSupplierDialog": {
+			"title": "Add supplier",
+			"name": "Name",
+			"code": "Code",
+			"logo": "Logo",
+			"apiUrl": "API URL",
+			"isActive": "Active"
 		}
 	},
 	"authPage": {

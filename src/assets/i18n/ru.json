@@ -1,7 +1,9 @@
 {
 	"common": {
 		"close": "Закрыть",
-		"ok": "ОК"
+		"ok": "ОК",
+		"cancel": "Отмена",
+		"save": "Сохранить"
 	},
 	"errors": {
 		"unauthorized": "Ошибка авторизации"
@@ -29,6 +31,14 @@
 		"status": {
 			"active": "Активен",
 			"inactive": "Неактивен"
+		},
+		"addSupplierDialog": {
+			"title": "Добавление поставщика",
+			"name": "Название",
+			"code": "Код",
+			"logo": "Логотип",
+			"apiUrl": "API URL",
+			"isActive": "Активен"
 		}
 	},
 	"authPage": {
