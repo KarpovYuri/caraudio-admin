@@ -1,12 +1,21 @@
 <section class="suppliers-page">
-	<app-page-title titleKey="suppliersPage.title" />
+	<div class="suppliers-page__header">
+		<app-page-title titleKey="suppliersPage.title" />
+		<button mat-flat-button color="primary" (click)="addSupplier()">
+			<mat-icon>add</mat-icon>
+			{{ 'suppliersPage.addSupplier' | translate }}
+		</button>
+	</div>
 
 	@if (loading()) {
 		<div class="suppliers-page__loader">
 			<mat-spinner diameter="50" />
 		</div>
 	} @else if (suppliers().length === 0) {
-		<p>{{ 'suppliersPage.empty' | translate }}</p>
+		<div class="suppliers-page__empty">
+			<mat-icon class="suppliers-page__empty-icon">search_off</mat-icon>
+			<p>{{ 'suppliersPage.empty' | translate }}</p>
+		</div>
 	} @else {
 		suppliers()
 	}

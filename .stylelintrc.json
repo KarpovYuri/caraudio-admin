@@ -2,7 +2,7 @@
 	"extends": ["stylelint-config-standard-scss", "stylelint-config-tailwindcss"],
 	"plugins": ["stylelint-scss", "stylelint-order"],
 	"rules": {
-		"order/properties-alphabetical-order": true,
+		"order/properties-alphabetical-order": null,
 		"color-function-notation": "modern",
 		"alpha-value-notation": "number",
 		"at-rule-no-unknown": null

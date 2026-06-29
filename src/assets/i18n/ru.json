@@ -1,7 +1,9 @@
 {
 	"common": {
 		"close": "Закрыть",
-		"ok": "ОК"
+		"ok": "ОК",
+		"cancel": "Отмена",
+		"save": "Сохранить"
 	},
 	"errors": {
 		"unauthorized": "Ошибка авторизации"
@@ -19,6 +21,7 @@
 	"suppliersPage": {
 		"title": "Поставщики",
 		"empty": "Поставщики не найдены",
+		"addSupplier": "Добавить поставщика",
 		"columns": {
 			"name": "Название",
 			"code": "Код",
@@ -28,6 +31,14 @@
 		"status": {
 			"active": "Активен",
 			"inactive": "Неактивен"
+		},
+		"addSupplierDialog": {
+			"title": "Добавление поставщика",
+			"name": "Название",
+			"code": "Код",
+			"logo": "Логотип",
+			"apiUrl": "API URL",
+			"isActive": "Активен"
 		}
 	},
 	"authPage": {
