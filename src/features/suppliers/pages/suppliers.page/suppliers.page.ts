@@ -11,10 +11,18 @@ import { Supplier } from '@features/suppliers/models/supplier.models';
 import { SuppliersService } from '@features/suppliers/services/suppliers.service';
 import { MatIcon } from '@angular/material/icon';
 import { MatButton } from '@angular/material/button';
+import { JsonPipe } from '@angular/common';
 
 @Component({
 	selector: 'app-suppliers-page',
-	imports: [MatProgressSpinner, PageTitle, TranslatePipe, MatIcon, MatButton],
+	imports: [
+		MatProgressSpinner,
+		PageTitle,
+		TranslatePipe,
+		MatIcon,
+		MatButton,
+		JsonPipe,
+	],
 	templateUrl: './suppliers.page.html',
 	styleUrl: './suppliers.page.scss',
 	standalone: true,
