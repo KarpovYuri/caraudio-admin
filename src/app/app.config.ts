@@ -4,6 +4,7 @@ import {
 } from '@angular/core';
 import { provideRouter, TitleStrategy } from '@angular/router';
 import { provideTranslateService } from '@ngx-translate/core';
+import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 
 import { routes } from './app.routes';
 import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -25,5 +26,9 @@ export const appConfig: ApplicationConfig = {
 			lang: 'en',
 		}),
 		{ provide: TitleStrategy, useClass: AppTitleStrategy },
+		{
+			provide: MAT_DIALOG_DEFAULT_OPTIONS,
+			useValue: { maxHeight: '90vh' },
+		},
 	],
 };
