@@ -18,7 +18,7 @@
 		</div>
 	} @else {
 		@for (supplier of suppliers(); track supplier.id) {
-			{{ supplier | json }}
+			<div>{{ supplier | json }}</div>
 		}
 	}
 </section>

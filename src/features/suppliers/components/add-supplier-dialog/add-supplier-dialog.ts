@@ -17,6 +17,7 @@ import { SuppliersService } from '@features/suppliers/services/suppliers.service
 
 @Component({
 	selector: 'app-add-supplier-dialog',
+	host: { class: 'add-supplier-dialog' },
 	imports: [
 		FormsModule,
 		MatButton,
@@ -67,8 +68,6 @@ export class AddSupplierDialog {
 				})
 			);
 			this.dialogRef.close(response.supplier);
-		} catch {
-			// Ошибка обрабатывается глобальным interceptor
 		} finally {
 			this.submitting.set(false);
 		}
