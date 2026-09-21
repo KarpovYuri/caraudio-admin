@@ -16,9 +16,149 @@
 			<mat-icon class="suppliers-page__empty-icon">search_off</mat-icon>
 			<p>{{ 'suppliersPage.empty' | translate }}</p>
 		</div>
+	} @else if (isCompact()) {
+		<div class="suppliers-page__cards">
+			@for (supplier of suppliers(); track supplier.id) {
+				<article class="suppliers-page__card">
+					<div class="suppliers-page__card-top">
+						@if (supplier.logo) {
+							<img
+								class="suppliers-page__logo"
+								[src]="supplier.logo"
+								[alt]="supplier.name"
+							/>
+						} @else {
+							<div
+								class="suppliers-page__logo suppliers-page__logo--placeholder"
+							>
+								<mat-icon>image</mat-icon>
+							</div>
+						}
+
+						<div class="suppliers-page__card-heading">
+							<h3 class="suppliers-page__card-title">
+								{{ supplier.name }}
+							</h3>
+							@if (supplier.code) {
+								<span class="suppliers-page__card-code">
+									{{ supplier.code }}
+								</span>
+							}
+						</div>
+
+						<mat-chip-set>
+							<mat-chip [highlighted]="supplier.isActive">
+								{{
+									(supplier.isActive
+										? 'suppliersPage.status.active'
+										: 'suppliersPage.status.inactive'
+									) | translate
+								}}
+							</mat-chip>
+						</mat-chip-set>
+					</div>
+
+					@if (supplier.apiUrl) {
+						<div class="suppliers-page__card-row">
+							<span class="suppliers-page__card-label">
+								{{ 'suppliersPage.columns.apiUrl' | translate }}
+							</span>
+							<a
+								class="suppliers-page__link"
+								[href]="supplier.apiUrl"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								{{ supplier.apiUrl }}
+							</a>
+						</div>
+					}
+				</article>
+			}
+		</div>
 	} @else {
-		@for (supplier of suppliers(); track supplier.id) {
-			<div>{{ supplier | json }}</div>
-		}
+		<div class="suppliers-page__table-wrap">
+			<table mat-table [dataSource]="suppliers()" class="suppliers-page__table">
+				<ng-container matColumnDef="logo">
+					<th mat-header-cell *matHeaderCellDef>
+						{{ 'suppliersPage.columns.logo' | translate }}
+					</th>
+					<td mat-cell *matCellDef="let supplier">
+						@if (supplier.logo) {
+							<img
+								class="suppliers-page__logo"
+								[src]="supplier.logo"
+								[alt]="supplier.name"
+							/>
+						} @else {
+							<div
+								class="suppliers-page__logo suppliers-page__logo--placeholder"
+							>
+								<mat-icon>image</mat-icon>
+							</div>
+						}
+					</td>
+				</ng-container>
+
+				<ng-container matColumnDef="name">
+					<th mat-header-cell *matHeaderCellDef>
+						{{ 'suppliersPage.columns.name' | translate }}
+					</th>
+					<td mat-cell *matCellDef="let supplier">
+						{{ supplier.name }}
+					</td>
+				</ng-container>
+
+				<ng-container matColumnDef="code">
+					<th mat-header-cell *matHeaderCellDef>
+						{{ 'suppliersPage.columns.code' | translate }}
+					</th>
+					<td mat-cell *matCellDef="let supplier">
+						{{ supplier.code || '—' }}
+					</td>
+				</ng-container>
+
+				<ng-container matColumnDef="apiUrl">
+					<th mat-header-cell *matHeaderCellDef>
+						{{ 'suppliersPage.columns.apiUrl' | translate }}
+					</th>
+					<td mat-cell *matCellDef="let supplier">
+						@if (supplier.apiUrl) {
+							<a
+								class="suppliers-page__link"
+								[href]="supplier.apiUrl"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								{{ supplier.apiUrl }}
+							</a>
+						} @else {
+							—
+						}
+					</td>
+				</ng-container>
+
+				<ng-container matColumnDef="isActive">
+					<th mat-header-cell *matHeaderCellDef>
+						{{ 'suppliersPage.columns.isActive' | translate }}
+					</th>
+					<td mat-cell *matCellDef="let supplier">
+						<mat-chip-set>
+							<mat-chip [highlighted]="supplier.isActive">
+								{{
+									(supplier.isActive
+										? 'suppliersPage.status.active'
+										: 'suppliersPage.status.inactive'
+									) | translate
+								}}
+							</mat-chip>
+						</mat-chip-set>
+					</td>
+				</ng-container>
+
+				<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+				<tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+			</table>
+		</div>
 	}
 </section>

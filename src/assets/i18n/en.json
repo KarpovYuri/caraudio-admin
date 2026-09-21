@@ -23,6 +23,7 @@
 		"empty": "No suppliers found",
 		"addSupplier": "Add supplier",
 		"columns": {
+			"logo": "Logo",
 			"name": "Name",
 			"code": "Code",
 			"apiUrl": "API URL",
