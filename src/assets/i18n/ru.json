@@ -23,6 +23,7 @@
 		"empty": "Поставщики не найдены",
 		"addSupplier": "Добавить поставщика",
 		"columns": {
+			"logo": "Логотип",
 			"name": "Название",
 			"code": "Код",
 			"apiUrl": "API URL",
@@ -37,6 +38,11 @@
 			"name": "Название",
 			"code": "Код",
 			"logo": "Логотип",
+			"logoChoose": "Выбрать файл",
+			"logoClear": "Убрать",
+			"logoHint": "JPEG, PNG, WebP, GIF или SVG",
+			"logoInvalidType": "Неподдерживаемый тип файла",
+			"submitError": "Не удалось сохранить поставщика",
 			"apiUrl": "API URL",
 			"isActive": "Активен"
 		}

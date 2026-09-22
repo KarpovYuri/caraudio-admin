@@ -20,13 +20,6 @@
 
 		<mat-form-field appearance="outline">
 			<mat-label>
-				{{ 'suppliersPage.addSupplierDialog.logo' | translate }}
-			</mat-label>
-			<input matInput [(ngModel)]="logo" />
-		</mat-form-field>
-
-		<mat-form-field appearance="outline">
-			<mat-label>
 				{{ 'suppliersPage.addSupplierDialog.apiUrl' | translate }}
 			</mat-label>
 			<input matInput [(ngModel)]="apiUrl" />
@@ -35,6 +28,73 @@
 		<mat-checkbox [(ngModel)]="isActive">
 			{{ 'suppliersPage.addSupplierDialog.isActive' | translate }}
 		</mat-checkbox>
+
+		<div class="add-supplier-dialog__logo">
+			<div class="add-supplier-dialog__logo-label">
+				{{ 'suppliersPage.addSupplierDialog.logo' | translate }}
+			</div>
+
+			<div class="add-supplier-dialog__logo-row">
+				@if (logoPreviewUrl(); as previewUrl) {
+					<img
+						class="add-supplier-dialog__logo-preview"
+						[src]="previewUrl"
+						alt=""
+					/>
+				} @else {
+					<div class="add-supplier-dialog__logo-placeholder">
+						<mat-icon>image</mat-icon>
+					</div>
+				}
+
+				<div class="add-supplier-dialog__logo-actions">
+					<button
+						mat-stroked-button
+						type="button"
+						[disabled]="submitting()"
+						(click)="logoInput.click()"
+					>
+						<mat-icon>upload</mat-icon>
+						{{ 'suppliersPage.addSupplierDialog.logoChoose' | translate }}
+					</button>
+
+					@if (logoFile()) {
+						<button
+							mat-button
+							type="button"
+							[disabled]="submitting()"
+							(click)="clearLogo()"
+						>
+							{{ 'suppliersPage.addSupplierDialog.logoClear' | translate }}
+						</button>
+					}
+
+					@if (logoFile(); as file) {
+						<span class="add-supplier-dialog__logo-name">
+							{{ file.name }}
+						</span>
+					}
+				</div>
+			</div>
+
+			<input
+				#logoInput
+				class="add-supplier-dialog__logo-input"
+				type="file"
+				[accept]="acceptedLogoTypes"
+				(change)="onLogoSelected($event)"
+			/>
+
+			@if (logoError(); as errorKey) {
+				<p class="add-supplier-dialog__logo-error">
+					{{ errorKey | translate }}
+				</p>
+			}
+
+			<p class="add-supplier-dialog__logo-hint">
+				{{ 'suppliersPage.addSupplierDialog.logoHint' | translate }}
+			</p>
+		</div>
 	</div>
 </mat-dialog-content>
 
