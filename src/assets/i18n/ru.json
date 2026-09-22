@@ -38,6 +38,11 @@
 			"name": "Название",
 			"code": "Код",
 			"logo": "Логотип",
+			"logoChoose": "Выбрать файл",
+			"logoClear": "Убрать",
+			"logoHint": "JPEG, PNG, WebP, GIF или SVG",
+			"logoInvalidType": "Неподдерживаемый тип файла",
+			"submitError": "Не удалось сохранить поставщика",
 			"apiUrl": "API URL",
 			"isActive": "Активен"
 		}

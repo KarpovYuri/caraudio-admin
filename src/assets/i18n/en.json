@@ -38,6 +38,11 @@
 			"name": "Name",
 			"code": "Code",
 			"logo": "Logo",
+			"logoChoose": "Choose file",
+			"logoClear": "Remove",
+			"logoHint": "JPEG, PNG, WebP, GIF or SVG",
+			"logoInvalidType": "Unsupported file type",
+			"submitError": "Failed to save supplier",
 			"apiUrl": "API URL",
 			"isActive": "Active"
 		}

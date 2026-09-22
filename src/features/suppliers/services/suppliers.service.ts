@@ -5,6 +5,7 @@ import {
 	CreateSupplierRequest,
 	CreateSupplierResponse,
 	ListSuppliersResponse,
+	UploadSupplierLogoResponse,
 } from '@features/suppliers/models/supplier.models';
 
 @Injectable({ providedIn: 'root' })
@@ -22,6 +23,16 @@ export class SuppliersService {
 		return this.http.post<CreateSupplierResponse>(
 			`${this.catalogApiUrl}/suppliers`,
 			data
+		);
+	}
+
+	uploadLogo(supplierId: number | string, file: File) {
+		const formData = new FormData();
+		formData.append('logo', file);
+
+		return this.http.post<UploadSupplierLogoResponse>(
+			`${this.catalogApiUrl}/suppliers/${supplierId}/logo`,
+			formData
 		);
 	}
 }

@@ -1,5 +1,5 @@
 export interface Supplier {
-	id: number;
+	id: number | string;
 	name: string;
 	code?: string;
 	logo?: string;
@@ -22,5 +22,9 @@ export interface CreateSupplierRequest {
 }
 
 export interface CreateSupplierResponse {
+	supplier: Supplier;
+}
+
+export interface UploadSupplierLogoResponse {
 	supplier: Supplier;
 }
