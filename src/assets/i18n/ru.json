@@ -40,7 +40,7 @@
 			"logo": "Логотип",
 			"logoChoose": "Выбрать файл",
 			"logoClear": "Убрать",
-			"logoHint": "JPEG, PNG, WebP, GIF или SVG",
+			"logoHint": "Перетащите файл сюда или выберите. JPEG, PNG, WebP, GIF или SVG",
 			"logoInvalidType": "Неподдерживаемый тип файла",
 			"submitError": "Не удалось сохранить поставщика",
 			"apiUrl": "API URL",

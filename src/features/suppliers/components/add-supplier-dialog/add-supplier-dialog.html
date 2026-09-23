@@ -46,23 +46,44 @@
 			</mat-checkbox>
 		</div>
 
-		<div class="add-supplier-dialog__logo">
+		<div
+			class="add-supplier-dialog__logo"
+			[class.add-supplier-dialog__logo--dragging]="logoDragging()"
+			(dragenter)="onLogoDragEnter($event)"
+			(dragover)="onLogoDragOver($event)"
+			(dragleave)="onLogoDragLeave($event)"
+			(drop)="onLogoDrop($event)"
+		>
 			<div class="add-supplier-dialog__logo-label">
 				{{ 'suppliersPage.addSupplierDialog.logo' | translate }}
 			</div>
 
 			<div class="add-supplier-dialog__logo-row">
-				@if (logoPreviewUrl(); as previewUrl) {
-					<img
-						class="add-supplier-dialog__logo-preview"
-						[src]="previewUrl"
-						alt=""
-					/>
-				} @else {
-					<div class="add-supplier-dialog__logo-placeholder">
-						<mat-icon>image</mat-icon>
-					</div>
-				}
+				<div class="add-supplier-dialog__logo-thumb">
+					@if (logoPreviewUrl(); as previewUrl) {
+						<img
+							class="add-supplier-dialog__logo-preview"
+							[src]="previewUrl"
+							alt=""
+						/>
+						<button
+							mat-icon-button
+							type="button"
+							class="add-supplier-dialog__logo-clear"
+							[disabled]="submitting()"
+							[attr.aria-label]="
+								'suppliersPage.addSupplierDialog.logoClear' | translate
+							"
+							(click)="clearLogo()"
+						>
+							<mat-icon>close</mat-icon>
+						</button>
+					} @else {
+						<div class="add-supplier-dialog__logo-placeholder">
+							<mat-icon>image</mat-icon>
+						</div>
+					}
+				</div>
 
 				<div class="add-supplier-dialog__logo-actions">
 					<button
@@ -74,23 +95,6 @@
 						<mat-icon>upload</mat-icon>
 						{{ 'suppliersPage.addSupplierDialog.logoChoose' | translate }}
 					</button>
-
-					@if (logoFile()) {
-						<button
-							mat-button
-							type="button"
-							[disabled]="submitting()"
-							(click)="clearLogo()"
-						>
-							{{ 'suppliersPage.addSupplierDialog.logoClear' | translate }}
-						</button>
-					}
-
-					@if (logoFile(); as file) {
-						<span class="add-supplier-dialog__logo-name">
-							{{ file.name }}
-						</span>
-					}
 				</div>
 			</div>
 

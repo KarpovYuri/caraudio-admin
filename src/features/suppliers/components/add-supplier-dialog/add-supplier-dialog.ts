@@ -69,12 +69,15 @@ export class AddSupplierDialog {
 	logoFile = signal<File | null>(null);
 	logoPreviewUrl = signal<string | null>(null);
 	logoError = signal<string | null>(null);
+	logoDragging = signal(false);
 	submitting = signal(false);
 
 	readonly acceptedLogoTypes = ACCEPTED_LOGO_EXTENSIONS.join(',');
 
 	nameValid = computed(() => this.name().trim().length > 0);
 	formValid = computed(() => this.nameValid() && !this.submitting());
+
+	private logoDragDepth = 0;
 
 	constructor() {
 		this.destroyRef.onDestroy(() => this.clearLogoPreview());
@@ -84,29 +87,52 @@ export class AddSupplierDialog {
 		const input = event.target as HTMLInputElement;
 		const file = input.files?.[0] ?? null;
 		input.value = '';
+		this.applyLogoFile(file);
+	}
 
-		this.clearLogoPreview();
-		this.logoError.set(null);
+	onLogoDragEnter(event: DragEvent) {
+		event.preventDefault();
+		event.stopPropagation();
+		if (this.submitting()) {
+			return;
+		}
+		this.logoDragDepth += 1;
+		this.logoDragging.set(true);
+	}
 
-		if (!file) {
-			this.logoFile.set(null);
+	onLogoDragOver(event: DragEvent) {
+		event.preventDefault();
+		event.stopPropagation();
+		if (event.dataTransfer) {
+			event.dataTransfer.dropEffect = this.submitting() ? 'none' : 'copy';
+		}
+	}
+
+	onLogoDragLeave(event: DragEvent) {
+		event.preventDefault();
+		event.stopPropagation();
+		this.logoDragDepth = Math.max(0, this.logoDragDepth - 1);
+		if (this.logoDragDepth === 0) {
+			this.logoDragging.set(false);
+		}
+	}
+
+	onLogoDrop(event: DragEvent) {
+		event.preventDefault();
+		event.stopPropagation();
+		this.logoDragDepth = 0;
+		this.logoDragging.set(false);
+
+		if (this.submitting()) {
 			return;
 		}
 
-		if (!this.isAcceptedLogo(file)) {
-			this.logoFile.set(null);
-			this.logoError.set('suppliersPage.addSupplierDialog.logoInvalidType');
-			return;
-		}
-
-		this.logoFile.set(file);
-		this.logoPreviewUrl.set(URL.createObjectURL(file));
+		const file = event.dataTransfer?.files?.[0] ?? null;
+		this.applyLogoFile(file);
 	}
 
 	clearLogo() {
-		this.clearLogoPreview();
-		this.logoFile.set(null);
-		this.logoError.set(null);
+		this.applyLogoFile(null);
 	}
 
 	async submit() {
@@ -152,6 +178,25 @@ export class AddSupplierDialog {
 		} finally {
 			this.submitting.set(false);
 		}
+	}
+
+	private applyLogoFile(file: File | null) {
+		this.clearLogoPreview();
+		this.logoError.set(null);
+
+		if (!file) {
+			this.logoFile.set(null);
+			return;
+		}
+
+		if (!this.isAcceptedLogo(file)) {
+			this.logoFile.set(null);
+			this.logoError.set('suppliersPage.addSupplierDialog.logoInvalidType');
+			return;
+		}
+
+		this.logoFile.set(file);
+		this.logoPreviewUrl.set(URL.createObjectURL(file));
 	}
 
 	private isAcceptedLogo(file: File): boolean {
