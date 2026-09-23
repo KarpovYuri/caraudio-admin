@@ -1,10 +1,27 @@
 <section class="suppliers-page">
 	<div class="suppliers-page__header">
 		<app-page-title titleKey="suppliersPage.title" />
-		<button mat-flat-button color="primary" (click)="addSupplier()">
-			<mat-icon>add</mat-icon>
-			{{ 'suppliersPage.addSupplier' | translate }}
-		</button>
+		@if (isNarrow()) {
+			<button
+				mat-mini-fab
+				color="primary"
+				type="button"
+				[attr.aria-label]="'suppliersPage.addSupplier' | translate"
+				(click)="addSupplier()"
+			>
+				<mat-icon>add</mat-icon>
+			</button>
+		} @else {
+			<button
+				mat-flat-button
+				color="primary"
+				type="button"
+				(click)="addSupplier()"
+			>
+				<mat-icon>add</mat-icon>
+				{{ 'suppliersPage.addSupplier' | translate }}
+			</button>
+		}
 	</div>
 
 	@if (loading()) {

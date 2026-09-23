@@ -3,7 +3,8 @@
 		"close": "Close",
 		"ok": "OK",
 		"cancel": "Cancel",
-		"save": "Save"
+		"save": "Save",
+		"menu": "Menu"
 	},
 	"errors": {
 		"unauthorized": "Authorization error"

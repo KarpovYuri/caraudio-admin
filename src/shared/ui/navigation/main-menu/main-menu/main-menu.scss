@@ -1,4 +1,8 @@
 .main-menu {
 	align-items: center;
 	display: flex;
+
+	&__item--active {
+		color: var(--mat-sys-primary);
+	}
 }

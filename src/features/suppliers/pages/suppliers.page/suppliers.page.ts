@@ -14,7 +14,7 @@ import { AddSupplierDialog } from '@features/suppliers/components';
 import { Supplier } from '@features/suppliers/models/supplier.models';
 import { SuppliersService } from '@features/suppliers/services/suppliers.service';
 import { MatIcon } from '@angular/material/icon';
-import { MatButton } from '@angular/material/button';
+import { MatButton, MatMiniFabButton } from '@angular/material/button';
 
 @Component({
 	selector: 'app-suppliers-page',
@@ -24,6 +24,7 @@ import { MatButton } from '@angular/material/button';
 		TranslatePipe,
 		MatIcon,
 		MatButton,
+		MatMiniFabButton,
 		MatTableModule,
 		MatChipsModule,
 	],
@@ -48,6 +49,13 @@ export class SuppliersPage implements OnInit {
 	readonly isCompact = toSignal(
 		this.breakpointObserver
 			.observe('(width <= 1024px)')
+			.pipe(map((state) => state.matches)),
+		{ initialValue: false }
+	);
+
+	readonly isNarrow = toSignal(
+		this.breakpointObserver
+			.observe('(width <= 576px)')
 			.pipe(map((state) => state.matches)),
 		{ initialValue: false }
 	);
