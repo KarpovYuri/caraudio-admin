@@ -1,4 +1,11 @@
+:host {
+	display: block;
+	flex-shrink: 0;
+	z-index: 100;
+}
+
 .toolbar {
+	background-color: var(--mat-sys-surface);
 	border-bottom: 1px solid var(--mat-sys-outline-variant);
 	display: flex;
 	justify-content: space-between;

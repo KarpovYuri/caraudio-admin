@@ -35,7 +35,9 @@ html.dark-theme {
 body {
 	background-color: var(--mat-sys-background);
 	color: var(--mat-sys-on-background);
+	margin: 0;
 	min-width: 320px;
+	overflow: hidden;
 }
 
 * {
