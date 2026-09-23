@@ -4,6 +4,7 @@
 		"ok": "OK",
 		"cancel": "Cancel",
 		"save": "Save",
+		"delete": "Delete",
 		"menu": "Menu"
 	},
 	"errors": {
@@ -23,6 +24,7 @@
 		"title": "Suppliers",
 		"empty": "No suppliers found",
 		"addSupplier": "Add supplier",
+		"deleteSupplier": "Delete supplier",
 		"columns": {
 			"logo": "Logo",
 			"name": "Name",
@@ -46,6 +48,10 @@
 			"submitError": "Failed to save supplier",
 			"apiUrl": "API URL",
 			"isActive": "Active"
+		},
+		"deleteSupplierDialog": {
+			"title": "Delete supplier",
+			"message": "Are you sure you want to delete supplier \"{{name}}\"?"
 		}
 	},
 	"authPage": {

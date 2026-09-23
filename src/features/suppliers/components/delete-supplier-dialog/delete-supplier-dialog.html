@@ -1,0 +1,42 @@
+<div class="delete-supplier-dialog__header" mat-dialog-title>
+	<h2 class="delete-supplier-dialog__title">
+		{{ 'suppliersPage.deleteSupplierDialog.title' | translate }}
+	</h2>
+	<button
+		mat-icon-button
+		type="button"
+		mat-dialog-close
+		[disabled]="submitting()"
+		[attr.aria-label]="'common.close' | translate"
+	>
+		<mat-icon>close</mat-icon>
+	</button>
+</div>
+
+<mat-dialog-content>
+	<p class="delete-supplier-dialog__message">
+		{{
+			'suppliersPage.deleteSupplierDialog.message'
+				| translate: { name: data.supplier.name }
+		}}
+	</p>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+	<button mat-button mat-dialog-close [disabled]="submitting()">
+		{{ 'common.cancel' | translate }}
+	</button>
+	<button
+		mat-flat-button
+		type="button"
+		class="delete-supplier-dialog__confirm"
+		[disabled]="submitting()"
+		(click)="confirm()"
+	>
+		@if (submitting()) {
+			<mat-spinner diameter="20" />
+		} @else {
+			{{ 'common.delete' | translate }}
+		}
+	</button>
+</mat-dialog-actions>

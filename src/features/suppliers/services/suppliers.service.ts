@@ -35,4 +35,10 @@ export class SuppliersService {
 			formData
 		);
 	}
+
+	deleteSupplier(supplierId: number | string) {
+		return this.http.delete<{ success: boolean }>(
+			`${this.catalogApiUrl}/suppliers/${supplierId}`
+		);
+	}
 }

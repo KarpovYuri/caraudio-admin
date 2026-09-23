@@ -10,11 +10,18 @@ import { MatChipsModule } from '@angular/material/chips';
 import { TranslatePipe } from '@ngx-translate/core';
 import { PageTitle } from '@shared/ui/layout';
 import { firstValueFrom, map } from 'rxjs';
-import { AddSupplierDialog } from '@features/suppliers/components';
 import { Supplier } from '@features/suppliers/models/supplier.models';
 import { SuppliersService } from '@features/suppliers/services/suppliers.service';
 import { MatIcon } from '@angular/material/icon';
-import { MatButton, MatMiniFabButton } from '@angular/material/button';
+import {
+	MatButton,
+	MatIconButton,
+	MatMiniFabButton,
+} from '@angular/material/button';
+import {
+	AddSupplierDialog,
+	DeleteSupplierDialog,
+} from '@features/suppliers/components';
 
 @Component({
 	selector: 'app-suppliers-page',
@@ -24,6 +31,7 @@ import { MatButton, MatMiniFabButton } from '@angular/material/button';
 		TranslatePipe,
 		MatIcon,
 		MatButton,
+		MatIconButton,
 		MatMiniFabButton,
 		MatTableModule,
 		MatChipsModule,
@@ -44,6 +52,7 @@ export class SuppliersPage implements OnInit {
 		'code',
 		'apiUrl',
 		'isActive',
+		'actions',
 	] as const;
 
 	readonly isCompact = toSignal(
@@ -94,6 +103,25 @@ export class SuppliersPage implements OnInit {
 
 		if (supplier) {
 			this.suppliers.update((list) => [...list, supplier]);
+		}
+	}
+
+	async deleteSupplier(supplier: Supplier, event?: Event) {
+		event?.stopPropagation();
+
+		const deleted = await firstValueFrom(
+			this.dialog
+				.open(DeleteSupplierDialog, {
+					data: { supplier },
+					width: '400px',
+				})
+				.afterClosed()
+		);
+
+		if (deleted) {
+			this.suppliers.update((list) =>
+				list.filter((item) => item.id !== supplier.id)
+			);
 		}
 	}
 }
