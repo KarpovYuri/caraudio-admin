@@ -47,6 +47,14 @@
 
 	&__table {
 		width: 100%;
+
+		// Only status/actions/logo hug content; name/code/url take the rest
+		.mat-column-logo,
+		.mat-column-is-active,
+		.mat-column-actions {
+			width: 1%;
+			white-space: nowrap;
+		}
 	}
 
 	&__logo {
@@ -64,17 +72,41 @@
 		}
 	}
 
-	&__link {
-		color: var(--mat-sys-primary);
-		display: inline-block;
-		max-width: 280px;
-		overflow: hidden;
-		text-decoration: none;
-		text-overflow: ellipsis;
-		white-space: nowrap;
+	&__api-url {
+		align-items: center;
+		display: flex;
+		gap: 4px;
+		min-width: 0;
+		width: 100%;
 
-		&:hover {
-			text-decoration: underline;
+		&-text {
+			flex: 1;
+			min-width: 0;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+
+		&-copy {
+			flex-shrink: 0;
+
+			@media (hover: hover) and (pointer: fine) {
+				opacity: 0;
+			}
+
+			.mat-icon {
+				font-size: 20px;
+				height: 20px;
+				line-height: 20px;
+				overflow: hidden;
+				text-align: center;
+				width: 20px;
+			}
+		}
+
+		&:hover &-copy,
+		&:focus-within &-copy {
+			opacity: 1;
 		}
 	}
 
@@ -91,6 +123,10 @@
 		flex-direction: column;
 		gap: 12px;
 		padding: 16px;
+
+		& &__api-url-copy {
+			opacity: 1;
+		}
 	}
 
 	&__card-top {
@@ -132,29 +168,20 @@
 		font: var(--mat-sys-label-medium);
 	}
 
-	&__card-row &__link {
-		max-width: 100%;
-	}
-
 	&__delete-btn {
 		--mat-icon-button-icon-color: var(--mat-sys-error);
 
-		align-items: center;
 		color: var(--mat-sys-error);
-		display: inline-flex;
 		flex-shrink: 0;
-		justify-content: center;
 
 		.mat-icon {
-			align-items: center;
 			color: var(--mat-sys-error);
-			display: inline-flex;
-			font-size: 24px;
-			height: 24px;
-			justify-content: center;
-			line-height: 1;
-			margin: 0;
-			width: 24px;
+			font-size: 20px;
+			height: 20px;
+			line-height: 20px;
+			overflow: hidden;
+			text-align: center;
+			width: 20px;
 		}
 	}
 }

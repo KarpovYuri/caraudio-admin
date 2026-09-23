@@ -91,14 +91,20 @@
 							<span class="suppliers-page__card-label">
 								{{ 'suppliersPage.columns.apiUrl' | translate }}
 							</span>
-							<a
-								class="suppliers-page__link"
-								[href]="supplier.apiUrl"
-								target="_blank"
-								rel="noopener noreferrer"
-							>
-								{{ supplier.apiUrl }}
-							</a>
+							<div class="suppliers-page__api-url">
+								<span class="suppliers-page__api-url-text">
+									{{ supplier.apiUrl }}
+								</span>
+								<button
+									mat-icon-button
+									type="button"
+									class="suppliers-page__api-url-copy"
+									[attr.aria-label]="'suppliersPage.copyApiUrl' | translate"
+									(click)="copyApiUrl(supplier.apiUrl, $event)"
+								>
+									<mat-icon>content_copy</mat-icon>
+								</button>
+							</div>
 						</div>
 					}
 				</article>
@@ -146,27 +152,33 @@
 					</td>
 				</ng-container>
 
-				<ng-container matColumnDef="apiUrl">
+				<ng-container matColumnDef="api-url">
 					<th mat-header-cell *matHeaderCellDef>
 						{{ 'suppliersPage.columns.apiUrl' | translate }}
 					</th>
 					<td mat-cell *matCellDef="let supplier">
 						@if (supplier.apiUrl) {
-							<a
-								class="suppliers-page__link"
-								[href]="supplier.apiUrl"
-								target="_blank"
-								rel="noopener noreferrer"
-							>
-								{{ supplier.apiUrl }}
-							</a>
+							<div class="suppliers-page__api-url">
+								<span class="suppliers-page__api-url-text">
+									{{ supplier.apiUrl }}
+								</span>
+								<button
+									mat-icon-button
+									type="button"
+									class="suppliers-page__api-url-copy"
+									[attr.aria-label]="'suppliersPage.copyApiUrl' | translate"
+									(click)="copyApiUrl(supplier.apiUrl, $event)"
+								>
+									<mat-icon>content_copy</mat-icon>
+								</button>
+							</div>
 						} @else {
 							—
 						}
 					</td>
 				</ng-container>
 
-				<ng-container matColumnDef="isActive">
+				<ng-container matColumnDef="is-active">
 					<th mat-header-cell *matHeaderCellDef>
 						{{ 'suppliersPage.columns.isActive' | translate }}
 					</th>

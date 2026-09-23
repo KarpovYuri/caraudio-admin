@@ -25,6 +25,9 @@
 		"empty": "Поставщики не найдены",
 		"addSupplier": "Добавить поставщика",
 		"deleteSupplier": "Удалить поставщика",
+		"copyApiUrl": "Копировать API URL",
+		"apiUrlCopied": "API URL скопирован",
+		"apiUrlCopyFailed": "Не удалось скопировать API URL",
 		"columns": {
 			"logo": "Логотип",
 			"name": "Название",

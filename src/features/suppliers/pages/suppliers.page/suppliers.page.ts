@@ -8,6 +8,7 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
 import { MatChipsModule } from '@angular/material/chips';
 import { TranslatePipe } from '@ngx-translate/core';
+import { NotificationService } from '@core/services';
 import { PageTitle } from '@shared/ui/layout';
 import { firstValueFrom, map } from 'rxjs';
 import { Supplier } from '@features/suppliers/models/supplier.models';
@@ -45,13 +46,14 @@ export class SuppliersPage implements OnInit {
 	private router = inject(Router);
 	private dialog = inject(MatDialog);
 	private breakpointObserver = inject(BreakpointObserver);
+	private notify = inject(NotificationService);
 
 	readonly displayedColumns = [
 		'logo',
 		'name',
 		'code',
-		'apiUrl',
-		'isActive',
+		'api-url',
+		'is-active',
 		'actions',
 	] as const;
 
@@ -122,6 +124,17 @@ export class SuppliersPage implements OnInit {
 			this.suppliers.update((list) =>
 				list.filter((item) => item.id !== supplier.id)
 			);
+		}
+	}
+
+	async copyApiUrl(apiUrl: string, event?: Event) {
+		event?.stopPropagation();
+
+		try {
+			await navigator.clipboard.writeText(apiUrl);
+			this.notify.showSuccess('suppliersPage.apiUrlCopied');
+		} catch {
+			this.notify.showError('suppliersPage.apiUrlCopyFailed');
 		}
 	}
 }

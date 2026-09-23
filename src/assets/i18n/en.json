@@ -25,6 +25,9 @@
 		"empty": "No suppliers found",
 		"addSupplier": "Add supplier",
 		"deleteSupplier": "Delete supplier",
+		"copyApiUrl": "Copy API URL",
+		"apiUrlCopied": "API URL copied",
+		"apiUrlCopyFailed": "Failed to copy API URL",
 		"columns": {
 			"logo": "Logo",
 			"name": "Name",
