@@ -1,6 +1,17 @@
-<h2 mat-dialog-title>
-	{{ 'suppliersPage.addSupplierDialog.title' | translate }}
-</h2>
+<div class="add-supplier-dialog__header" mat-dialog-title>
+	<h2 class="add-supplier-dialog__title">
+		{{ 'suppliersPage.addSupplierDialog.title' | translate }}
+	</h2>
+	<button
+		mat-icon-button
+		type="button"
+		mat-dialog-close
+		[disabled]="submitting()"
+		[attr.aria-label]="'common.close' | translate"
+	>
+		<mat-icon>close</mat-icon>
+	</button>
+</div>
 
 <mat-dialog-content>
 	<div class="add-supplier-dialog__form">
