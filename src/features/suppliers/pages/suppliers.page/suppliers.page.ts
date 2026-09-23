@@ -8,13 +8,17 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
 import { MatChipsModule } from '@angular/material/chips';
 import { TranslatePipe } from '@ngx-translate/core';
+import { NotificationService } from '@core/services';
 import { PageTitle } from '@shared/ui/layout';
 import { firstValueFrom, map } from 'rxjs';
-import { AddSupplierDialog } from '@features/suppliers/components';
 import { Supplier } from '@features/suppliers/models/supplier.models';
 import { SuppliersService } from '@features/suppliers/services/suppliers.service';
 import { MatIcon } from '@angular/material/icon';
-import { MatButton } from '@angular/material/button';
+import { MatButton, MatMiniFabButton } from '@angular/material/button';
+import {
+	DeleteSupplierDialog,
+	SupplierFormDialog,
+} from '@features/suppliers/components';
 
 @Component({
 	selector: 'app-suppliers-page',
@@ -24,6 +28,7 @@ import { MatButton } from '@angular/material/button';
 		TranslatePipe,
 		MatIcon,
 		MatButton,
+		MatMiniFabButton,
 		MatTableModule,
 		MatChipsModule,
 	],
@@ -36,18 +41,27 @@ export class SuppliersPage implements OnInit {
 	private router = inject(Router);
 	private dialog = inject(MatDialog);
 	private breakpointObserver = inject(BreakpointObserver);
+	private notify = inject(NotificationService);
 
 	readonly displayedColumns = [
 		'logo',
 		'name',
 		'code',
-		'apiUrl',
-		'isActive',
+		'api-url',
+		'is-active',
+		'actions',
 	] as const;
 
 	readonly isCompact = toSignal(
 		this.breakpointObserver
 			.observe('(width <= 1024px)')
+			.pipe(map((state) => state.matches)),
+		{ initialValue: false }
+	);
+
+	readonly isNarrow = toSignal(
+		this.breakpointObserver
+			.observe('(width <= 576px)')
 			.pipe(map((state) => state.matches)),
 		{ initialValue: false }
 	);
@@ -81,11 +95,59 @@ export class SuppliersPage implements OnInit {
 
 	async addSupplier() {
 		const supplier = await firstValueFrom(
-			this.dialog.open(AddSupplierDialog).afterClosed()
+			this.dialog.open(SupplierFormDialog).afterClosed()
 		);
 
 		if (supplier) {
 			this.suppliers.update((list) => [...list, supplier]);
+		}
+	}
+
+	async editSupplier(supplier: Supplier, event?: Event) {
+		event?.stopPropagation();
+
+		const updated = await firstValueFrom(
+			this.dialog
+				.open(SupplierFormDialog, {
+					data: { supplier },
+				})
+				.afterClosed()
+		);
+
+		if (updated) {
+			this.suppliers.update((list) =>
+				list.map((item) => (item.id === updated.id ? updated : item))
+			);
+		}
+	}
+
+	async deleteSupplier(supplier: Supplier, event?: Event) {
+		event?.stopPropagation();
+
+		const deleted = await firstValueFrom(
+			this.dialog
+				.open(DeleteSupplierDialog, {
+					data: { supplier },
+					width: '400px',
+				})
+				.afterClosed()
+		);
+
+		if (deleted) {
+			this.suppliers.update((list) =>
+				list.filter((item) => item.id !== supplier.id)
+			);
+		}
+	}
+
+	async copyApiUrl(apiUrl: string, event?: Event) {
+		event?.stopPropagation();
+
+		try {
+			await navigator.clipboard.writeText(apiUrl);
+			this.notify.showSuccess('suppliersPage.apiUrlCopied');
+		} catch {
+			this.notify.showError('suppliersPage.apiUrlCopyFailed');
 		}
 	}
 }

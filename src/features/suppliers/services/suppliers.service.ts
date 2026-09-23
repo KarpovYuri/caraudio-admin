@@ -5,6 +5,8 @@ import {
 	CreateSupplierRequest,
 	CreateSupplierResponse,
 	ListSuppliersResponse,
+	UpdateSupplierRequest,
+	UpdateSupplierResponse,
 	UploadSupplierLogoResponse,
 } from '@features/suppliers/models/supplier.models';
 
@@ -26,6 +28,13 @@ export class SuppliersService {
 		);
 	}
 
+	updateSupplier(supplierId: number | string, data: UpdateSupplierRequest) {
+		return this.http.patch<UpdateSupplierResponse>(
+			`${this.catalogApiUrl}/suppliers/${supplierId}`,
+			data
+		);
+	}
+
 	uploadLogo(supplierId: number | string, file: File) {
 		const formData = new FormData();
 		formData.append('logo', file);
@@ -33,6 +42,12 @@ export class SuppliersService {
 		return this.http.post<UploadSupplierLogoResponse>(
 			`${this.catalogApiUrl}/suppliers/${supplierId}/logo`,
 			formData
+		);
+	}
+
+	deleteSupplier(supplierId: number | string) {
+		return this.http.delete<{ success: boolean }>(
+			`${this.catalogApiUrl}/suppliers/${supplierId}`
 		);
 	}
 }

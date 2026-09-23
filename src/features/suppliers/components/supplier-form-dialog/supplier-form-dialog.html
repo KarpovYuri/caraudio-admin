@@ -1,0 +1,148 @@
+<div class="supplier-form-dialog__header" mat-dialog-title>
+	<h2 class="supplier-form-dialog__title">
+		{{ titleKey | translate }}
+	</h2>
+	<button
+		mat-icon-button
+		type="button"
+		mat-dialog-close
+		[disabled]="submitting()"
+		[attr.aria-label]="'common.close' | translate"
+	>
+		<mat-icon>close</mat-icon>
+	</button>
+</div>
+
+<mat-dialog-content>
+	<div class="supplier-form-dialog__form">
+		<mat-form-field appearance="outline" subscriptSizing="dynamic">
+			<mat-label>
+				{{ 'suppliersPage.supplierFormDialog.name' | translate }}
+			</mat-label>
+			<input matInput [(ngModel)]="name" />
+		</mat-form-field>
+
+		<mat-form-field appearance="outline" subscriptSizing="dynamic">
+			<mat-label>
+				{{ 'suppliersPage.supplierFormDialog.apiUrl' | translate }}
+			</mat-label>
+			<input matInput [(ngModel)]="apiUrl" />
+		</mat-form-field>
+
+		<div class="supplier-form-dialog__meta">
+			<mat-form-field
+				class="supplier-form-dialog__code"
+				appearance="outline"
+				subscriptSizing="dynamic"
+			>
+				<mat-label>
+					{{ 'suppliersPage.supplierFormDialog.code' | translate }}
+				</mat-label>
+				<input matInput [(ngModel)]="code" />
+			</mat-form-field>
+
+			<mat-checkbox class="supplier-form-dialog__active" [(ngModel)]="isActive">
+				{{ 'suppliersPage.supplierFormDialog.isActive' | translate }}
+			</mat-checkbox>
+		</div>
+
+		<div
+			class="supplier-form-dialog__logo"
+			[class.supplier-form-dialog__logo--dragging]="logoDragging()"
+			[class.supplier-form-dialog__logo--has-preview]="!!displayLogo()"
+		>
+			<div class="supplier-form-dialog__logo-label">
+				{{ 'suppliersPage.supplierFormDialog.logo' | translate }}
+			</div>
+
+			<div
+				class="supplier-form-dialog__logo-dropzone"
+				role="button"
+				tabindex="0"
+				[attr.aria-disabled]="submitting()"
+				[attr.aria-label]="
+					'suppliersPage.supplierFormDialog.logoChoose' | translate
+				"
+				(click)="openLogoPicker()"
+				(keydown.enter)="openLogoPicker()"
+				(keydown.space)="$event.preventDefault(); openLogoPicker()"
+				(dragenter)="onLogoDragEnter($event)"
+				(dragover)="onLogoDragOver($event)"
+				(dragleave)="onLogoDragLeave($event)"
+				(drop)="onLogoDrop($event)"
+			>
+				@if (displayLogo(); as previewUrl) {
+					<div class="supplier-form-dialog__logo-thumb">
+						<img
+							class="supplier-form-dialog__logo-preview"
+							[src]="previewUrl"
+							alt=""
+						/>
+						<button
+							mat-icon-button
+							type="button"
+							class="supplier-form-dialog__logo-clear"
+							[disabled]="submitting()"
+							[attr.aria-label]="
+								'suppliersPage.supplierFormDialog.logoClear' | translate
+							"
+							(click)="clearLogo($event)"
+						>
+							<mat-icon>close</mat-icon>
+						</button>
+					</div>
+					<span class="supplier-form-dialog__logo-hint">
+						{{ 'suppliersPage.supplierFormDialog.logoReplaceHint' | translate }}
+					</span>
+				} @else {
+					<mat-icon class="supplier-form-dialog__logo-icon">
+						cloud_upload
+					</mat-icon>
+					<span class="supplier-form-dialog__logo-hint">
+						{{ 'suppliersPage.supplierFormDialog.logoHint' | translate }}
+					</span>
+					<span class="supplier-form-dialog__logo-formats">
+						{{ 'suppliersPage.supplierFormDialog.logoFormats' | translate }}
+					</span>
+				}
+			</div>
+
+			<input
+				#logoInput
+				class="supplier-form-dialog__logo-input"
+				type="file"
+				[accept]="acceptedLogoTypes"
+				(change)="onLogoSelected($event)"
+			/>
+
+			@if (logoError(); as errorKey) {
+				<p class="supplier-form-dialog__logo-error">
+					{{ errorKey | translate }}
+				</p>
+			}
+		</div>
+	</div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+	<button mat-stroked-button mat-dialog-close [disabled]="submitting()">
+		{{ 'common.cancel' | translate }}
+	</button>
+	<button
+		mat-flat-button
+		color="primary"
+		[disabled]="!formValid()"
+		(click)="submit()"
+	>
+		@if (submitting()) {
+			<mat-spinner diameter="20" />
+		} @else {
+			{{
+				(isEdit
+					? 'suppliersPage.supplierFormDialog.editSubmit'
+					: 'suppliersPage.supplierFormDialog.createSubmit'
+				) | translate
+			}}
+		}
+	</button>
+</mat-dialog-actions>

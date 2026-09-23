@@ -4,9 +4,7 @@
 
 .suppliers-page {
 	display: flex;
-	flex: 1;
 	flex-direction: column;
-	min-height: 100%;
 	width: 100%;
 
 	&__header {
@@ -21,6 +19,7 @@
 		display: flex;
 		flex: 1;
 		justify-content: center;
+		min-height: calc(100dvh - 160px);
 		width: 100%;
 	}
 
@@ -31,6 +30,7 @@
 		flex-direction: column;
 		font-size: 32px;
 		justify-content: center;
+		min-height: calc(100dvh - 160px);
 		width: 100%;
 
 		&-icon {
@@ -47,6 +47,14 @@
 
 	&__table {
 		width: 100%;
+
+		// Only status/actions/logo hug content; name/code/url take the rest
+		.mat-column-logo,
+		.mat-column-is-active,
+		.mat-column-actions {
+			width: 1%;
+			white-space: nowrap;
+		}
 	}
 
 	&__logo {
@@ -64,17 +72,30 @@
 		}
 	}
 
-	&__link {
-		color: var(--mat-sys-primary);
-		display: inline-block;
-		max-width: 280px;
-		overflow: hidden;
-		text-decoration: none;
-		text-overflow: ellipsis;
-		white-space: nowrap;
+	&__api-url {
+		align-items: center;
+		display: flex;
+		gap: 4px;
+		min-width: 0;
+		width: 100%;
 
-		&:hover {
-			text-decoration: underline;
+		&-text {
+			flex: 1;
+			min-width: 0;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+
+		&-copy {
+			@media (hover: hover) and (pointer: fine) {
+				opacity: 0;
+			}
+		}
+
+		&:hover &-copy,
+		&:focus-within &-copy {
+			opacity: 1;
 		}
 	}
 
@@ -91,6 +112,10 @@
 		flex-direction: column;
 		gap: 12px;
 		padding: 16px;
+
+		& &__api-url-copy {
+			opacity: 1;
+		}
 	}
 
 	&__card-top {
@@ -132,7 +157,57 @@
 		font: var(--mat-sys-label-medium);
 	}
 
-	&__card-row &__link {
-		max-width: 100%;
+	&__status-label {
+		display: block;
+		min-width: 10ch;
+		text-align: center;
+	}
+
+	&__actions {
+		align-items: center;
+		display: flex;
+		flex-shrink: 0;
+	}
+
+	// Plain circular icon button — avoids mat-icon-button flex/ripple layout
+	// shifting Material Icons glyphs (especially visible on mobile).
+	&__action-btn,
+	&__api-url-copy {
+		align-items: center;
+		background: transparent;
+		border: none;
+		border-radius: 50%;
+		color: var(--mat-sys-on-surface-variant);
+		cursor: pointer;
+		display: inline-flex;
+		flex: none;
+		height: 40px;
+		justify-content: center;
+		line-height: 1;
+		margin: 0;
+		padding: 0;
+		width: 40px;
+
+		.mat-icon {
+			display: block;
+			font-size: 24px;
+			height: 24px;
+			line-height: 24px;
+			overflow: hidden;
+			width: 24px;
+		}
+
+		&:hover {
+			background: color-mix(in srgb, currentcolor 12%, transparent);
+		}
+
+		&:disabled {
+			cursor: default;
+			opacity: 0.5;
+		}
+	}
+
+	&__action-btn--danger {
+		color: var(--mat-sys-error);
 	}
 }

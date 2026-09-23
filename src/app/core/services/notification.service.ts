@@ -11,19 +11,27 @@ export class NotificationService {
 
 	showError(message: string): void {
 		const translate = this.injector.get(TranslateService);
-		this.snackBar.open(message, translate.instant('common.close'), {
-			duration: 3000,
-			horizontalPosition: 'end',
-			verticalPosition: 'top',
-		});
+		this.snackBar.open(
+			translate.instant(message),
+			translate.instant('common.close'),
+			{
+				duration: 3000,
+				horizontalPosition: 'end',
+				verticalPosition: 'top',
+			}
+		);
 	}
 
 	showSuccess(message: string): void {
 		const translate = this.injector.get(TranslateService);
-		this.snackBar.open(message, translate.instant('common.ok'), {
-			duration: 3000,
-			horizontalPosition: 'end',
-			verticalPosition: 'top',
-		});
+		this.snackBar.open(
+			translate.instant(message),
+			translate.instant('common.ok'),
+			{
+				duration: 3000,
+				horizontalPosition: 'end',
+				verticalPosition: 'top',
+			}
+		);
 	}
 }

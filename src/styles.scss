@@ -35,7 +35,9 @@ html.dark-theme {
 body {
 	background-color: var(--mat-sys-background);
 	color: var(--mat-sys-on-background);
+	margin: 0;
 	min-width: 320px;
+	overflow: hidden;
 }
 
 * {
@@ -74,13 +76,18 @@ body {
 	);
 }
 
+.cdk-overlay-dark-backdrop {
+	background: rgb(0 0 0 / 0.55);
+}
+
 .cdk-overlay-pane.mat-mdc-dialog-panel {
+	--mat-dialog-container-color: var(--mat-sys-surface-container);
 	--mat-dialog-container-min-width: 90vw;
 	--mat-dialog-container-max-width: 90vw;
 	--mat-dialog-with-actions-content-padding: 0 24px 8px;
 	--mat-dialog-subhead-size: 20px;
 
-	@media (width > 1024px) {
+	@media (width > 768px) {
 		--mat-dialog-container-min-width: 640px;
 		--mat-dialog-container-max-width: 640px;
 	}

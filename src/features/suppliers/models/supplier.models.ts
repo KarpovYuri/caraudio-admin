@@ -25,6 +25,12 @@ export interface CreateSupplierResponse {
 	supplier: Supplier;
 }
 
+export type UpdateSupplierRequest = CreateSupplierRequest;
+
+export interface UpdateSupplierResponse {
+	supplier: Supplier;
+}
+
 export interface UploadSupplierLogoResponse {
 	supplier: Supplier;
 }
