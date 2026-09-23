@@ -49,18 +49,30 @@
 		<div
 			class="supplier-form-dialog__logo"
 			[class.supplier-form-dialog__logo--dragging]="logoDragging()"
-			(dragenter)="onLogoDragEnter($event)"
-			(dragover)="onLogoDragOver($event)"
-			(dragleave)="onLogoDragLeave($event)"
-			(drop)="onLogoDrop($event)"
+			[class.supplier-form-dialog__logo--has-preview]="!!displayLogo()"
 		>
 			<div class="supplier-form-dialog__logo-label">
 				{{ 'suppliersPage.supplierFormDialog.logo' | translate }}
 			</div>
 
-			<div class="supplier-form-dialog__logo-row">
-				<div class="supplier-form-dialog__logo-thumb">
-					@if (displayLogo(); as previewUrl) {
+			<div
+				class="supplier-form-dialog__logo-dropzone"
+				role="button"
+				tabindex="0"
+				[attr.aria-disabled]="submitting()"
+				[attr.aria-label]="
+					'suppliersPage.supplierFormDialog.logoChoose' | translate
+				"
+				(click)="openLogoPicker()"
+				(keydown.enter)="openLogoPicker()"
+				(keydown.space)="$event.preventDefault(); openLogoPicker()"
+				(dragenter)="onLogoDragEnter($event)"
+				(dragover)="onLogoDragOver($event)"
+				(dragleave)="onLogoDragLeave($event)"
+				(drop)="onLogoDrop($event)"
+			>
+				@if (displayLogo(); as previewUrl) {
+					<div class="supplier-form-dialog__logo-thumb">
 						<img
 							class="supplier-form-dialog__logo-preview"
 							[src]="previewUrl"
@@ -74,28 +86,25 @@
 							[attr.aria-label]="
 								'suppliersPage.supplierFormDialog.logoClear' | translate
 							"
-							(click)="clearLogo()"
+							(click)="clearLogo($event)"
 						>
 							<mat-icon>close</mat-icon>
 						</button>
-					} @else {
-						<div class="supplier-form-dialog__logo-placeholder">
-							<mat-icon>image</mat-icon>
-						</div>
-					}
-				</div>
-
-				<div class="supplier-form-dialog__logo-actions">
-					<button
-						mat-stroked-button
-						type="button"
-						[disabled]="submitting()"
-						(click)="logoInput.click()"
-					>
-						<mat-icon>upload</mat-icon>
-						{{ 'suppliersPage.supplierFormDialog.logoChoose' | translate }}
-					</button>
-				</div>
+					</div>
+					<span class="supplier-form-dialog__logo-hint">
+						{{ 'suppliersPage.supplierFormDialog.logoReplaceHint' | translate }}
+					</span>
+				} @else {
+					<mat-icon class="supplier-form-dialog__logo-icon">
+						cloud_upload
+					</mat-icon>
+					<span class="supplier-form-dialog__logo-hint">
+						{{ 'suppliersPage.supplierFormDialog.logoHint' | translate }}
+					</span>
+					<span class="supplier-form-dialog__logo-formats">
+						{{ 'suppliersPage.supplierFormDialog.logoFormats' | translate }}
+					</span>
+				}
 			</div>
 
 			<input
@@ -111,16 +120,12 @@
 					{{ errorKey | translate }}
 				</p>
 			}
-
-			<p class="supplier-form-dialog__logo-hint">
-				{{ 'suppliersPage.supplierFormDialog.logoHint' | translate }}
-			</p>
 		</div>
 	</div>
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-	<button mat-button mat-dialog-close [disabled]="submitting()">
+	<button mat-stroked-button mat-dialog-close [disabled]="submitting()">
 		{{ 'common.cancel' | translate }}
 	</button>
 	<button

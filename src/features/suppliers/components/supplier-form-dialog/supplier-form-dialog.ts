@@ -1,4 +1,12 @@
-import { Component, computed, DestroyRef, inject, signal } from '@angular/core';
+import {
+	Component,
+	computed,
+	DestroyRef,
+	ElementRef,
+	inject,
+	signal,
+	viewChild,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatCheckbox } from '@angular/material/checkbox';
@@ -95,9 +103,18 @@ export class SupplierFormDialog {
 	formValid = computed(() => this.nameValid() && !this.submitting());
 
 	private logoDragDepth = 0;
+	private readonly logoInput =
+		viewChild.required<ElementRef<HTMLInputElement>>('logoInput');
 
 	constructor() {
 		this.destroyRef.onDestroy(() => this.clearLogoPreview());
+	}
+
+	openLogoPicker() {
+		if (this.submitting()) {
+			return;
+		}
+		this.logoInput().nativeElement.click();
 	}
 
 	onLogoSelected(event: Event) {
@@ -148,7 +165,9 @@ export class SupplierFormDialog {
 		this.applyLogoFile(file);
 	}
 
-	clearLogo() {
+	clearLogo(event?: Event) {
+		event?.preventDefault();
+		event?.stopPropagation();
 		this.applyLogoFile(null);
 		this.existingLogo.set('');
 	}
