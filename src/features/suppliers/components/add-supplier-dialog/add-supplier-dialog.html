@@ -15,30 +15,36 @@
 
 <mat-dialog-content>
 	<div class="add-supplier-dialog__form">
-		<mat-form-field appearance="outline">
+		<mat-form-field appearance="outline" subscriptSizing="dynamic">
 			<mat-label>
 				{{ 'suppliersPage.addSupplierDialog.name' | translate }}
 			</mat-label>
 			<input matInput [(ngModel)]="name" />
 		</mat-form-field>
 
-		<mat-form-field appearance="outline">
-			<mat-label>
-				{{ 'suppliersPage.addSupplierDialog.code' | translate }}
-			</mat-label>
-			<input matInput [(ngModel)]="code" />
-		</mat-form-field>
-
-		<mat-form-field appearance="outline">
+		<mat-form-field appearance="outline" subscriptSizing="dynamic">
 			<mat-label>
 				{{ 'suppliersPage.addSupplierDialog.apiUrl' | translate }}
 			</mat-label>
 			<input matInput [(ngModel)]="apiUrl" />
 		</mat-form-field>
 
-		<mat-checkbox [(ngModel)]="isActive">
-			{{ 'suppliersPage.addSupplierDialog.isActive' | translate }}
-		</mat-checkbox>
+		<div class="add-supplier-dialog__meta">
+			<mat-form-field
+				class="add-supplier-dialog__code"
+				appearance="outline"
+				subscriptSizing="dynamic"
+			>
+				<mat-label>
+					{{ 'suppliersPage.addSupplierDialog.code' | translate }}
+				</mat-label>
+				<input matInput [(ngModel)]="code" />
+			</mat-form-field>
+
+			<mat-checkbox class="add-supplier-dialog__active" [(ngModel)]="isActive">
+				{{ 'suppliersPage.addSupplierDialog.isActive' | translate }}
+			</mat-checkbox>
+		</div>
 
 		<div class="add-supplier-dialog__logo">
 			<div class="add-supplier-dialog__logo-label">
