@@ -24,6 +24,7 @@
 		"title": "Поставщики",
 		"empty": "Поставщики не найдены",
 		"addSupplier": "Добавить поставщика",
+		"editSupplier": "Редактировать поставщика",
 		"deleteSupplier": "Удалить поставщика",
 		"copyApiUrl": "Копировать API URL",
 		"apiUrlCopied": "API URL скопирован",
@@ -39,8 +40,9 @@
 			"active": "Активен",
 			"inactive": "Неактивен"
 		},
-		"addSupplierDialog": {
-			"title": "Добавление поставщика",
+		"supplierFormDialog": {
+			"createTitle": "Добавление поставщика",
+			"editTitle": "Редактирование поставщика",
 			"name": "Название",
 			"code": "Код",
 			"logo": "Логотип",
@@ -49,6 +51,8 @@
 			"logoHint": "Перетащите файл сюда или выберите. JPEG, PNG, WebP, GIF или SVG",
 			"logoInvalidType": "Неподдерживаемый тип файла",
 			"submitError": "Не удалось сохранить поставщика",
+			"createSubmit": "Создать",
+			"editSubmit": "Сохранить",
 			"apiUrl": "API URL",
 			"isActive": "Активен"
 		},

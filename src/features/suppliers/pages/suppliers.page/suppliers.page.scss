@@ -88,19 +88,8 @@
 		}
 
 		&-copy {
-			flex-shrink: 0;
-
 			@media (hover: hover) and (pointer: fine) {
 				opacity: 0;
-			}
-
-			.mat-icon {
-				font-size: 20px;
-				height: 20px;
-				line-height: 20px;
-				overflow: hidden;
-				text-align: center;
-				width: 20px;
 			}
 		}
 
@@ -168,20 +157,51 @@
 		font: var(--mat-sys-label-medium);
 	}
 
-	&__delete-btn {
-		--mat-icon-button-icon-color: var(--mat-sys-error);
-
-		color: var(--mat-sys-error);
+	&__actions {
+		align-items: center;
+		display: flex;
 		flex-shrink: 0;
+	}
+
+	// Plain circular icon button — avoids mat-icon-button flex/ripple layout
+	// shifting Material Icons glyphs (especially visible on mobile).
+	&__action-btn,
+	&__api-url-copy {
+		align-items: center;
+		background: transparent;
+		border: none;
+		border-radius: 50%;
+		color: var(--mat-sys-on-surface-variant);
+		cursor: pointer;
+		display: inline-flex;
+		flex: none;
+		height: 40px;
+		justify-content: center;
+		line-height: 1;
+		margin: 0;
+		padding: 0;
+		width: 40px;
 
 		.mat-icon {
-			color: var(--mat-sys-error);
-			font-size: 20px;
-			height: 20px;
-			line-height: 20px;
+			display: block;
+			font-size: 24px;
+			height: 24px;
+			line-height: 24px;
 			overflow: hidden;
-			text-align: center;
-			width: 20px;
+			width: 24px;
 		}
+
+		&:hover {
+			background: color-mix(in srgb, currentcolor 12%, transparent);
+		}
+
+		&:disabled {
+			cursor: default;
+			opacity: 0.5;
+		}
+	}
+
+	&__action-btn--danger {
+		color: var(--mat-sys-error);
 	}
 }

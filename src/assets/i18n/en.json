@@ -24,6 +24,7 @@
 		"title": "Suppliers",
 		"empty": "No suppliers found",
 		"addSupplier": "Add supplier",
+		"editSupplier": "Edit supplier",
 		"deleteSupplier": "Delete supplier",
 		"copyApiUrl": "Copy API URL",
 		"apiUrlCopied": "API URL copied",
@@ -39,8 +40,9 @@
 			"active": "Active",
 			"inactive": "Inactive"
 		},
-		"addSupplierDialog": {
-			"title": "Add supplier",
+		"supplierFormDialog": {
+			"createTitle": "Add supplier",
+			"editTitle": "Edit supplier",
 			"name": "Name",
 			"code": "Code",
 			"logo": "Logo",
@@ -49,6 +51,8 @@
 			"logoHint": "Drag a file here or choose one. JPEG, PNG, WebP, GIF or SVG",
 			"logoInvalidType": "Unsupported file type",
 			"submitError": "Failed to save supplier",
+			"createSubmit": "Create",
+			"editSubmit": "Save",
 			"apiUrl": "API URL",
 			"isActive": "Active"
 		},

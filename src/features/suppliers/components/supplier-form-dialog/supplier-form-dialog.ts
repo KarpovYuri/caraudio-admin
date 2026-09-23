@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatCheckbox } from '@angular/material/checkbox';
 import {
+	MAT_DIALOG_DATA,
 	MatDialogActions,
 	MatDialogClose,
 	MatDialogContent,
@@ -34,9 +35,13 @@ const ACCEPTED_LOGO_EXTENSIONS = [
 	'.svg',
 ];
 
+export interface SupplierFormDialogData {
+	supplier?: Supplier;
+}
+
 @Component({
-	selector: 'app-add-supplier-dialog',
-	host: { class: 'add-supplier-dialog' },
+	selector: 'app-supplier-form-dialog',
+	host: { class: 'supplier-form-dialog' },
 	imports: [
 		FormsModule,
 		MatButton,
@@ -53,19 +58,28 @@ const ACCEPTED_LOGO_EXTENSIONS = [
 		MatProgressSpinner,
 		TranslatePipe,
 	],
-	templateUrl: './add-supplier-dialog.html',
-	styleUrl: './add-supplier-dialog.scss',
+	templateUrl: './supplier-form-dialog.html',
+	styleUrl: './supplier-form-dialog.scss',
 	standalone: true,
 })
-export class AddSupplierDialog {
-	private dialogRef = inject(MatDialogRef<AddSupplierDialog>);
+export class SupplierFormDialog {
+	private dialogRef = inject(MatDialogRef<SupplierFormDialog, Supplier>);
 	private suppliersService = inject(SuppliersService);
 	private destroyRef = inject(DestroyRef);
+	private readonly data = inject<SupplierFormDialogData>(MAT_DIALOG_DATA, {
+		optional: true,
+	});
 
-	name = signal('');
-	code = signal('');
-	apiUrl = signal('');
-	isActive = signal(true);
+	readonly isEdit = !!this.data?.supplier;
+	readonly titleKey = this.isEdit
+		? 'suppliersPage.supplierFormDialog.editTitle'
+		: 'suppliersPage.supplierFormDialog.createTitle';
+
+	name = signal(this.data?.supplier?.name ?? '');
+	code = signal(this.data?.supplier?.code ?? '');
+	apiUrl = signal(this.data?.supplier?.apiUrl ?? '');
+	isActive = signal(this.data?.supplier?.isActive ?? true);
+	existingLogo = signal(this.data?.supplier?.logo ?? '');
 	logoFile = signal<File | null>(null);
 	logoPreviewUrl = signal<string | null>(null);
 	logoError = signal<string | null>(null);
@@ -73,6 +87,9 @@ export class AddSupplierDialog {
 	submitting = signal(false);
 
 	readonly acceptedLogoTypes = ACCEPTED_LOGO_EXTENSIONS.join(',');
+	readonly displayLogo = computed(
+		() => this.logoPreviewUrl() || this.existingLogo() || null
+	);
 
 	nameValid = computed(() => this.name().trim().length > 0);
 	formValid = computed(() => this.nameValid() && !this.submitting());
@@ -133,6 +150,7 @@ export class AddSupplierDialog {
 
 	clearLogo() {
 		this.applyLogoFile(null);
+		this.existingLogo.set('');
 	}
 
 	async submit() {
@@ -143,19 +161,30 @@ export class AddSupplierDialog {
 		this.submitting.set(true);
 		this.logoError.set(null);
 
+		const payload = {
+			name: this.name().trim(),
+			code: this.code().trim() || undefined,
+			apiUrl: this.apiUrl().trim() || undefined,
+			isActive: this.isActive(),
+			logo: this.existingLogo(),
+		};
+
 		try {
-			const response = await firstValueFrom(
-				this.suppliersService.createSupplier({
-					name: this.name().trim(),
-					code: this.code().trim() || undefined,
-					apiUrl: this.apiUrl().trim() || undefined,
-					isActive: this.isActive(),
-				})
-			);
+			let supplier: Supplier;
 
-			let supplier: Supplier = response.supplier;
+			if (this.isEdit && this.data?.supplier) {
+				const response = await firstValueFrom(
+					this.suppliersService.updateSupplier(this.data.supplier.id, payload)
+				);
+				supplier = response.supplier;
+			} else {
+				const response = await firstValueFrom(
+					this.suppliersService.createSupplier(payload)
+				);
+				supplier = response.supplier;
+			}
+
 			const file = this.logoFile();
-
 			if (
 				file &&
 				supplier?.id != null &&
@@ -168,14 +197,13 @@ export class AddSupplierDialog {
 					);
 					supplier = uploadResponse.supplier;
 				} catch {
-					// Supplier already created; return it without logo.
+					// Supplier already saved; return it without new logo.
 				}
 			}
 
 			this.dialogRef.close(supplier);
 		} catch {
-			this.logoError.set('suppliersPage.addSupplierDialog.submitError');
-		} finally {
+			this.logoError.set('suppliersPage.supplierFormDialog.submitError');
 			this.submitting.set(false);
 		}
 	}
@@ -191,7 +219,7 @@ export class AddSupplierDialog {
 
 		if (!this.isAcceptedLogo(file)) {
 			this.logoFile.set(null);
-			this.logoError.set('suppliersPage.addSupplierDialog.logoInvalidType');
+			this.logoError.set('suppliersPage.supplierFormDialog.logoInvalidType');
 			return;
 		}
 
@@ -209,7 +237,7 @@ export class AddSupplierDialog {
 
 	private clearLogoPreview() {
 		const url = this.logoPreviewUrl();
-		if (url) {
+		if (url?.startsWith('blob:')) {
 			URL.revokeObjectURL(url);
 		}
 		this.logoPreviewUrl.set(null);

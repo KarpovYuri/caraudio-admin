@@ -5,6 +5,8 @@ import {
 	CreateSupplierRequest,
 	CreateSupplierResponse,
 	ListSuppliersResponse,
+	UpdateSupplierRequest,
+	UpdateSupplierResponse,
 	UploadSupplierLogoResponse,
 } from '@features/suppliers/models/supplier.models';
 
@@ -22,6 +24,13 @@ export class SuppliersService {
 	createSupplier(data: CreateSupplierRequest) {
 		return this.http.post<CreateSupplierResponse>(
 			`${this.catalogApiUrl}/suppliers`,
+			data
+		);
+	}
+
+	updateSupplier(supplierId: number | string, data: UpdateSupplierRequest) {
+		return this.http.patch<UpdateSupplierResponse>(
+			`${this.catalogApiUrl}/suppliers/${supplierId}`,
 			data
 		);
 	}

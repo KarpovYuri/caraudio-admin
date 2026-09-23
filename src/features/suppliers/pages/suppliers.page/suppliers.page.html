@@ -74,16 +74,25 @@
 							</mat-chip>
 						</mat-chip-set>
 
-						<button
-							mat-icon-button
-							type="button"
-							color="warn"
-							class="suppliers-page__delete-btn"
-							[attr.aria-label]="'suppliersPage.deleteSupplier' | translate"
-							(click)="deleteSupplier(supplier, $event)"
-						>
-							<mat-icon>delete</mat-icon>
-						</button>
+						<div class="suppliers-page__actions">
+							<button
+								type="button"
+								class="suppliers-page__action-btn"
+								[attr.aria-label]="'suppliersPage.editSupplier' | translate"
+								(click)="editSupplier(supplier, $event)"
+							>
+								<mat-icon>edit</mat-icon>
+							</button>
+
+							<button
+								type="button"
+								class="suppliers-page__action-btn suppliers-page__action-btn--danger"
+								[attr.aria-label]="'suppliersPage.deleteSupplier' | translate"
+								(click)="deleteSupplier(supplier, $event)"
+							>
+								<mat-icon>delete</mat-icon>
+							</button>
+						</div>
 					</div>
 
 					@if (supplier.apiUrl) {
@@ -96,7 +105,6 @@
 									{{ supplier.apiUrl }}
 								</span>
 								<button
-									mat-icon-button
 									type="button"
 									class="suppliers-page__api-url-copy"
 									[attr.aria-label]="'suppliersPage.copyApiUrl' | translate"
@@ -163,7 +171,6 @@
 									{{ supplier.apiUrl }}
 								</span>
 								<button
-									mat-icon-button
 									type="button"
 									class="suppliers-page__api-url-copy"
 									[attr.aria-label]="'suppliersPage.copyApiUrl' | translate"
@@ -199,16 +206,24 @@
 				<ng-container matColumnDef="actions">
 					<th mat-header-cell *matHeaderCellDef></th>
 					<td mat-cell *matCellDef="let supplier">
-						<button
-							mat-icon-button
-							type="button"
-							color="warn"
-							class="suppliers-page__delete-btn"
-							[attr.aria-label]="'suppliersPage.deleteSupplier' | translate"
-							(click)="deleteSupplier(supplier, $event)"
-						>
-							<mat-icon>delete</mat-icon>
-						</button>
+						<div class="suppliers-page__actions">
+							<button
+								type="button"
+								class="suppliers-page__action-btn"
+								[attr.aria-label]="'suppliersPage.editSupplier' | translate"
+								(click)="editSupplier(supplier, $event)"
+							>
+								<mat-icon>edit</mat-icon>
+							</button>
+							<button
+								type="button"
+								class="suppliers-page__action-btn suppliers-page__action-btn--danger"
+								[attr.aria-label]="'suppliersPage.deleteSupplier' | translate"
+								(click)="deleteSupplier(supplier, $event)"
+							>
+								<mat-icon>delete</mat-icon>
+							</button>
+						</div>
 					</td>
 				</ng-container>
 

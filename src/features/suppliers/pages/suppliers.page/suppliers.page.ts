@@ -14,14 +14,10 @@ import { firstValueFrom, map } from 'rxjs';
 import { Supplier } from '@features/suppliers/models/supplier.models';
 import { SuppliersService } from '@features/suppliers/services/suppliers.service';
 import { MatIcon } from '@angular/material/icon';
+import { MatButton, MatMiniFabButton } from '@angular/material/button';
 import {
-	MatButton,
-	MatIconButton,
-	MatMiniFabButton,
-} from '@angular/material/button';
-import {
-	AddSupplierDialog,
 	DeleteSupplierDialog,
+	SupplierFormDialog,
 } from '@features/suppliers/components';
 
 @Component({
@@ -32,7 +28,6 @@ import {
 		TranslatePipe,
 		MatIcon,
 		MatButton,
-		MatIconButton,
 		MatMiniFabButton,
 		MatTableModule,
 		MatChipsModule,
@@ -100,11 +95,29 @@ export class SuppliersPage implements OnInit {
 
 	async addSupplier() {
 		const supplier = await firstValueFrom(
-			this.dialog.open(AddSupplierDialog).afterClosed()
+			this.dialog.open(SupplierFormDialog).afterClosed()
 		);
 
 		if (supplier) {
 			this.suppliers.update((list) => [...list, supplier]);
+		}
+	}
+
+	async editSupplier(supplier: Supplier, event?: Event) {
+		event?.stopPropagation();
+
+		const updated = await firstValueFrom(
+			this.dialog
+				.open(SupplierFormDialog, {
+					data: { supplier },
+				})
+				.afterClosed()
+		);
+
+		if (updated) {
+			this.suppliers.update((list) =>
+				list.map((item) => (item.id === updated.id ? updated : item))
+			);
 		}
 	}
 

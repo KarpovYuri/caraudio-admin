@@ -1,6 +1,6 @@
-<div class="add-supplier-dialog__header" mat-dialog-title>
-	<h2 class="add-supplier-dialog__title">
-		{{ 'suppliersPage.addSupplierDialog.title' | translate }}
+<div class="supplier-form-dialog__header" mat-dialog-title>
+	<h2 class="supplier-form-dialog__title">
+		{{ titleKey | translate }}
 	</h2>
 	<button
 		mat-icon-button
@@ -14,78 +14,78 @@
 </div>
 
 <mat-dialog-content>
-	<div class="add-supplier-dialog__form">
+	<div class="supplier-form-dialog__form">
 		<mat-form-field appearance="outline" subscriptSizing="dynamic">
 			<mat-label>
-				{{ 'suppliersPage.addSupplierDialog.name' | translate }}
+				{{ 'suppliersPage.supplierFormDialog.name' | translate }}
 			</mat-label>
 			<input matInput [(ngModel)]="name" />
 		</mat-form-field>
 
 		<mat-form-field appearance="outline" subscriptSizing="dynamic">
 			<mat-label>
-				{{ 'suppliersPage.addSupplierDialog.apiUrl' | translate }}
+				{{ 'suppliersPage.supplierFormDialog.apiUrl' | translate }}
 			</mat-label>
 			<input matInput [(ngModel)]="apiUrl" />
 		</mat-form-field>
 
-		<div class="add-supplier-dialog__meta">
+		<div class="supplier-form-dialog__meta">
 			<mat-form-field
-				class="add-supplier-dialog__code"
+				class="supplier-form-dialog__code"
 				appearance="outline"
 				subscriptSizing="dynamic"
 			>
 				<mat-label>
-					{{ 'suppliersPage.addSupplierDialog.code' | translate }}
+					{{ 'suppliersPage.supplierFormDialog.code' | translate }}
 				</mat-label>
 				<input matInput [(ngModel)]="code" />
 			</mat-form-field>
 
-			<mat-checkbox class="add-supplier-dialog__active" [(ngModel)]="isActive">
-				{{ 'suppliersPage.addSupplierDialog.isActive' | translate }}
+			<mat-checkbox class="supplier-form-dialog__active" [(ngModel)]="isActive">
+				{{ 'suppliersPage.supplierFormDialog.isActive' | translate }}
 			</mat-checkbox>
 		</div>
 
 		<div
-			class="add-supplier-dialog__logo"
-			[class.add-supplier-dialog__logo--dragging]="logoDragging()"
+			class="supplier-form-dialog__logo"
+			[class.supplier-form-dialog__logo--dragging]="logoDragging()"
 			(dragenter)="onLogoDragEnter($event)"
 			(dragover)="onLogoDragOver($event)"
 			(dragleave)="onLogoDragLeave($event)"
 			(drop)="onLogoDrop($event)"
 		>
-			<div class="add-supplier-dialog__logo-label">
-				{{ 'suppliersPage.addSupplierDialog.logo' | translate }}
+			<div class="supplier-form-dialog__logo-label">
+				{{ 'suppliersPage.supplierFormDialog.logo' | translate }}
 			</div>
 
-			<div class="add-supplier-dialog__logo-row">
-				<div class="add-supplier-dialog__logo-thumb">
-					@if (logoPreviewUrl(); as previewUrl) {
+			<div class="supplier-form-dialog__logo-row">
+				<div class="supplier-form-dialog__logo-thumb">
+					@if (displayLogo(); as previewUrl) {
 						<img
-							class="add-supplier-dialog__logo-preview"
+							class="supplier-form-dialog__logo-preview"
 							[src]="previewUrl"
 							alt=""
 						/>
 						<button
 							mat-icon-button
 							type="button"
-							class="add-supplier-dialog__logo-clear"
+							class="supplier-form-dialog__logo-clear"
 							[disabled]="submitting()"
 							[attr.aria-label]="
-								'suppliersPage.addSupplierDialog.logoClear' | translate
+								'suppliersPage.supplierFormDialog.logoClear' | translate
 							"
 							(click)="clearLogo()"
 						>
 							<mat-icon>close</mat-icon>
 						</button>
 					} @else {
-						<div class="add-supplier-dialog__logo-placeholder">
+						<div class="supplier-form-dialog__logo-placeholder">
 							<mat-icon>image</mat-icon>
 						</div>
 					}
 				</div>
 
-				<div class="add-supplier-dialog__logo-actions">
+				<div class="supplier-form-dialog__logo-actions">
 					<button
 						mat-stroked-button
 						type="button"
@@ -93,27 +93,27 @@
 						(click)="logoInput.click()"
 					>
 						<mat-icon>upload</mat-icon>
-						{{ 'suppliersPage.addSupplierDialog.logoChoose' | translate }}
+						{{ 'suppliersPage.supplierFormDialog.logoChoose' | translate }}
 					</button>
 				</div>
 			</div>
 
 			<input
 				#logoInput
-				class="add-supplier-dialog__logo-input"
+				class="supplier-form-dialog__logo-input"
 				type="file"
 				[accept]="acceptedLogoTypes"
 				(change)="onLogoSelected($event)"
 			/>
 
 			@if (logoError(); as errorKey) {
-				<p class="add-supplier-dialog__logo-error">
+				<p class="supplier-form-dialog__logo-error">
 					{{ errorKey | translate }}
 				</p>
 			}
 
-			<p class="add-supplier-dialog__logo-hint">
-				{{ 'suppliersPage.addSupplierDialog.logoHint' | translate }}
+			<p class="supplier-form-dialog__logo-hint">
+				{{ 'suppliersPage.supplierFormDialog.logoHint' | translate }}
 			</p>
 		</div>
 	</div>
@@ -132,7 +132,12 @@
 		@if (submitting()) {
 			<mat-spinner diameter="20" />
 		} @else {
-			{{ 'common.save' | translate }}
+			{{
+				(isEdit
+					? 'suppliersPage.supplierFormDialog.editSubmit'
+					: 'suppliersPage.supplierFormDialog.createSubmit'
+				) | translate
+			}}
 		}
 	</button>
 </mat-dialog-actions>
