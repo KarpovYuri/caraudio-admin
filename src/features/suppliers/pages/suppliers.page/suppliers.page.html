@@ -24,216 +24,280 @@
 		}
 	</div>
 
+	<div class="suppliers-page__toolbar">
+		<mat-form-field
+			class="suppliers-page__search"
+			appearance="outline"
+			subscriptSizing="dynamic"
+		>
+			<mat-label>{{ 'suppliersPage.search' | translate }}</mat-label>
+			<input
+				matInput
+				type="search"
+				[ngModel]="searchInput()"
+				(ngModelChange)="onSearchInput($event)"
+			/>
+			@if (searchInput()) {
+				<button matIconButton matSuffix type="button" (click)="clearSearch()">
+					<mat-icon>close</mat-icon>
+				</button>
+			} @else {
+				<mat-icon matSuffix>search</mat-icon>
+			}
+		</mat-form-field>
+
+		<mat-form-field
+			class="suppliers-page__status-filter"
+			appearance="outline"
+			subscriptSizing="dynamic"
+		>
+			<mat-label>{{
+				'suppliersPage.statusFilter.label' | translate
+			}}</mat-label>
+			<mat-select
+				[ngModel]="statusFilter()"
+				(ngModelChange)="onStatusFilterChange($event)"
+			>
+				@for (option of statusFilterOptions; track option) {
+					<mat-option [value]="option">
+						{{ 'suppliersPage.statusFilter.' + option | translate }}
+					</mat-option>
+				}
+			</mat-select>
+		</mat-form-field>
+	</div>
+
 	@if (loading()) {
 		<div class="suppliers-page__loader">
 			<mat-spinner diameter="50" />
 		</div>
-	} @else if (suppliers().length === 0) {
+	} @else if (total() === 0) {
 		<div class="suppliers-page__empty">
 			<mat-icon class="suppliers-page__empty-icon">search_off</mat-icon>
 			<p>{{ 'suppliersPage.empty' | translate }}</p>
 		</div>
-	} @else if (isCompact()) {
-		<div class="suppliers-page__cards">
-			@for (supplier of suppliers(); track supplier.id) {
-				<article class="suppliers-page__card">
-					<div class="suppliers-page__card-top">
-						@if (supplier.logo) {
-							<img
-								class="suppliers-page__logo"
-								[src]="supplier.logo"
-								[alt]="supplier.name"
-							/>
-						} @else {
-							<div
-								class="suppliers-page__logo suppliers-page__logo--placeholder"
-							>
-								<mat-icon>image</mat-icon>
-							</div>
-						}
-
-						<div class="suppliers-page__card-heading">
-							<h3 class="suppliers-page__card-title">
-								{{ supplier.name }}
-							</h3>
-							@if (supplier.code) {
-								<span class="suppliers-page__card-code">
-									{{ supplier.code }}
-								</span>
-							}
-						</div>
-
-						<mat-chip-set>
-							<mat-chip [highlighted]="supplier.isActive">
-								<span class="suppliers-page__status-label">
-									{{
-										(supplier.isActive
-											? 'suppliersPage.status.active'
-											: 'suppliersPage.status.inactive'
-										) | translate
-									}}
-								</span>
-							</mat-chip>
-						</mat-chip-set>
-
-						<div class="suppliers-page__actions">
-							<button
-								type="button"
-								class="suppliers-page__action-btn"
-								[attr.aria-label]="'suppliersPage.editSupplier' | translate"
-								(click)="editSupplier(supplier, $event)"
-							>
-								<mat-icon>edit</mat-icon>
-							</button>
-
-							<button
-								type="button"
-								class="suppliers-page__action-btn suppliers-page__action-btn--danger"
-								[attr.aria-label]="'suppliersPage.deleteSupplier' | translate"
-								(click)="deleteSupplier(supplier, $event)"
-							>
-								<mat-icon>delete</mat-icon>
-							</button>
-						</div>
-					</div>
-
-					@if (supplier.apiUrl) {
-						<div class="suppliers-page__card-row">
-							<span class="suppliers-page__card-label">
-								{{ 'suppliersPage.columns.apiUrl' | translate }}
-							</span>
-							<div class="suppliers-page__api-url">
-								<span class="suppliers-page__api-url-text">
-									{{ supplier.apiUrl }}
-								</span>
-								<button
-									type="button"
-									class="suppliers-page__api-url-copy"
-									[attr.aria-label]="'suppliersPage.copyApiUrl' | translate"
-									(click)="copyApiUrl(supplier.apiUrl, $event)"
-								>
-									<mat-icon>content_copy</mat-icon>
-								</button>
-							</div>
-						</div>
-					}
-				</article>
-			}
-		</div>
 	} @else {
-		<div class="suppliers-page__table-wrap">
-			<table mat-table [dataSource]="suppliers()" class="suppliers-page__table">
-				<ng-container matColumnDef="logo">
-					<th mat-header-cell *matHeaderCellDef>
-						{{ 'suppliersPage.columns.logo' | translate }}
-					</th>
-					<td mat-cell *matCellDef="let supplier">
-						@if (supplier.logo) {
-							<img
-								class="suppliers-page__logo"
-								[src]="supplier.logo"
-								[alt]="supplier.name"
-							/>
-						} @else {
-							<div
-								class="suppliers-page__logo suppliers-page__logo--placeholder"
-							>
-								<mat-icon>image</mat-icon>
+		@if (isCompact()) {
+			<div class="suppliers-page__cards">
+				@for (supplier of suppliers(); track supplier.id) {
+					<article class="suppliers-page__card">
+						<div class="suppliers-page__card-header">
+							<div class="suppliers-page__card-top">
+								@if (supplier.logo) {
+									<img
+										class="suppliers-page__logo"
+										[src]="supplier.logo"
+										[alt]="supplier.name"
+									/>
+								} @else {
+									<div
+										class="suppliers-page__logo suppliers-page__logo--placeholder"
+									>
+										<mat-icon>image</mat-icon>
+									</div>
+								}
+
+								<div class="suppliers-page__card-heading">
+									<h3 class="suppliers-page__card-title">
+										{{ supplier.name }}
+									</h3>
+									@if (supplier.code) {
+										<span class="suppliers-page__card-code">
+											{{ supplier.code }}
+										</span>
+									}
+								</div>
+							</div>
+
+							<div class="suppliers-page__card-meta">
+								<mat-chip-set>
+									<mat-chip [highlighted]="supplier.isActive">
+										<span class="suppliers-page__status-label">
+											{{
+												(supplier.isActive
+													? 'suppliersPage.status.active'
+													: 'suppliersPage.status.inactive'
+												) | translate
+											}}
+										</span>
+									</mat-chip>
+								</mat-chip-set>
+
+								<div class="suppliers-page__actions">
+									<button
+										type="button"
+										class="suppliers-page__action-btn"
+										[attr.aria-label]="'suppliersPage.editSupplier' | translate"
+										(click)="editSupplier(supplier, $event)"
+									>
+										<mat-icon>edit</mat-icon>
+									</button>
+
+									<button
+										type="button"
+										class="suppliers-page__action-btn suppliers-page__action-btn--danger"
+										[attr.aria-label]="
+											'suppliersPage.deleteSupplier' | translate
+										"
+										(click)="deleteSupplier(supplier, $event)"
+									>
+										<mat-icon>delete</mat-icon>
+									</button>
+								</div>
+							</div>
+						</div>
+
+						@if (supplier.apiUrl) {
+							<div class="suppliers-page__card-row">
+								<div class="suppliers-page__api-url">
+									<span class="suppliers-page__api-url-text">
+										{{ supplier.apiUrl }}
+									</span>
+									<button
+										type="button"
+										class="suppliers-page__api-url-copy"
+										[attr.aria-label]="'suppliersPage.copyApiUrl' | translate"
+										(click)="copyApiUrl(supplier.apiUrl, $event)"
+									>
+										<mat-icon>content_copy</mat-icon>
+									</button>
+								</div>
 							</div>
 						}
-					</td>
-				</ng-container>
+					</article>
+				}
+			</div>
+		} @else {
+			<div class="suppliers-page__table-wrap">
+				<table
+					mat-table
+					[dataSource]="suppliers()"
+					class="suppliers-page__table"
+				>
+					<ng-container matColumnDef="logo">
+						<th mat-header-cell *matHeaderCellDef>
+							{{ 'suppliersPage.columns.logo' | translate }}
+						</th>
+						<td mat-cell *matCellDef="let supplier">
+							@if (supplier.logo) {
+								<img
+									class="suppliers-page__logo"
+									[src]="supplier.logo"
+									[alt]="supplier.name"
+								/>
+							} @else {
+								<div
+									class="suppliers-page__logo suppliers-page__logo--placeholder"
+								>
+									<mat-icon>image</mat-icon>
+								</div>
+							}
+						</td>
+					</ng-container>
 
-				<ng-container matColumnDef="name">
-					<th mat-header-cell *matHeaderCellDef>
-						{{ 'suppliersPage.columns.name' | translate }}
-					</th>
-					<td mat-cell *matCellDef="let supplier">
-						{{ supplier.name }}
-					</td>
-				</ng-container>
+					<ng-container matColumnDef="name">
+						<th mat-header-cell *matHeaderCellDef>
+							{{ 'suppliersPage.columns.name' | translate }}
+						</th>
+						<td mat-cell *matCellDef="let supplier">
+							{{ supplier.name }}
+						</td>
+					</ng-container>
 
-				<ng-container matColumnDef="code">
-					<th mat-header-cell *matHeaderCellDef>
-						{{ 'suppliersPage.columns.code' | translate }}
-					</th>
-					<td mat-cell *matCellDef="let supplier">
-						{{ supplier.code || '—' }}
-					</td>
-				</ng-container>
+					<ng-container matColumnDef="code">
+						<th mat-header-cell *matHeaderCellDef>
+							{{ 'suppliersPage.columns.code' | translate }}
+						</th>
+						<td mat-cell *matCellDef="let supplier">
+							{{ supplier.code || '—' }}
+						</td>
+					</ng-container>
 
-				<ng-container matColumnDef="api-url">
-					<th mat-header-cell *matHeaderCellDef>
-						{{ 'suppliersPage.columns.apiUrl' | translate }}
-					</th>
-					<td mat-cell *matCellDef="let supplier">
-						@if (supplier.apiUrl) {
-							<div class="suppliers-page__api-url">
-								<span class="suppliers-page__api-url-text">
-									{{ supplier.apiUrl }}
-								</span>
+					<ng-container matColumnDef="api-url">
+						<th mat-header-cell *matHeaderCellDef>
+							{{ 'suppliersPage.columns.apiUrl' | translate }}
+						</th>
+						<td mat-cell *matCellDef="let supplier">
+							@if (supplier.apiUrl) {
+								<div class="suppliers-page__api-url">
+									<span class="suppliers-page__api-url-text">
+										{{ supplier.apiUrl }}
+									</span>
+									<button
+										type="button"
+										class="suppliers-page__api-url-copy"
+										[attr.aria-label]="'suppliersPage.copyApiUrl' | translate"
+										(click)="copyApiUrl(supplier.apiUrl, $event)"
+									>
+										<mat-icon>content_copy</mat-icon>
+									</button>
+								</div>
+							} @else {
+								—
+							}
+						</td>
+					</ng-container>
+
+					<ng-container matColumnDef="is-active">
+						<th mat-header-cell *matHeaderCellDef>
+							{{ 'suppliersPage.columns.isActive' | translate }}
+						</th>
+						<td mat-cell *matCellDef="let supplier">
+							<mat-chip-set>
+								<mat-chip [highlighted]="supplier.isActive">
+									<span class="suppliers-page__status-label">
+										{{
+											(supplier.isActive
+												? 'suppliersPage.status.active'
+												: 'suppliersPage.status.inactive'
+											) | translate
+										}}
+									</span>
+								</mat-chip>
+							</mat-chip-set>
+						</td>
+					</ng-container>
+
+					<ng-container matColumnDef="actions">
+						<th mat-header-cell *matHeaderCellDef></th>
+						<td mat-cell *matCellDef="let supplier">
+							<div class="suppliers-page__actions">
 								<button
 									type="button"
-									class="suppliers-page__api-url-copy"
-									[attr.aria-label]="'suppliersPage.copyApiUrl' | translate"
-									(click)="copyApiUrl(supplier.apiUrl, $event)"
+									class="suppliers-page__action-btn"
+									[attr.aria-label]="'suppliersPage.editSupplier' | translate"
+									(click)="editSupplier(supplier, $event)"
 								>
-									<mat-icon>content_copy</mat-icon>
+									<mat-icon>edit</mat-icon>
+								</button>
+								<button
+									type="button"
+									class="suppliers-page__action-btn suppliers-page__action-btn--danger"
+									[attr.aria-label]="'suppliersPage.deleteSupplier' | translate"
+									(click)="deleteSupplier(supplier, $event)"
+								>
+									<mat-icon>delete</mat-icon>
 								</button>
 							</div>
-						} @else {
-							—
-						}
-					</td>
-				</ng-container>
+						</td>
+					</ng-container>
 
-				<ng-container matColumnDef="is-active">
-					<th mat-header-cell *matHeaderCellDef>
-						{{ 'suppliersPage.columns.isActive' | translate }}
-					</th>
-					<td mat-cell *matCellDef="let supplier">
-						<mat-chip-set>
-							<mat-chip [highlighted]="supplier.isActive">
-								<span class="suppliers-page__status-label">
-									{{
-										(supplier.isActive
-											? 'suppliersPage.status.active'
-											: 'suppliersPage.status.inactive'
-										) | translate
-									}}
-								</span>
-							</mat-chip>
-						</mat-chip-set>
-					</td>
-				</ng-container>
+					<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+					<tr mat-row *matRowDef="let _; columns: displayedColumns"></tr>
+				</table>
+			</div>
+		}
 
-				<ng-container matColumnDef="actions">
-					<th mat-header-cell *matHeaderCellDef></th>
-					<td mat-cell *matCellDef="let supplier">
-						<div class="suppliers-page__actions">
-							<button
-								type="button"
-								class="suppliers-page__action-btn"
-								[attr.aria-label]="'suppliersPage.editSupplier' | translate"
-								(click)="editSupplier(supplier, $event)"
-							>
-								<mat-icon>edit</mat-icon>
-							</button>
-							<button
-								type="button"
-								class="suppliers-page__action-btn suppliers-page__action-btn--danger"
-								[attr.aria-label]="'suppliersPage.deleteSupplier' | translate"
-								(click)="deleteSupplier(supplier, $event)"
-							>
-								<mat-icon>delete</mat-icon>
-							</button>
-						</div>
-					</td>
-				</ng-container>
-
-				<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-				<tr mat-row *matRowDef="let _; columns: displayedColumns"></tr>
-			</table>
-		</div>
+		@if (hasMultiplePages()) {
+			<mat-paginator
+				class="suppliers-page__paginator"
+				[length]="total()"
+				[pageIndex]="pageIndex()"
+				[pageSize]="pageSize"
+				[hidePageSize]="true"
+				[showFirstLastButtons]="true"
+				(page)="onPageChange($event)"
+			/>
+		}
 	}
 </section>

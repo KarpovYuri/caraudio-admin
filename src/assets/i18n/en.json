@@ -20,9 +20,25 @@
 		"ru": "Russian",
 		"en": "English"
 	},
+	"paginator": {
+		"itemsPerPage": "Items per page:",
+		"nextPage": "Next page",
+		"previousPage": "Previous page",
+		"firstPage": "First page",
+		"lastPage": "Last page",
+		"range": "{{start}} – {{end}} of {{length}}",
+		"rangeEmpty": "0 of {{length}}"
+	},
 	"suppliersPage": {
 		"title": "Suppliers",
 		"empty": "No suppliers found",
+		"search": "Search by name or code",
+		"statusFilter": {
+			"label": "Status",
+			"all": "All",
+			"active": "Active",
+			"inactive": "Inactive"
+		},
 		"addSupplier": "Add supplier",
 		"editSupplier": "Edit supplier",
 		"deleteSupplier": "Delete supplier",
@@ -52,6 +68,9 @@
 			"logoReplaceHint": "Click or drag to replace",
 			"logoFormats": "JPEG, PNG, WebP, GIF or SVG",
 			"logoInvalidType": "Unsupported file type",
+			"nameRequired": "Name is required",
+			"apiUrlRequired": "API URL is required",
+			"apiUrlInvalid": "Enter a valid URL (http:// or https://)",
 			"submitError": "Failed to save supplier",
 			"createSubmit": "Create",
 			"editSubmit": "Save",

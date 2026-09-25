@@ -20,9 +20,25 @@
 		"ru": "Русский",
 		"en": "Английский"
 	},
+	"paginator": {
+		"itemsPerPage": "На странице:",
+		"nextPage": "Следующая страница",
+		"previousPage": "Предыдущая страница",
+		"firstPage": "Первая страница",
+		"lastPage": "Последняя страница",
+		"range": "{{start}} – {{end}} из {{length}}",
+		"rangeEmpty": "0 из {{length}}"
+	},
 	"suppliersPage": {
 		"title": "Поставщики",
 		"empty": "Поставщики не найдены",
+		"search": "Поиск по названию или коду",
+		"statusFilter": {
+			"label": "Статус",
+			"all": "Все",
+			"active": "Активные",
+			"inactive": "Неактивные"
+		},
 		"addSupplier": "Добавить поставщика",
 		"editSupplier": "Редактировать поставщика",
 		"deleteSupplier": "Удалить поставщика",
@@ -52,6 +68,9 @@
 			"logoReplaceHint": "Нажмите или перетащите, чтобы заменить",
 			"logoFormats": "JPEG, PNG, WebP, GIF или SVG",
 			"logoInvalidType": "Неподдерживаемый тип файла",
+			"nameRequired": "Укажите название",
+			"apiUrlRequired": "Укажите API URL",
+			"apiUrlInvalid": "Введите корректный URL (http:// или https://)",
 			"submitError": "Не удалось сохранить поставщика",
 			"createSubmit": "Создать",
 			"editSubmit": "Сохранить",

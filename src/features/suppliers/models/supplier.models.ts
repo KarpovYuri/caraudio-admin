@@ -9,8 +9,20 @@ export interface Supplier {
 	updatedAt?: string;
 }
 
+export type SupplierStatusFilter = 'all' | 'active' | 'inactive';
+
+export interface ListSuppliersParams {
+	page?: number;
+	pageSize?: number;
+	search?: string;
+	isActive?: boolean;
+}
+
 export interface ListSuppliersResponse {
 	suppliers: Supplier[];
+	total: number;
+	page: number;
+	pageSize: number;
 }
 
 export interface CreateSupplierRequest {

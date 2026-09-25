@@ -15,35 +15,83 @@
 
 <mat-dialog-content>
 	<div class="supplier-form-dialog__form">
-		<mat-form-field appearance="outline" subscriptSizing="dynamic">
-			<mat-label>
-				{{ 'suppliersPage.supplierFormDialog.name' | translate }}
-			</mat-label>
-			<input matInput [(ngModel)]="name" />
-		</mat-form-field>
-
-		<mat-form-field appearance="outline" subscriptSizing="dynamic">
-			<mat-label>
-				{{ 'suppliersPage.supplierFormDialog.apiUrl' | translate }}
-			</mat-label>
-			<input matInput [(ngModel)]="apiUrl" />
-		</mat-form-field>
-
-		<div class="supplier-form-dialog__meta">
+		<div class="supplier-form-dialog__field">
 			<mat-form-field
-				class="supplier-form-dialog__code"
 				appearance="outline"
 				subscriptSizing="dynamic"
+				[class.supplier-form-dialog__field--invalid]="showNameError()"
 			>
 				<mat-label>
-					{{ 'suppliersPage.supplierFormDialog.code' | translate }}
+					{{ 'suppliersPage.supplierFormDialog.name' | translate }}
 				</mat-label>
-				<input matInput [(ngModel)]="code" />
+				<input
+					matInput
+					required
+					[ngModel]="name()"
+					(ngModelChange)="name.set($event)"
+					(blur)="nameTouched.set(true)"
+				/>
 			</mat-form-field>
+			<p
+				class="supplier-form-dialog__field-error"
+				[class.supplier-form-dialog__field-error--visible]="showNameError()"
+			>
+				{{ showNameError() ? (nameErrorKey()! | translate) : '\u00A0' }}
+			</p>
+		</div>
 
-			<mat-checkbox class="supplier-form-dialog__active" [(ngModel)]="isActive">
-				{{ 'suppliersPage.supplierFormDialog.isActive' | translate }}
-			</mat-checkbox>
+		<div class="supplier-form-dialog__field">
+			<mat-form-field
+				appearance="outline"
+				subscriptSizing="dynamic"
+				[class.supplier-form-dialog__field--invalid]="showApiUrlError()"
+			>
+				<mat-label>
+					{{ 'suppliersPage.supplierFormDialog.apiUrl' | translate }}
+				</mat-label>
+				<input
+					matInput
+					type="url"
+					required
+					[ngModel]="apiUrl()"
+					(ngModelChange)="apiUrl.set($event)"
+					(blur)="apiUrlTouched.set(true)"
+				/>
+			</mat-form-field>
+			<p
+				class="supplier-form-dialog__field-error"
+				[class.supplier-form-dialog__field-error--visible]="showApiUrlError()"
+			>
+				{{ showApiUrlError() ? (apiUrlErrorKey()! | translate) : '\u00A0' }}
+			</p>
+		</div>
+
+		<div class="supplier-form-dialog__field">
+			<div class="supplier-form-dialog__meta">
+				<mat-form-field
+					class="supplier-form-dialog__code"
+					appearance="outline"
+					subscriptSizing="dynamic"
+				>
+					<mat-label>
+						{{ 'suppliersPage.supplierFormDialog.code' | translate }}
+					</mat-label>
+					<input
+						matInput
+						[ngModel]="code()"
+						(ngModelChange)="code.set($event)"
+					/>
+				</mat-form-field>
+
+				<mat-checkbox
+					class="supplier-form-dialog__active"
+					[ngModel]="isActive()"
+					(ngModelChange)="isActive.set($event)"
+				>
+					{{ 'suppliersPage.supplierFormDialog.isActive' | translate }}
+				</mat-checkbox>
+			</div>
+			<p class="supplier-form-dialog__field-error" aria-hidden="true">&nbsp;</p>
 		</div>
 
 		<div
