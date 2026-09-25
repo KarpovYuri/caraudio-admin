@@ -59,8 +59,9 @@
 
 	&__logo {
 		border-radius: 8px;
+		flex-shrink: 0;
 		height: 40px;
-		object-fit: contain;
+		object-fit: cover;
 		width: 40px;
 
 		&--placeholder {
@@ -118,10 +119,24 @@
 		}
 	}
 
-	&__card-top {
+	&__card-header {
 		align-items: center;
 		display: flex;
 		gap: 12px;
+		min-width: 0;
+
+		@media (width <= 576px) {
+			align-items: stretch;
+			flex-direction: column;
+		}
+	}
+
+	&__card-top {
+		align-items: center;
+		display: flex;
+		flex: 1;
+		gap: 12px;
+		min-width: 0;
 	}
 
 	&__card-heading {
@@ -130,6 +145,17 @@
 		flex-direction: column;
 		gap: 2px;
 		min-width: 0;
+	}
+
+	&__card-meta {
+		align-items: center;
+		display: flex;
+		flex-shrink: 0;
+		gap: 12px;
+
+		@media (width <= 576px) {
+			justify-content: space-between;
+		}
 	}
 
 	&__card-title {
@@ -150,11 +176,6 @@
 		flex-direction: column;
 		gap: 4px;
 		min-width: 0;
-	}
-
-	&__card-label {
-		color: var(--mat-sys-on-surface-variant);
-		font: var(--mat-sys-label-medium);
 	}
 
 	&__status-label {

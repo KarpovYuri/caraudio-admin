@@ -54,7 +54,7 @@ export class SuppliersPage implements OnInit {
 
 	readonly isCompact = toSignal(
 		this.breakpointObserver
-			.observe('(width <= 1024px)')
+			.observe('(width <= 768px)')
 			.pipe(map((state) => state.matches)),
 		{ initialValue: false }
 	);

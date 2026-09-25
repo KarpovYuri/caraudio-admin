@@ -37,71 +37,72 @@
 		<div class="suppliers-page__cards">
 			@for (supplier of suppliers(); track supplier.id) {
 				<article class="suppliers-page__card">
-					<div class="suppliers-page__card-top">
-						@if (supplier.logo) {
-							<img
-								class="suppliers-page__logo"
-								[src]="supplier.logo"
-								[alt]="supplier.name"
-							/>
-						} @else {
-							<div
-								class="suppliers-page__logo suppliers-page__logo--placeholder"
-							>
-								<mat-icon>image</mat-icon>
-							</div>
-						}
-
-						<div class="suppliers-page__card-heading">
-							<h3 class="suppliers-page__card-title">
-								{{ supplier.name }}
-							</h3>
-							@if (supplier.code) {
-								<span class="suppliers-page__card-code">
-									{{ supplier.code }}
-								</span>
+					<div class="suppliers-page__card-header">
+						<div class="suppliers-page__card-top">
+							@if (supplier.logo) {
+								<img
+									class="suppliers-page__logo"
+									[src]="supplier.logo"
+									[alt]="supplier.name"
+								/>
+							} @else {
+								<div
+									class="suppliers-page__logo suppliers-page__logo--placeholder"
+								>
+									<mat-icon>image</mat-icon>
+								</div>
 							}
+
+							<div class="suppliers-page__card-heading">
+								<h3 class="suppliers-page__card-title">
+									{{ supplier.name }}
+								</h3>
+								@if (supplier.code) {
+									<span class="suppliers-page__card-code">
+										{{ supplier.code }}
+									</span>
+								}
+							</div>
 						</div>
 
-						<mat-chip-set>
-							<mat-chip [highlighted]="supplier.isActive">
-								<span class="suppliers-page__status-label">
-									{{
-										(supplier.isActive
-											? 'suppliersPage.status.active'
-											: 'suppliersPage.status.inactive'
-										) | translate
-									}}
-								</span>
-							</mat-chip>
-						</mat-chip-set>
+						<div class="suppliers-page__card-meta">
+							<mat-chip-set>
+								<mat-chip [highlighted]="supplier.isActive">
+									<span class="suppliers-page__status-label">
+										{{
+											(supplier.isActive
+												? 'suppliersPage.status.active'
+												: 'suppliersPage.status.inactive'
+											) | translate
+										}}
+									</span>
+								</mat-chip>
+							</mat-chip-set>
 
-						<div class="suppliers-page__actions">
-							<button
-								type="button"
-								class="suppliers-page__action-btn"
-								[attr.aria-label]="'suppliersPage.editSupplier' | translate"
-								(click)="editSupplier(supplier, $event)"
-							>
-								<mat-icon>edit</mat-icon>
-							</button>
+							<div class="suppliers-page__actions">
+								<button
+									type="button"
+									class="suppliers-page__action-btn"
+									[attr.aria-label]="'suppliersPage.editSupplier' | translate"
+									(click)="editSupplier(supplier, $event)"
+								>
+									<mat-icon>edit</mat-icon>
+								</button>
 
-							<button
-								type="button"
-								class="suppliers-page__action-btn suppliers-page__action-btn--danger"
-								[attr.aria-label]="'suppliersPage.deleteSupplier' | translate"
-								(click)="deleteSupplier(supplier, $event)"
-							>
-								<mat-icon>delete</mat-icon>
-							</button>
+								<button
+									type="button"
+									class="suppliers-page__action-btn suppliers-page__action-btn--danger"
+									[attr.aria-label]="'suppliersPage.deleteSupplier' | translate"
+									(click)="deleteSupplier(supplier, $event)"
+								>
+									<mat-icon>delete</mat-icon>
+								</button>
+							</div>
 						</div>
 					</div>
 
 					@if (supplier.apiUrl) {
 						<div class="suppliers-page__card-row">
-							<span class="suppliers-page__card-label">
-								{{ 'suppliersPage.columns.apiUrl' | translate }}
-							</span>
 							<div class="suppliers-page__api-url">
 								<span class="suppliers-page__api-url-text">
 									{{ supplier.apiUrl }}
