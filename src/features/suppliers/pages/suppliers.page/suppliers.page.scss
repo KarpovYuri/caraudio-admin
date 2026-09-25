@@ -15,11 +15,20 @@
 	}
 
 	&__toolbar {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 12px;
 		margin-bottom: 16px;
 	}
 
 	&__search {
+		flex: 1 1 240px;
 		width: min(100%, 360px);
+	}
+
+	&__status-filter {
+		flex: 0 1 180px;
+		min-width: 160px;
 	}
 
 	&__loader {

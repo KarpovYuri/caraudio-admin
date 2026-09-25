@@ -33,6 +33,12 @@
 		"title": "Suppliers",
 		"empty": "No suppliers found",
 		"search": "Search by name or code",
+		"statusFilter": {
+			"label": "Status",
+			"all": "All",
+			"active": "Active",
+			"inactive": "Inactive"
+		},
 		"addSupplier": "Add supplier",
 		"editSupplier": "Edit supplier",
 		"deleteSupplier": "Delete supplier",

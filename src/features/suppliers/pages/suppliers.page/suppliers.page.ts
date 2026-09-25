@@ -27,6 +27,8 @@ import {
 	MatLabel,
 	MatSuffix,
 } from '@angular/material/input';
+import { MatSelect } from '@angular/material/select';
+import { MatOption } from '@angular/material/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { NotificationService } from '@core/services';
 import { PageTitle } from '@shared/ui/layout';
@@ -37,7 +39,10 @@ import {
 	map,
 	Subject,
 } from 'rxjs';
-import { Supplier } from '@features/suppliers/models/supplier.models';
+import {
+	Supplier,
+	SupplierStatusFilter,
+} from '@features/suppliers/models/supplier.models';
 import { SuppliersService } from '@features/suppliers/services/suppliers.service';
 import { MatIcon } from '@angular/material/icon';
 import {
@@ -63,6 +68,8 @@ import {
 		MatInput,
 		MatLabel,
 		MatSuffix,
+		MatSelect,
+		MatOption,
 	],
 	templateUrl: './suppliers.page.html',
 	styleUrl: './suppliers.page.scss',
@@ -86,6 +93,11 @@ export class SuppliersPage implements OnInit {
 	] as const;
 
 	readonly pageSize = 10;
+	readonly statusFilterOptions = [
+		'all',
+		'active',
+		'inactive',
+	] as const satisfies readonly SupplierStatusFilter[];
 
 	readonly isCompact = toSignal(
 		this.breakpointObserver
@@ -107,6 +119,7 @@ export class SuppliersPage implements OnInit {
 	pageIndex = signal(0);
 	searchInput = signal('');
 	search = signal('');
+	statusFilter = signal<SupplierStatusFilter>('all');
 
 	private readonly searchChanges = new Subject<string>();
 
@@ -141,15 +154,23 @@ export class SuppliersPage implements OnInit {
 		this.searchChanges.next('');
 	}
 
+	onStatusFilterChange(value: SupplierStatusFilter) {
+		this.statusFilter.set(value);
+		this.pageIndex.set(0);
+		void this.loadSuppliers();
+	}
+
 	async loadSuppliers() {
 		this.loading.set(true);
 
 		try {
+			const status = this.statusFilter();
 			const response = await firstValueFrom(
 				this.suppliersService.getSuppliers({
 					page: this.pageIndex() + 1,
 					pageSize: this.pageSize,
 					search: this.search() || undefined,
+					isActive: status === 'all' ? undefined : status === 'active',
 				})
 			);
 			this.suppliers.set(response.suppliers ?? []);

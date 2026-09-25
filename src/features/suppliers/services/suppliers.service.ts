@@ -28,6 +28,9 @@ export class SuppliersService {
 		if (params.search) {
 			httpParams = httpParams.set('search', params.search);
 		}
+		if (params.isActive != null) {
+			httpParams = httpParams.set('isActive', params.isActive);
+		}
 
 		return this.http.get<ListSuppliersResponse>(
 			`${this.catalogApiUrl}/suppliers`,

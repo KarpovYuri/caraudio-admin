@@ -45,6 +45,26 @@
 				<mat-icon matSuffix>search</mat-icon>
 			}
 		</mat-form-field>
+
+		<mat-form-field
+			class="suppliers-page__status-filter"
+			appearance="outline"
+			subscriptSizing="dynamic"
+		>
+			<mat-label>{{
+				'suppliersPage.statusFilter.label' | translate
+			}}</mat-label>
+			<mat-select
+				[ngModel]="statusFilter()"
+				(ngModelChange)="onStatusFilterChange($event)"
+			>
+				@for (option of statusFilterOptions; track option) {
+					<mat-option [value]="option">
+						{{ 'suppliersPage.statusFilter.' + option | translate }}
+					</mat-option>
+				}
+			</mat-select>
+		</mat-form-field>
 	</div>
 
 	@if (loading()) {
