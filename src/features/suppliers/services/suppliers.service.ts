@@ -25,6 +25,9 @@ export class SuppliersService {
 		if (params.pageSize != null) {
 			httpParams = httpParams.set('pageSize', params.pageSize);
 		}
+		if (params.search) {
+			httpParams = httpParams.set('search', params.search);
+		}
 
 		return this.http.get<ListSuppliersResponse>(
 			`${this.catalogApiUrl}/suppliers`,

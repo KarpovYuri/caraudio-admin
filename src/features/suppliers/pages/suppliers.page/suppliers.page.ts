@@ -1,6 +1,14 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
+import {
+	Component,
+	computed,
+	DestroyRef,
+	inject,
+	OnInit,
+	signal,
+} from '@angular/core';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatDialog } from '@angular/material/dialog';
@@ -8,14 +16,30 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
 import { MatChipsModule } from '@angular/material/chips';
+import {
+	MatButton,
+	MatIconButton,
+	MatMiniFabButton,
+} from '@angular/material/button';
+import {
+	MatFormField,
+	MatInput,
+	MatLabel,
+	MatSuffix,
+} from '@angular/material/input';
 import { TranslatePipe } from '@ngx-translate/core';
 import { NotificationService } from '@core/services';
 import { PageTitle } from '@shared/ui/layout';
-import { firstValueFrom, map } from 'rxjs';
+import {
+	debounceTime,
+	distinctUntilChanged,
+	firstValueFrom,
+	map,
+	Subject,
+} from 'rxjs';
 import { Supplier } from '@features/suppliers/models/supplier.models';
 import { SuppliersService } from '@features/suppliers/services/suppliers.service';
 import { MatIcon } from '@angular/material/icon';
-import { MatButton, MatMiniFabButton } from '@angular/material/button';
 import {
 	DeleteSupplierDialog,
 	SupplierFormDialog,
@@ -24,6 +48,7 @@ import {
 @Component({
 	selector: 'app-suppliers-page',
 	imports: [
+		FormsModule,
 		MatProgressSpinner,
 		MatPaginator,
 		PageTitle,
@@ -31,8 +56,13 @@ import {
 		MatIcon,
 		MatButton,
 		MatMiniFabButton,
+		MatIconButton,
 		MatTableModule,
 		MatChipsModule,
+		MatFormField,
+		MatInput,
+		MatLabel,
+		MatSuffix,
 	],
 	templateUrl: './suppliers.page.html',
 	styleUrl: './suppliers.page.scss',
@@ -44,6 +74,7 @@ export class SuppliersPage implements OnInit {
 	private dialog = inject(MatDialog);
 	private breakpointObserver = inject(BreakpointObserver);
 	private notify = inject(NotificationService);
+	private destroyRef = inject(DestroyRef);
 
 	readonly displayedColumns = [
 		'logo',
@@ -74,11 +105,40 @@ export class SuppliersPage implements OnInit {
 	suppliers = signal<Supplier[]>([]);
 	total = signal(0);
 	pageIndex = signal(0);
+	searchInput = signal('');
+	search = signal('');
+
+	private readonly searchChanges = new Subject<string>();
 
 	readonly hasMultiplePages = computed(() => this.total() > this.pageSize);
 
 	async ngOnInit() {
+		this.searchChanges
+			.pipe(
+				debounceTime(300),
+				distinctUntilChanged(),
+				takeUntilDestroyed(this.destroyRef)
+			)
+			.subscribe((value) => {
+				this.search.set(value.trim());
+				this.pageIndex.set(0);
+				void this.loadSuppliers();
+			});
+
 		await this.loadSuppliers();
+	}
+
+	onSearchInput(value: string) {
+		this.searchInput.set(value);
+		this.searchChanges.next(value);
+	}
+
+	clearSearch() {
+		if (!this.searchInput()) {
+			return;
+		}
+		this.searchInput.set('');
+		this.searchChanges.next('');
 	}
 
 	async loadSuppliers() {
@@ -89,6 +149,7 @@ export class SuppliersPage implements OnInit {
 				this.suppliersService.getSuppliers({
 					page: this.pageIndex() + 1,
 					pageSize: this.pageSize,
+					search: this.search() || undefined,
 				})
 			);
 			this.suppliers.set(response.suppliers ?? []);

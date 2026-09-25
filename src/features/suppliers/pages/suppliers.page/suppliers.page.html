@@ -24,6 +24,29 @@
 		}
 	</div>
 
+	<div class="suppliers-page__toolbar">
+		<mat-form-field
+			class="suppliers-page__search"
+			appearance="outline"
+			subscriptSizing="dynamic"
+		>
+			<mat-label>{{ 'suppliersPage.search' | translate }}</mat-label>
+			<input
+				matInput
+				type="search"
+				[ngModel]="searchInput()"
+				(ngModelChange)="onSearchInput($event)"
+			/>
+			@if (searchInput()) {
+				<button matIconButton matSuffix type="button" (click)="clearSearch()">
+					<mat-icon>close</mat-icon>
+				</button>
+			} @else {
+				<mat-icon matSuffix>search</mat-icon>
+			}
+		</mat-form-field>
+	</div>
+
 	@if (loading()) {
 		<div class="suppliers-page__loader">
 			<mat-spinner diameter="50" />

@@ -12,6 +12,7 @@ export interface Supplier {
 export interface ListSuppliersParams {
 	page?: number;
 	pageSize?: number;
+	search?: string;
 }
 
 export interface ListSuppliersResponse {

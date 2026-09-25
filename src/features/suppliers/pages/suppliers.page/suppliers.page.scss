@@ -14,6 +14,14 @@
 		margin-bottom: 16px;
 	}
 
+	&__toolbar {
+		margin-bottom: 16px;
+	}
+
+	&__search {
+		width: min(100%, 360px);
+	}
+
 	&__loader {
 		align-items: center;
 		display: flex;

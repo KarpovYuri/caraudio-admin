@@ -32,6 +32,7 @@
 	"suppliersPage": {
 		"title": "Suppliers",
 		"empty": "No suppliers found",
+		"search": "Search by name or code",
 		"addSupplier": "Add supplier",
 		"editSupplier": "Edit supplier",
 		"deleteSupplier": "Delete supplier",
