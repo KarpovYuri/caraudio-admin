@@ -47,6 +47,18 @@ export interface SupplierFormDialogData {
 	supplier?: Supplier;
 }
 
+function isValidHttpUrl(value: string): boolean {
+	try {
+		const parsed = new URL(value);
+		return (
+			(parsed.protocol === 'http:' || parsed.protocol === 'https:') &&
+			!!parsed.hostname
+		);
+	} catch {
+		return false;
+	}
+}
+
 @Component({
 	selector: 'app-supplier-form-dialog',
 	host: { class: 'supplier-form-dialog' },
@@ -93,14 +105,44 @@ export class SupplierFormDialog {
 	logoError = signal<string | null>(null);
 	logoDragging = signal(false);
 	submitting = signal(false);
+	nameTouched = signal(false);
+	apiUrlTouched = signal(false);
+	submitted = signal(false);
 
 	readonly acceptedLogoTypes = ACCEPTED_LOGO_EXTENSIONS.join(',');
 	readonly displayLogo = computed(
 		() => this.logoPreviewUrl() || this.existingLogo() || null
 	);
 
-	nameValid = computed(() => this.name().trim().length > 0);
-	formValid = computed(() => this.nameValid() && !this.submitting());
+	readonly nameErrorKey = computed(() => {
+		if (!this.name().trim()) {
+			return 'suppliersPage.supplierFormDialog.nameRequired';
+		}
+		return null;
+	});
+
+	readonly apiUrlErrorKey = computed(() => {
+		const value = this.apiUrl().trim();
+		if (!value) {
+			return 'suppliersPage.supplierFormDialog.apiUrlRequired';
+		}
+		if (!isValidHttpUrl(value)) {
+			return 'suppliersPage.supplierFormDialog.apiUrlInvalid';
+		}
+		return null;
+	});
+
+	readonly showNameError = computed(
+		() => !!this.nameErrorKey() && (this.nameTouched() || this.submitted())
+	);
+
+	readonly showApiUrlError = computed(
+		() => !!this.apiUrlErrorKey() && (this.apiUrlTouched() || this.submitted())
+	);
+
+	readonly formValid = computed(
+		() => !this.nameErrorKey() && !this.apiUrlErrorKey() && !this.submitting()
+	);
 
 	private logoDragDepth = 0;
 	private readonly logoInput =
@@ -173,6 +215,10 @@ export class SupplierFormDialog {
 	}
 
 	async submit() {
+		this.submitted.set(true);
+		this.nameTouched.set(true);
+		this.apiUrlTouched.set(true);
+
 		if (!this.formValid()) {
 			return;
 		}
@@ -183,7 +229,7 @@ export class SupplierFormDialog {
 		const payload = {
 			name: this.name().trim(),
 			code: this.code().trim() || undefined,
-			apiUrl: this.apiUrl().trim() || undefined,
+			apiUrl: this.apiUrl().trim(),
 			isActive: this.isActive(),
 			logo: this.existingLogo(),
 		};
