@@ -43,6 +43,7 @@ export class MainMenu {
 	menuItems: MenuItem[] = [
 		{ name: 'mainMenu.catalog', route: '/catalog' },
 		{ name: 'mainMenu.suppliers', route: '/suppliers' },
+		{ name: 'mainMenu.users', route: '/users' },
 		{ name: 'mainMenu.parser', route: '/parser' },
 		{ name: 'mainMenu.settings', route: '/settings' },
 	];

@@ -12,6 +12,7 @@
 	},
 	"mainMenu": {
 		"suppliers": "Поставщики",
+		"users": "Пользователи",
 		"parser": "Парсер",
 		"catalog": "Каталог",
 		"settings": "Настройки"
@@ -80,6 +81,45 @@
 		"deleteSupplierDialog": {
 			"title": "Удаление поставщика",
 			"message": "Вы точно хотите удалить поставщика «{{name}}»?"
+		}
+	},
+	"usersPage": {
+		"title": "Пользователи",
+		"empty": "Пользователи не найдены",
+		"search": "Поиск по логину",
+		"addUser": "Добавить пользователя",
+		"editUser": "Редактировать пользователя",
+		"deleteUser": "Удалить пользователя",
+		"columns": {
+			"login": "Логин",
+			"role": "Роль"
+		},
+		"roles": {
+			"admin": "Админ",
+			"user": "Пользователь"
+		},
+		"roleFilter": {
+			"label": "Роль",
+			"all": "Все",
+			"admin": "Админы",
+			"user": "Пользователи"
+		},
+		"userFormDialog": {
+			"createTitle": "Добавление пользователя",
+			"editTitle": "Редактирование пользователя",
+			"login": "Логин",
+			"password": "Пароль",
+			"role": "Роль",
+			"loginRequired": "Укажите логин",
+			"passwordRequired": "Укажите пароль",
+			"passwordTooShort": "Минимум 6 символов",
+			"submitError": "Не удалось сохранить пользователя",
+			"createSubmit": "Создать",
+			"editSubmit": "Сохранить"
+		},
+		"deleteUserDialog": {
+			"title": "Удаление пользователя",
+			"message": "Вы точно хотите удалить пользователя «{{login}}»?"
 		}
 	},
 	"authPage": {
