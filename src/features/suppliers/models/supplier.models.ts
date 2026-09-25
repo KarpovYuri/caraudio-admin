@@ -9,8 +9,16 @@ export interface Supplier {
 	updatedAt?: string;
 }
 
+export interface ListSuppliersParams {
+	page?: number;
+	pageSize?: number;
+}
+
 export interface ListSuppliersResponse {
 	suppliers: Supplier[];
+	total: number;
+	page: number;
+	pageSize: number;
 }
 
 export interface CreateSupplierRequest {

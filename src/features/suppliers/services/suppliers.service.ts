@@ -1,9 +1,10 @@
 import { inject, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '@environments/environment';
 import {
 	CreateSupplierRequest,
 	CreateSupplierResponse,
+	ListSuppliersParams,
 	ListSuppliersResponse,
 	UpdateSupplierRequest,
 	UpdateSupplierResponse,
@@ -15,9 +16,19 @@ export class SuppliersService {
 	private http = inject(HttpClient);
 	private catalogApiUrl = environment.catalogApiUrl;
 
-	getSuppliers() {
+	getSuppliers(params: ListSuppliersParams = {}) {
+		let httpParams = new HttpParams();
+
+		if (params.page != null) {
+			httpParams = httpParams.set('page', params.page);
+		}
+		if (params.pageSize != null) {
+			httpParams = httpParams.set('pageSize', params.pageSize);
+		}
+
 		return this.http.get<ListSuppliersResponse>(
-			`${this.catalogApiUrl}/suppliers`
+			`${this.catalogApiUrl}/suppliers`,
+			{ params: httpParams }
 		);
 	}
 

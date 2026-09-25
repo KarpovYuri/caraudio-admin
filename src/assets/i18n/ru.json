@@ -20,6 +20,15 @@
 		"ru": "Русский",
 		"en": "Английский"
 	},
+	"paginator": {
+		"itemsPerPage": "На странице:",
+		"nextPage": "Следующая страница",
+		"previousPage": "Предыдущая страница",
+		"firstPage": "Первая страница",
+		"lastPage": "Последняя страница",
+		"range": "{{start}} – {{end}} из {{length}}",
+		"rangeEmpty": "0 из {{length}}"
+	},
 	"suppliersPage": {
 		"title": "Поставщики",
 		"empty": "Поставщики не найдены",

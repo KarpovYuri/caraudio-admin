@@ -1,9 +1,10 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
 import { MatChipsModule } from '@angular/material/chips';
@@ -24,6 +25,7 @@ import {
 	selector: 'app-suppliers-page',
 	imports: [
 		MatProgressSpinner,
+		MatPaginator,
 		PageTitle,
 		TranslatePipe,
 		MatIcon,
@@ -52,6 +54,8 @@ export class SuppliersPage implements OnInit {
 		'actions',
 	] as const;
 
+	readonly pageSize = 10;
+
 	readonly isCompact = toSignal(
 		this.breakpointObserver
 			.observe('(width <= 768px)')
@@ -68,6 +72,10 @@ export class SuppliersPage implements OnInit {
 
 	loading = signal(true);
 	suppliers = signal<Supplier[]>([]);
+	total = signal(0);
+	pageIndex = signal(0);
+
+	readonly hasMultiplePages = computed(() => this.total() > this.pageSize);
 
 	async ngOnInit() {
 		await this.loadSuppliers();
@@ -78,9 +86,13 @@ export class SuppliersPage implements OnInit {
 
 		try {
 			const response = await firstValueFrom(
-				this.suppliersService.getSuppliers()
+				this.suppliersService.getSuppliers({
+					page: this.pageIndex() + 1,
+					pageSize: this.pageSize,
+				})
 			);
 			this.suppliers.set(response.suppliers ?? []);
+			this.total.set(response.total ?? 0);
 		} catch (error) {
 			if (error instanceof HttpErrorResponse && error.status === 401) {
 				await this.router.navigate(['/']);
@@ -88,9 +100,15 @@ export class SuppliersPage implements OnInit {
 			}
 
 			this.suppliers.set([]);
+			this.total.set(0);
 		} finally {
 			this.loading.set(false);
 		}
+	}
+
+	async onPageChange(event: PageEvent) {
+		this.pageIndex.set(event.pageIndex);
+		await this.loadSuppliers();
 	}
 
 	async addSupplier() {
@@ -99,7 +117,8 @@ export class SuppliersPage implements OnInit {
 		);
 
 		if (supplier) {
-			this.suppliers.update((list) => [...list, supplier]);
+			this.pageIndex.set(0);
+			await this.loadSuppliers();
 		}
 	}
 
@@ -115,9 +134,7 @@ export class SuppliersPage implements OnInit {
 		);
 
 		if (updated) {
-			this.suppliers.update((list) =>
-				list.map((item) => (item.id === updated.id ? updated : item))
-			);
+			await this.loadSuppliers();
 		}
 	}
 
@@ -134,9 +151,11 @@ export class SuppliersPage implements OnInit {
 		);
 
 		if (deleted) {
-			this.suppliers.update((list) =>
-				list.filter((item) => item.id !== supplier.id)
-			);
+			const remainingOnPage = this.suppliers().length - 1;
+			if (remainingOnPage === 0 && this.pageIndex() > 0) {
+				this.pageIndex.update((page) => page - 1);
+			}
+			await this.loadSuppliers();
 		}
 	}
 
