@@ -3,6 +3,7 @@ import { CatalogPage } from '@features/catalog/pages';
 import { ParserPage } from '@features/parser/pages';
 import { SettingsPage } from '@features/settings/pages';
 import { SuppliersPage } from '@features/suppliers/pages';
+import { UsersPage } from '@features/users/pages';
 import { AuthPage } from '@features/auth/pages';
 import { authGuard, loginRedirectGuard } from '@core/guards';
 
@@ -20,6 +21,7 @@ export const routes: Routes = [
 		children: [
 			{ path: 'catalog', component: CatalogPage, title: 'Catalog' },
 			{ path: 'suppliers', component: SuppliersPage, title: 'Suppliers' },
+			{ path: 'users', component: UsersPage, title: 'Users' },
 			{ path: 'parser', component: ParserPage, title: 'Parser' },
 			{ path: 'settings', component: SettingsPage, title: 'Settings' },
 		],

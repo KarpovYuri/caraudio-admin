@@ -1,0 +1,174 @@
+<section class="users-page">
+	<div class="users-page__header">
+		<app-page-title titleKey="usersPage.title" />
+		@if (isNarrow()) {
+			<button
+				mat-mini-fab
+				color="primary"
+				type="button"
+				[attr.aria-label]="'usersPage.addUser' | translate"
+				(click)="addUser()"
+			>
+				<mat-icon>add</mat-icon>
+			</button>
+		} @else {
+			<button mat-flat-button color="primary" type="button" (click)="addUser()">
+				<mat-icon>add</mat-icon>
+				{{ 'usersPage.addUser' | translate }}
+			</button>
+		}
+	</div>
+
+	<div class="users-page__toolbar">
+		<mat-form-field
+			class="users-page__search"
+			appearance="outline"
+			subscriptSizing="dynamic"
+		>
+			<mat-label>{{ 'usersPage.search' | translate }}</mat-label>
+			<input
+				matInput
+				type="search"
+				[ngModel]="searchInput()"
+				(ngModelChange)="onSearchInput($event)"
+			/>
+			@if (searchInput()) {
+				<button matIconButton matSuffix type="button" (click)="clearSearch()">
+					<mat-icon>close</mat-icon>
+				</button>
+			} @else {
+				<mat-icon matSuffix>search</mat-icon>
+			}
+		</mat-form-field>
+
+		<mat-form-field
+			class="users-page__role-filter"
+			appearance="outline"
+			subscriptSizing="dynamic"
+		>
+			<mat-label>{{ 'usersPage.roleFilter.label' | translate }}</mat-label>
+			<mat-select
+				[ngModel]="roleFilter()"
+				(ngModelChange)="onRoleFilterChange($event)"
+			>
+				@for (option of roleFilterOptions; track option) {
+					<mat-option [value]="option">
+						{{ 'usersPage.roleFilter.' + option | translate }}
+					</mat-option>
+				}
+			</mat-select>
+		</mat-form-field>
+	</div>
+
+	@if (loading()) {
+		<div class="users-page__loader">
+			<mat-spinner diameter="50" />
+		</div>
+	} @else if (total() === 0) {
+		<div class="users-page__empty">
+			<mat-icon class="users-page__empty-icon">search_off</mat-icon>
+			<p>{{ 'usersPage.empty' | translate }}</p>
+		</div>
+	} @else {
+		@if (isCompact()) {
+			<div class="users-page__cards">
+				@for (user of users(); track user.id) {
+					<article class="users-page__card">
+						<div class="users-page__card-header">
+							<div class="users-page__card-heading">
+								<h3 class="users-page__card-title">{{ user.login }}</h3>
+								<mat-chip-set>
+									<mat-chip [highlighted]="user.role === 'admin'">
+										{{ 'usersPage.roles.' + user.role | translate }}
+									</mat-chip>
+								</mat-chip-set>
+							</div>
+
+							<div class="users-page__actions">
+								<button
+									type="button"
+									class="users-page__action-btn"
+									[attr.aria-label]="'usersPage.editUser' | translate"
+									(click)="editUser(user, $event)"
+								>
+									<mat-icon>edit</mat-icon>
+								</button>
+								<button
+									type="button"
+									class="users-page__action-btn users-page__action-btn--danger"
+									[attr.aria-label]="'usersPage.deleteUser' | translate"
+									(click)="deleteUser(user, $event)"
+								>
+									<mat-icon>delete</mat-icon>
+								</button>
+							</div>
+						</div>
+					</article>
+				}
+			</div>
+		} @else {
+			<div class="users-page__table-wrap">
+				<table mat-table [dataSource]="users()" class="users-page__table">
+					<ng-container matColumnDef="login">
+						<th mat-header-cell *matHeaderCellDef>
+							{{ 'usersPage.columns.login' | translate }}
+						</th>
+						<td mat-cell *matCellDef="let user">{{ user.login }}</td>
+					</ng-container>
+
+					<ng-container matColumnDef="role">
+						<th mat-header-cell *matHeaderCellDef>
+							{{ 'usersPage.columns.role' | translate }}
+						</th>
+						<td mat-cell *matCellDef="let user">
+							<mat-chip-set>
+								<mat-chip [highlighted]="user.role === 'admin'">
+									{{ 'usersPage.roles.' + user.role | translate }}
+								</mat-chip>
+							</mat-chip-set>
+						</td>
+					</ng-container>
+
+					<ng-container matColumnDef="actions">
+						<th mat-header-cell *matHeaderCellDef></th>
+						<td mat-cell *matCellDef="let user">
+							<div class="users-page__actions">
+								<button
+									type="button"
+									class="users-page__action-btn"
+									[attr.aria-label]="'usersPage.editUser' | translate"
+									(click)="editUser(user, $event)"
+								>
+									<mat-icon>edit</mat-icon>
+								</button>
+								<button
+									type="button"
+									class="users-page__action-btn users-page__action-btn--danger"
+									[attr.aria-label]="'usersPage.deleteUser' | translate"
+									(click)="deleteUser(user, $event)"
+								>
+									<mat-icon>delete</mat-icon>
+								</button>
+							</div>
+						</td>
+					</ng-container>
+
+					<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+					<tr mat-row *matRowDef="let _; columns: displayedColumns"></tr>
+				</table>
+			</div>
+		}
+
+		@if (hasMultiplePages()) {
+			<mat-paginator
+				class="users-page__paginator"
+				[length]="total()"
+				[pageIndex]="pageIndex()"
+				[pageSize]="pageSize"
+				[hidePageSize]="true"
+				[showFirstLastButtons]="true"
+				(page)="onPageChange($event)"
+			/>
+		}
+	}
+</section>

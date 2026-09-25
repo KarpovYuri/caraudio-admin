@@ -12,6 +12,7 @@
 	},
 	"mainMenu": {
 		"suppliers": "Suppliers",
+		"users": "Users",
 		"parser": "Parser",
 		"catalog": "Catalog",
 		"settings": "Settings"
@@ -80,6 +81,45 @@
 		"deleteSupplierDialog": {
 			"title": "Delete supplier",
 			"message": "Are you sure you want to delete supplier \"{{name}}\"?"
+		}
+	},
+	"usersPage": {
+		"title": "Users",
+		"empty": "No users found",
+		"search": "Search by login",
+		"addUser": "Add user",
+		"editUser": "Edit user",
+		"deleteUser": "Delete user",
+		"columns": {
+			"login": "Login",
+			"role": "Role"
+		},
+		"roles": {
+			"admin": "Admin",
+			"user": "User"
+		},
+		"roleFilter": {
+			"label": "Role",
+			"all": "All",
+			"admin": "Admins",
+			"user": "Users"
+		},
+		"userFormDialog": {
+			"createTitle": "Add user",
+			"editTitle": "Edit user",
+			"login": "Login",
+			"password": "Password",
+			"role": "Role",
+			"loginRequired": "Login is required",
+			"passwordRequired": "Password is required",
+			"passwordTooShort": "At least 6 characters",
+			"submitError": "Failed to save user",
+			"createSubmit": "Create",
+			"editSubmit": "Save"
+		},
+		"deleteUserDialog": {
+			"title": "Delete user",
+			"message": "Are you sure you want to delete user \"{{login}}\"?"
 		}
 	},
 	"authPage": {

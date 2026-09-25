@@ -1,0 +1,42 @@
+<div class="delete-user-dialog__header" mat-dialog-title>
+	<h2 class="delete-user-dialog__title">
+		{{ 'usersPage.deleteUserDialog.title' | translate }}
+	</h2>
+	<button
+		mat-icon-button
+		type="button"
+		mat-dialog-close
+		[disabled]="submitting()"
+		[attr.aria-label]="'common.close' | translate"
+	>
+		<mat-icon>close</mat-icon>
+	</button>
+</div>
+
+<mat-dialog-content>
+	<p class="delete-user-dialog__message">
+		{{
+			'usersPage.deleteUserDialog.message'
+				| translate: { login: data.user.login }
+		}}
+	</p>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+	<button mat-stroked-button mat-dialog-close [disabled]="submitting()">
+		{{ 'common.cancel' | translate }}
+	</button>
+	<button
+		mat-flat-button
+		type="button"
+		class="delete-user-dialog__confirm"
+		[disabled]="submitting()"
+		(click)="confirm()"
+	>
+		@if (submitting()) {
+			<mat-spinner diameter="20" />
+		} @else {
+			{{ 'common.delete' | translate }}
+		}
+	</button>
+</mat-dialog-actions>
