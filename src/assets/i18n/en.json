@@ -4,8 +4,7 @@
 		"ok": "OK",
 		"cancel": "Cancel",
 		"save": "Save",
-		"delete": "Delete",
-		"menu": "Menu"
+		"delete": "Delete"
 	},
 	"errors": {
 		"unauthorized": "Authorization error"

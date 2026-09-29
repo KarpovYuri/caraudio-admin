@@ -1,8 +1,14 @@
 .main-menu {
-	align-items: center;
 	display: flex;
+	align-items: center;
 
-	&__item--active {
-		color: var(--mat-sys-primary);
+	&__item_active {
+		--mat-menu-item-label-text-color: var(--mat-sys-primary);
+	}
+
+	.main-menu {
+		&__item_active {
+			--mat-button-text-label-text-color: var(--mat-sys-primary);
+		}
 	}
 }
