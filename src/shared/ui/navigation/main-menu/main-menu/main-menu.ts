@@ -5,7 +5,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { map } from 'rxjs';
 
 export interface MenuItem {
@@ -24,13 +24,13 @@ export interface MenuItem {
 		MatMenuItem,
 		MatMenuTrigger,
 		RouterLink,
+		RouterLinkActive,
 	],
 	templateUrl: './main-menu.html',
 	styleUrl: './main-menu.scss',
 	standalone: true,
 })
 export class MainMenu {
-	private router = inject(Router);
 	private breakpointObserver = inject(BreakpointObserver);
 
 	readonly isCompact = toSignal(
@@ -40,20 +40,11 @@ export class MainMenu {
 		{ initialValue: false }
 	);
 
-	menuItems: MenuItem[] = [
+	readonly menuItems: MenuItem[] = [
 		{ name: 'mainMenu.catalog', route: '/catalog' },
 		{ name: 'mainMenu.suppliers', route: '/suppliers' },
 		{ name: 'mainMenu.users', route: '/users' },
 		{ name: 'mainMenu.parser', route: '/parser' },
 		{ name: 'mainMenu.settings', route: '/settings' },
 	];
-
-	isActive(route: string): boolean {
-		return this.router.isActive(route, {
-			paths: 'subset',
-			queryParams: 'ignored',
-			matrixParams: 'ignored',
-			fragment: 'ignored',
-		});
-	}
 }

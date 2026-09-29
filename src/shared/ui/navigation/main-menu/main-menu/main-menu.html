@@ -1,34 +1,31 @@
-@if (isCompact()) {
-	<button
-		mat-icon-button
-		type="button"
-		[matMenuTriggerFor]="navMenu"
-		[attr.aria-label]="'common.menu' | translate"
-	>
-		<mat-icon>menu</mat-icon>
-	</button>
+<nav class="main-menu gap-2">
+	@if (isCompact()) {
+		<button mat-icon-button type="button" [matMenuTriggerFor]="navMenu">
+			<mat-icon>menu</mat-icon>
+		</button>
 
-	<mat-menu #navMenu="matMenu">
-		@for (menu of menuItems; track menu.name) {
-			<button
-				mat-menu-item
-				[routerLink]="menu.route"
-				[class.main-menu__item--active]="isActive(menu.route)"
-			>
-				{{ menu.name | translate }}
-			</button>
-		}
-	</mat-menu>
-} @else {
-	<nav class="main-menu gap-2">
-		@for (menu of menuItems; track menu.name) {
+		<mat-menu #navMenu="matMenu">
+			@for (menu of menuItems; track menu.route) {
+				<button
+					mat-menu-item
+					class="main-menu__item"
+					[routerLink]="menu.route"
+					[routerLinkActive]="'main-menu__item_active'"
+				>
+					{{ menu.name | translate }}
+				</button>
+			}
+		</mat-menu>
+	} @else {
+		@for (menu of menuItems; track menu.route) {
 			<button
 				mat-button
+				class="main-menu__item"
 				[routerLink]="menu.route"
-				[color]="isActive(menu.route) ? 'primary' : undefined"
+				[routerLinkActive]="'main-menu__item_active'"
 			>
 				{{ menu.name | translate }}
 			</button>
 		}
-	</nav>
-}
+	}
+</nav>
