@@ -1,23 +1,9 @@
-<section class="users-page">
-	<div class="users-page__header">
-		<app-page-title titleKey="usersPage.title" />
-		@if (isNarrow()) {
-			<button
-				mat-mini-fab
-				color="primary"
-				type="button"
-				[attr.aria-label]="'usersPage.addUser' | translate"
-				(click)="addUser()"
-			>
-				<mat-icon>add</mat-icon>
-			</button>
-		} @else {
-			<button mat-flat-button color="primary" type="button" (click)="addUser()">
-				<mat-icon>add</mat-icon>
-				{{ 'usersPage.addUser' | translate }}
-			</button>
-		}
-	</div>
+<section class="users-page gap-6">
+	<app-page-header
+		titleKey="usersPage.title"
+		actionLabelKey="usersPage.addUser"
+		(actionClick)="addUser()"
+	/>
 
 	<div class="users-page__toolbar">
 		<mat-form-field

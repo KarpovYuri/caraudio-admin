@@ -1,28 +1,9 @@
-<section class="suppliers-page">
-	<div class="suppliers-page__header">
-		<app-page-title titleKey="suppliersPage.title" />
-		@if (isNarrow()) {
-			<button
-				mat-mini-fab
-				color="primary"
-				type="button"
-				[attr.aria-label]="'suppliersPage.addSupplier' | translate"
-				(click)="addSupplier()"
-			>
-				<mat-icon>add</mat-icon>
-			</button>
-		} @else {
-			<button
-				mat-flat-button
-				color="primary"
-				type="button"
-				(click)="addSupplier()"
-			>
-				<mat-icon>add</mat-icon>
-				{{ 'suppliersPage.addSupplier' | translate }}
-			</button>
-		}
-	</div>
+<section class="suppliers-page gap-6">
+	<app-page-header
+		titleKey="suppliersPage.title"
+		actionLabelKey="suppliersPage.addSupplier"
+		(actionClick)="addSupplier()"
+	/>
 
 	<div class="suppliers-page__toolbar">
 		<mat-form-field

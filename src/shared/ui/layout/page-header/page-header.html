@@ -1,0 +1,16 @@
+<div class="page-header gap-4">
+	<app-page-title [titleKey]="titleKey()" />
+
+	@if (actionLabelKey(); as labelKey) {
+		<button
+			mat-flat-button
+			color="primary"
+			type="button"
+			class="page-header__action"
+			(click)="actionClick.emit()"
+		>
+			<mat-icon>{{ actionIcon() }}</mat-icon>
+			<span class="page-header__action-label">{{ labelKey | translate }}</span>
+		</button>
+	}
+</div>

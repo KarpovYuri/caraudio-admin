@@ -1,0 +1,33 @@
+.page-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	&__action mat-icon {
+		font-size: 20px;
+		width: 20px;
+		height: 20px;
+	}
+}
+
+@media (width <= 576px) {
+	.page-header {
+		&__action {
+			--mat-button-filled-container-shape: 50%;
+
+			min-width: 40px;
+			padding: 0;
+		}
+
+		&__action-label {
+			display: none;
+		}
+
+		& mat-icon {
+			margin: 0;
+			font-size: 24px;
+			width: 24px;
+			height: 24px;
+		}
+	}
+}
