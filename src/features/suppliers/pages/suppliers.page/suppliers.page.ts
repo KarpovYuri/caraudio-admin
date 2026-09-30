@@ -16,11 +16,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
 import { MatChipsModule } from '@angular/material/chips';
-import {
-	MatButton,
-	MatIconButton,
-	MatMiniFabButton,
-} from '@angular/material/button';
+import { MatIconButton } from '@angular/material/button';
 import {
 	MatFormField,
 	MatInput,
@@ -31,7 +27,6 @@ import { MatSelect } from '@angular/material/select';
 import { MatOption } from '@angular/material/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { NotificationService } from '@core/services';
-import { PageTitle } from '@shared/ui/layout';
 import {
 	debounceTime,
 	distinctUntilChanged,
@@ -49,6 +44,7 @@ import {
 	DeleteSupplierDialog,
 	SupplierFormDialog,
 } from '@features/suppliers/components';
+import { PageHeader } from '@shared/ui/layout/page-header/page-header';
 
 @Component({
 	selector: 'app-suppliers-page',
@@ -56,11 +52,8 @@ import {
 		FormsModule,
 		MatProgressSpinner,
 		MatPaginator,
-		PageTitle,
 		TranslatePipe,
 		MatIcon,
-		MatButton,
-		MatMiniFabButton,
 		MatIconButton,
 		MatTableModule,
 		MatChipsModule,
@@ -70,6 +63,7 @@ import {
 		MatSuffix,
 		MatSelect,
 		MatOption,
+		PageHeader,
 	],
 	templateUrl: './suppliers.page.html',
 	styleUrl: './suppliers.page.scss',
@@ -102,13 +96,6 @@ export class SuppliersPage implements OnInit {
 	readonly isCompact = toSignal(
 		this.breakpointObserver
 			.observe('(width <= 768px)')
-			.pipe(map((state) => state.matches)),
-		{ initialValue: false }
-	);
-
-	readonly isNarrow = toSignal(
-		this.breakpointObserver
-			.observe('(width <= 576px)')
 			.pipe(map((state) => state.matches)),
 		{ initialValue: false }
 	);

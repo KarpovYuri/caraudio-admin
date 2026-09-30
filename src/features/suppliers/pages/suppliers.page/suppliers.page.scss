@@ -1,18 +1,7 @@
-:host {
-	display: contents;
-}
-
 .suppliers-page {
 	display: flex;
 	flex-direction: column;
 	width: 100%;
-
-	&__header {
-		align-items: center;
-		display: flex;
-		justify-content: space-between;
-		margin-bottom: 16px;
-	}
 
 	&__toolbar {
 		display: flex;

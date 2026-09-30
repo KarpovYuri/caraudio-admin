@@ -16,11 +16,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
 import { MatChipsModule } from '@angular/material/chips';
-import {
-	MatButton,
-	MatIconButton,
-	MatMiniFabButton,
-} from '@angular/material/button';
+import { MatIconButton } from '@angular/material/button';
 import {
 	MatFormField,
 	MatInput,
@@ -30,7 +26,6 @@ import {
 import { MatSelect } from '@angular/material/select';
 import { MatOption } from '@angular/material/core';
 import { TranslatePipe } from '@ngx-translate/core';
-import { PageTitle } from '@shared/ui/layout';
 import {
 	debounceTime,
 	distinctUntilChanged,
@@ -42,6 +37,7 @@ import { User, UserRoleFilter } from '@features/users/models/user.models';
 import { UsersService } from '@features/users/services/users.service';
 import { MatIcon } from '@angular/material/icon';
 import { DeleteUserDialog, UserFormDialog } from '@features/users/components';
+import { PageHeader } from '@shared/ui/layout/page-header/page-header';
 
 @Component({
 	selector: 'app-users-page',
@@ -49,11 +45,8 @@ import { DeleteUserDialog, UserFormDialog } from '@features/users/components';
 		FormsModule,
 		MatProgressSpinner,
 		MatPaginator,
-		PageTitle,
 		TranslatePipe,
 		MatIcon,
-		MatButton,
-		MatMiniFabButton,
 		MatIconButton,
 		MatTableModule,
 		MatChipsModule,
@@ -63,6 +56,7 @@ import { DeleteUserDialog, UserFormDialog } from '@features/users/components';
 		MatSuffix,
 		MatSelect,
 		MatOption,
+		PageHeader,
 	],
 	templateUrl: './users.page.html',
 	styleUrl: './users.page.scss',
@@ -86,13 +80,6 @@ export class UsersPage implements OnInit {
 	readonly isCompact = toSignal(
 		this.breakpointObserver
 			.observe('(width <= 768px)')
-			.pipe(map((state) => state.matches)),
-		{ initialValue: false }
-	);
-
-	readonly isNarrow = toSignal(
-		this.breakpointObserver
-			.observe('(width <= 576px)')
 			.pipe(map((state) => state.matches)),
 		{ initialValue: false }
 	);
