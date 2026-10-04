@@ -1,0 +1,45 @@
+<div class="list-filters gap-3">
+	<mat-form-field
+		class="list-filters__search"
+		appearance="outline"
+		subscriptSizing="dynamic"
+	>
+		<mat-label>{{ searchLabelKey() | translate }}</mat-label>
+		<mat-icon matPrefix>search</mat-icon>
+		<input
+			matInput
+			type="search"
+			[value]="search()"
+			(input)="onSearchInput($event)"
+		/>
+		@if (search()) {
+			<mat-icon
+				matSuffix
+				class="list-filters__clear"
+				role="button"
+				tabindex="0"
+				(click)="clearSearch()"
+				(keydown.enter)="clearSearch()"
+				(keydown.space)="clearSearch(); $event.preventDefault()"
+			>
+				close
+			</mat-icon>
+		}
+	</mat-form-field>
+
+	<mat-form-field
+		class="list-filters__filter"
+		appearance="outline"
+		subscriptSizing="dynamic"
+		[style.flex-basis]="filterBasis()"
+	>
+		<mat-label>{{ filterLabelKey() | translate }}</mat-label>
+		<mat-select [value]="filter()" (valueChange)="filter.set($event)">
+			@for (option of filterOptions(); track option) {
+				<mat-option [value]="option">
+					{{ filterOptionKeyPrefix() + option | translate }}
+				</mat-option>
+			}
+		</mat-select>
+	</mat-form-field>
+</div>

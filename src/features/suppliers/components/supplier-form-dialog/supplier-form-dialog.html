@@ -7,7 +7,6 @@
 		type="button"
 		mat-dialog-close
 		[disabled]="submitting()"
-		[attr.aria-label]="'common.close' | translate"
 	>
 		<mat-icon>close</mat-icon>
 	</button>
@@ -108,9 +107,6 @@
 				role="button"
 				tabindex="0"
 				[attr.aria-disabled]="submitting()"
-				[attr.aria-label]="
-					'suppliersPage.supplierFormDialog.logoChoose' | translate
-				"
 				(click)="openLogoPicker()"
 				(keydown.enter)="openLogoPicker()"
 				(keydown.space)="$event.preventDefault(); openLogoPicker()"
@@ -131,9 +127,6 @@
 							type="button"
 							class="supplier-form-dialog__logo-clear"
 							[disabled]="submitting()"
-							[attr.aria-label]="
-								'suppliersPage.supplierFormDialog.logoClear' | translate
-							"
 							(click)="clearLogo($event)"
 						>
 							<mat-icon>close</mat-icon>

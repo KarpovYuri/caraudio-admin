@@ -7,36 +7,16 @@ import {
 	OnInit,
 	signal,
 } from '@angular/core';
-import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
-import { FormsModule } from '@angular/forms';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
-import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import { MatTableModule } from '@angular/material/table';
-import { MatChipsModule } from '@angular/material/chips';
-import {
-	MatButton,
-	MatIconButton,
-	MatMiniFabButton,
-} from '@angular/material/button';
-import {
-	MatFormField,
-	MatInput,
-	MatLabel,
-	MatSuffix,
-} from '@angular/material/input';
-import { MatSelect } from '@angular/material/select';
-import { MatOption } from '@angular/material/core';
-import { TranslatePipe } from '@ngx-translate/core';
 import { NotificationService } from '@core/services';
-import { PageTitle } from '@shared/ui/layout';
 import {
 	debounceTime,
 	distinctUntilChanged,
 	firstValueFrom,
-	map,
 	Subject,
 } from 'rxjs';
 import {
@@ -44,32 +24,23 @@ import {
 	SupplierStatusFilter,
 } from '@features/suppliers/models/supplier.models';
 import { SuppliersService } from '@features/suppliers/services/suppliers.service';
-import { MatIcon } from '@angular/material/icon';
 import {
 	DeleteSupplierDialog,
 	SupplierFormDialog,
+	SuppliersList,
 } from '@features/suppliers/components';
+import { EmptyState, ListFilters } from '@shared/ui/layout';
+import { PageHeader } from '@shared/ui/layout/page-header/page-header';
 
 @Component({
 	selector: 'app-suppliers-page',
 	imports: [
-		FormsModule,
 		MatProgressSpinner,
 		MatPaginator,
-		PageTitle,
-		TranslatePipe,
-		MatIcon,
-		MatButton,
-		MatMiniFabButton,
-		MatIconButton,
-		MatTableModule,
-		MatChipsModule,
-		MatFormField,
-		MatInput,
-		MatLabel,
-		MatSuffix,
-		MatSelect,
-		MatOption,
+		PageHeader,
+		ListFilters,
+		EmptyState,
+		SuppliersList,
 	],
 	templateUrl: './suppliers.page.html',
 	styleUrl: './suppliers.page.scss',
@@ -79,18 +50,8 @@ export class SuppliersPage implements OnInit {
 	private suppliersService = inject(SuppliersService);
 	private router = inject(Router);
 	private dialog = inject(MatDialog);
-	private breakpointObserver = inject(BreakpointObserver);
 	private notify = inject(NotificationService);
 	private destroyRef = inject(DestroyRef);
-
-	readonly displayedColumns = [
-		'logo',
-		'name',
-		'code',
-		'api-url',
-		'is-active',
-		'actions',
-	] as const;
 
 	readonly pageSize = 10;
 	readonly statusFilterOptions = [
@@ -98,20 +59,6 @@ export class SuppliersPage implements OnInit {
 		'active',
 		'inactive',
 	] as const satisfies readonly SupplierStatusFilter[];
-
-	readonly isCompact = toSignal(
-		this.breakpointObserver
-			.observe('(width <= 768px)')
-			.pipe(map((state) => state.matches)),
-		{ initialValue: false }
-	);
-
-	readonly isNarrow = toSignal(
-		this.breakpointObserver
-			.observe('(width <= 576px)')
-			.pipe(map((state) => state.matches)),
-		{ initialValue: false }
-	);
 
 	loading = signal(true);
 	suppliers = signal<Supplier[]>([]);
@@ -144,14 +91,6 @@ export class SuppliersPage implements OnInit {
 	onSearchInput(value: string) {
 		this.searchInput.set(value);
 		this.searchChanges.next(value);
-	}
-
-	clearSearch() {
-		if (!this.searchInput()) {
-			return;
-		}
-		this.searchInput.set('');
-		this.searchChanges.next('');
 	}
 
 	onStatusFilterChange(value: SupplierStatusFilter) {
@@ -204,9 +143,7 @@ export class SuppliersPage implements OnInit {
 		}
 	}
 
-	async editSupplier(supplier: Supplier, event?: Event) {
-		event?.stopPropagation();
-
+	async editSupplier(supplier: Supplier) {
 		const updated = await firstValueFrom(
 			this.dialog
 				.open(SupplierFormDialog, {
@@ -220,9 +157,7 @@ export class SuppliersPage implements OnInit {
 		}
 	}
 
-	async deleteSupplier(supplier: Supplier, event?: Event) {
-		event?.stopPropagation();
-
+	async deleteSupplier(supplier: Supplier) {
 		const deleted = await firstValueFrom(
 			this.dialog
 				.open(DeleteSupplierDialog, {
@@ -241,9 +176,7 @@ export class SuppliersPage implements OnInit {
 		}
 	}
 
-	async copyApiUrl(apiUrl: string, event?: Event) {
-		event?.stopPropagation();
-
+	async copyApiUrl(apiUrl: string) {
 		try {
 			await navigator.clipboard.writeText(apiUrl);
 			this.notify.showSuccess('suppliersPage.apiUrlCopied');

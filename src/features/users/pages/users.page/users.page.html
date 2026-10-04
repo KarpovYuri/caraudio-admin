@@ -1,74 +1,27 @@
-<section class="users-page">
-	<div class="users-page__header">
-		<app-page-title titleKey="usersPage.title" />
-		@if (isNarrow()) {
-			<button
-				mat-mini-fab
-				color="primary"
-				type="button"
-				[attr.aria-label]="'usersPage.addUser' | translate"
-				(click)="addUser()"
-			>
-				<mat-icon>add</mat-icon>
-			</button>
-		} @else {
-			<button mat-flat-button color="primary" type="button" (click)="addUser()">
-				<mat-icon>add</mat-icon>
-				{{ 'usersPage.addUser' | translate }}
-			</button>
-		}
-	</div>
+<section class="users-page gap-6">
+	<app-page-header
+		titleKey="usersPage.title"
+		actionLabelKey="usersPage.addUser"
+		(actionClick)="addUser()"
+	/>
 
-	<div class="users-page__toolbar">
-		<mat-form-field
-			class="users-page__search"
-			appearance="outline"
-			subscriptSizing="dynamic"
-		>
-			<mat-label>{{ 'usersPage.search' | translate }}</mat-label>
-			<input
-				matInput
-				type="search"
-				[ngModel]="searchInput()"
-				(ngModelChange)="onSearchInput($event)"
-			/>
-			@if (searchInput()) {
-				<button matIconButton matSuffix type="button" (click)="clearSearch()">
-					<mat-icon>close</mat-icon>
-				</button>
-			} @else {
-				<mat-icon matSuffix>search</mat-icon>
-			}
-		</mat-form-field>
-
-		<mat-form-field
-			class="users-page__role-filter"
-			appearance="outline"
-			subscriptSizing="dynamic"
-		>
-			<mat-label>{{ 'usersPage.roleFilter.label' | translate }}</mat-label>
-			<mat-select
-				[ngModel]="roleFilter()"
-				(ngModelChange)="onRoleFilterChange($event)"
-			>
-				@for (option of roleFilterOptions; track option) {
-					<mat-option [value]="option">
-						{{ 'usersPage.roleFilter.' + option | translate }}
-					</mat-option>
-				}
-			</mat-select>
-		</mat-form-field>
-	</div>
+	<app-list-filters
+		[search]="searchInput()"
+		(searchChange)="onSearchInput($event)"
+		[filter]="roleFilter()"
+		(filterChange)="onRoleFilterChange($event)"
+		searchLabelKey="usersPage.search"
+		filterLabelKey="usersPage.roleFilter.label"
+		filterOptionKeyPrefix="usersPage.roleFilter."
+		[filterOptions]="roleFilterOptions"
+	/>
 
 	@if (loading()) {
 		<div class="users-page__loader">
 			<mat-spinner diameter="50" />
 		</div>
 	} @else if (total() === 0) {
-		<div class="users-page__empty">
-			<mat-icon class="users-page__empty-icon">search_off</mat-icon>
-			<p>{{ 'usersPage.empty' | translate }}</p>
-		</div>
+		<app-empty-state messageKey="usersPage.empty" />
 	} @else {
 		@if (isCompact()) {
 			<div class="users-page__cards">
@@ -88,7 +41,6 @@
 								<button
 									type="button"
 									class="users-page__action-btn"
-									[attr.aria-label]="'usersPage.editUser' | translate"
 									(click)="editUser(user, $event)"
 								>
 									<mat-icon>edit</mat-icon>
@@ -96,7 +48,6 @@
 								<button
 									type="button"
 									class="users-page__action-btn users-page__action-btn--danger"
-									[attr.aria-label]="'usersPage.deleteUser' | translate"
 									(click)="deleteUser(user, $event)"
 								>
 									<mat-icon>delete</mat-icon>
@@ -136,7 +87,6 @@
 								<button
 									type="button"
 									class="users-page__action-btn"
-									[attr.aria-label]="'usersPage.editUser' | translate"
 									(click)="editUser(user, $event)"
 								>
 									<mat-icon>edit</mat-icon>
@@ -144,7 +94,6 @@
 								<button
 									type="button"
 									class="users-page__action-btn users-page__action-btn--danger"
-									[attr.aria-label]="'usersPage.deleteUser' | translate"
 									(click)="deleteUser(user, $event)"
 								>
 									<mat-icon>delete</mat-icon>
