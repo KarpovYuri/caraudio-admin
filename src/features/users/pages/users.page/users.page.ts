@@ -27,7 +27,7 @@ import { User, UserRoleFilter } from '@features/users/models/user.models';
 import { UsersService } from '@features/users/services/users.service';
 import { MatIcon } from '@angular/material/icon';
 import { DeleteUserDialog, UserFormDialog } from '@features/users/components';
-import { ListFilters } from '@shared/ui/layout';
+import { EmptyState, ListFilters } from '@shared/ui/layout';
 import { PageHeader } from '@shared/ui/layout/page-header/page-header';
 
 @Component({
@@ -41,6 +41,7 @@ import { PageHeader } from '@shared/ui/layout/page-header/page-header';
 		MatChipsModule,
 		PageHeader,
 		ListFilters,
+		EmptyState,
 	],
 	templateUrl: './users.page.html',
 	styleUrl: './users.page.scss',

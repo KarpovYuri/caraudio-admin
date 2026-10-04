@@ -21,10 +21,7 @@
 			<mat-spinner diameter="50" />
 		</div>
 	} @else if (total() === 0) {
-		<div class="suppliers-page__empty">
-			<mat-icon class="suppliers-page__empty-icon">search_off</mat-icon>
-			<p>{{ 'suppliersPage.empty' | translate }}</p>
-		</div>
+		<app-empty-state messageKey="suppliersPage.empty" />
 	} @else {
 		<app-suppliers-list
 			[suppliers]="suppliers()"

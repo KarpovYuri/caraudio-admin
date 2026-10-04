@@ -21,10 +21,7 @@
 			<mat-spinner diameter="50" />
 		</div>
 	} @else if (total() === 0) {
-		<div class="users-page__empty">
-			<mat-icon class="users-page__empty-icon">search_off</mat-icon>
-			<p>{{ 'usersPage.empty' | translate }}</p>
-		</div>
+		<app-empty-state messageKey="usersPage.empty" />
 	} @else {
 		@if (isCompact()) {
 			<div class="users-page__cards">

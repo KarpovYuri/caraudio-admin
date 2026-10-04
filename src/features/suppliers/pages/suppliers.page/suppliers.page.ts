@@ -12,7 +12,6 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import { TranslatePipe } from '@ngx-translate/core';
 import { NotificationService } from '@core/services';
 import {
 	debounceTime,
@@ -25,13 +24,12 @@ import {
 	SupplierStatusFilter,
 } from '@features/suppliers/models/supplier.models';
 import { SuppliersService } from '@features/suppliers/services/suppliers.service';
-import { MatIcon } from '@angular/material/icon';
 import {
 	DeleteSupplierDialog,
 	SupplierFormDialog,
 	SuppliersList,
 } from '@features/suppliers/components';
-import { ListFilters } from '@shared/ui/layout';
+import { EmptyState, ListFilters } from '@shared/ui/layout';
 import { PageHeader } from '@shared/ui/layout/page-header/page-header';
 
 @Component({
@@ -39,10 +37,9 @@ import { PageHeader } from '@shared/ui/layout/page-header/page-header';
 	imports: [
 		MatProgressSpinner,
 		MatPaginator,
-		TranslatePipe,
-		MatIcon,
 		PageHeader,
 		ListFilters,
+		EmptyState,
 		SuppliersList,
 	],
 	templateUrl: './suppliers.page.html',
