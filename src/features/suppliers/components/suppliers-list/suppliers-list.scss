@@ -1,0 +1,145 @@
+.suppliers-list {
+	&_compact {
+		display: flex;
+		flex-direction: column;
+	}
+
+	&__card {
+		background: var(--mat-sys-surface-container);
+		display: flex;
+		flex-direction: column;
+	}
+
+	&__card &__api-url-copy {
+		opacity: 1;
+	}
+
+	&__card-header {
+		align-items: center;
+		display: flex;
+
+		@media (width <= 576px) {
+			align-items: stretch;
+			flex-direction: column;
+		}
+	}
+
+	&__card-top {
+		align-items: center;
+		display: flex;
+		flex: 1;
+		min-width: 0;
+	}
+
+	&__card-heading {
+		display: flex;
+		flex: 1;
+		flex-direction: column;
+		min-width: 0;
+	}
+
+	&__card-title {
+		font: var(--mat-sys-title-medium);
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	&__card-code {
+		color: var(--mat-sys-on-surface-variant);
+		font: var(--mat-sys-body-small);
+	}
+
+	&__card-meta {
+		align-items: center;
+		display: flex;
+		flex-shrink: 0;
+
+		@media (width <= 576px) {
+			justify-content: space-between;
+		}
+	}
+
+	&__card-row {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+		min-width: 0;
+	}
+
+	&__logo {
+		flex-shrink: 0;
+		object-fit: cover;
+
+		&_placeholder {
+			align-items: center;
+			background: color-mix(in srgb, var(--mat-sys-on-surface) 8%, transparent);
+			color: var(--mat-sys-on-surface-variant);
+			display: flex;
+			justify-content: center;
+		}
+	}
+
+	&__status-label {
+		display: block;
+		min-width: 10ch;
+		text-align: center;
+	}
+
+	&__actions {
+		align-items: center;
+		display: flex;
+		flex-shrink: 0;
+	}
+
+	&__action-btn,
+	&__api-url-copy {
+		align-items: center;
+		cursor: pointer;
+		display: inline-flex;
+		justify-content: center;
+
+		&:hover {
+			background: color-mix(in srgb, currentcolor 12%, transparent);
+		}
+	}
+
+	&__action-btn_danger {
+		color: var(--mat-sys-error);
+	}
+
+	&__api-url {
+		align-items: center;
+		display: flex;
+		min-width: 0;
+		width: 100%;
+
+		&-text {
+			flex: 1;
+			min-width: 0;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+
+		&-copy {
+			@media (hover: hover) and (pointer: fine) {
+				opacity: 0;
+			}
+		}
+
+		&:hover &-copy,
+		&:focus-within &-copy {
+			opacity: 1;
+		}
+	}
+
+	&__table {
+		.mat-column-logo,
+		.mat-column-is-active,
+		.mat-column-actions {
+			width: 1%;
+			white-space: nowrap;
+		}
+	}
+}
