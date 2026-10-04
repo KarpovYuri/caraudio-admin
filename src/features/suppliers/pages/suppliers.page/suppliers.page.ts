@@ -8,7 +8,6 @@ import {
 	signal,
 } from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
-import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatDialog } from '@angular/material/dialog';
@@ -16,15 +15,6 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatIconButton } from '@angular/material/button';
-import {
-	MatFormField,
-	MatInput,
-	MatLabel,
-	MatSuffix,
-} from '@angular/material/input';
-import { MatSelect } from '@angular/material/select';
-import { MatOption } from '@angular/material/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { NotificationService } from '@core/services';
 import {
@@ -44,26 +34,20 @@ import {
 	DeleteSupplierDialog,
 	SupplierFormDialog,
 } from '@features/suppliers/components';
+import { ListFilters } from '@shared/ui/layout';
 import { PageHeader } from '@shared/ui/layout/page-header/page-header';
 
 @Component({
 	selector: 'app-suppliers-page',
 	imports: [
-		FormsModule,
 		MatProgressSpinner,
 		MatPaginator,
 		TranslatePipe,
 		MatIcon,
-		MatIconButton,
 		MatTableModule,
 		MatChipsModule,
-		MatFormField,
-		MatInput,
-		MatLabel,
-		MatSuffix,
-		MatSelect,
-		MatOption,
 		PageHeader,
+		ListFilters,
 	],
 	templateUrl: './suppliers.page.html',
 	styleUrl: './suppliers.page.scss',
@@ -131,14 +115,6 @@ export class SuppliersPage implements OnInit {
 	onSearchInput(value: string) {
 		this.searchInput.set(value);
 		this.searchChanges.next(value);
-	}
-
-	clearSearch() {
-		if (!this.searchInput()) {
-			return;
-		}
-		this.searchInput.set('');
-		this.searchChanges.next('');
 	}
 
 	onStatusFilterChange(value: SupplierStatusFilter) {

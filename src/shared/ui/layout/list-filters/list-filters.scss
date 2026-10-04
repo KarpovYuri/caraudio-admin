@@ -1,0 +1,16 @@
+.list-filters {
+	display: flex;
+	flex-wrap: wrap;
+
+	&__search {
+		flex: 999 1 300px;
+	}
+
+	&__clear {
+		cursor: pointer;
+	}
+
+	&__filter {
+		flex: 1 1 auto;
+	}
+}
