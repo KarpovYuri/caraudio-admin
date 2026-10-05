@@ -2,9 +2,10 @@
 	display: contents;
 }
 
-.suppliers-page {
+.page-loader {
+	align-items: center;
 	display: flex;
 	flex: 1;
-	flex-direction: column;
+	justify-content: center;
 	width: 100%;
 }

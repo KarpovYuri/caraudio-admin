@@ -11,7 +11,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { NotificationService } from '@core/services';
 import {
 	debounceTime,
@@ -29,17 +28,17 @@ import {
 	SupplierFormDialog,
 	SuppliersList,
 } from '@features/suppliers/components';
-import { EmptyState, ListFilters } from '@shared/ui/layout';
+import { EmptyState, ListFilters, PageLoader } from '@shared/ui/layout';
 import { PageHeader } from '@shared/ui/layout/page-header/page-header';
 
 @Component({
 	selector: 'app-suppliers-page',
 	imports: [
-		MatProgressSpinner,
 		MatPaginator,
 		PageHeader,
 		ListFilters,
 		EmptyState,
+		PageLoader,
 		SuppliersList,
 	],
 	templateUrl: './suppliers.page.html',

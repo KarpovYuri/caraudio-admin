@@ -17,9 +17,7 @@
 	/>
 
 	@if (loading()) {
-		<div class="suppliers-page__loader">
-			<mat-spinner diameter="50" />
-		</div>
+		<app-page-loader />
 	} @else if (total() === 0) {
 		<app-empty-state messageKey="suppliersPage.empty" />
 	} @else {
@@ -32,7 +30,6 @@
 
 		@if (hasMultiplePages()) {
 			<mat-paginator
-				class="suppliers-page__paginator"
 				[length]="total()"
 				[pageIndex]="pageIndex()"
 				[pageSize]="pageSize"
