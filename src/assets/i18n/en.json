@@ -4,7 +4,11 @@
 		"ok": "OK",
 		"cancel": "Cancel",
 		"save": "Save",
-		"delete": "Delete"
+		"delete": "Delete",
+		"confirmDelete": {
+			"title": "Confirm deletion",
+			"message": "Are you sure?"
+		}
 	},
 	"errors": {
 		"unauthorized": "Authorization error"

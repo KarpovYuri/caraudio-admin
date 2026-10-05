@@ -1,0 +1,12 @@
+<app-dialog-shell
+	[titleKey]="titleKey"
+	titleVariant="danger"
+	[submitting]="submitting()"
+	primaryLabelKey="common.delete"
+	primaryVariant="danger"
+	(primaryClick)="confirm()"
+>
+	<p class="confirm-delete-dialog__message">
+		{{ messageKey | translate: data.messageParams }}
+	</p>
+</app-dialog-shell>

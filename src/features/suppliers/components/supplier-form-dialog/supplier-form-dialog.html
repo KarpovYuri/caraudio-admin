@@ -1,25 +1,18 @@
-<div class="supplier-form-dialog__header" mat-dialog-title>
-	<h2 class="supplier-form-dialog__title">
-		{{ titleKey | translate }}
-	</h2>
-	<button
-		mat-icon-button
-		type="button"
-		mat-dialog-close
-		[disabled]="submitting()"
-	>
-		<mat-icon>close</mat-icon>
-	</button>
-</div>
-
-<mat-dialog-content>
-	<div class="supplier-form-dialog__form">
-		<div class="supplier-form-dialog__field">
-			<mat-form-field
-				appearance="outline"
-				subscriptSizing="dynamic"
-				[class.supplier-form-dialog__field--invalid]="showNameError()"
-			>
+<app-dialog-shell
+	class="supplier-form-dialog"
+	[titleKey]="titleKey"
+	[submitting]="submitting()"
+	[primaryLabelKey]="
+		isEdit
+			? 'suppliersPage.supplierFormDialog.editSubmit'
+			: 'suppliersPage.supplierFormDialog.createSubmit'
+	"
+	[primaryDisabled]="!formValid()"
+	(primaryClick)="submit()"
+>
+	<div class="supplier-form-dialog__form gap-2 pt-2">
+		<div class="supplier-form-dialog__field gap-1">
+			<mat-form-field appearance="outline" subscriptSizing="dynamic">
 				<mat-label>
 					{{ 'suppliersPage.supplierFormDialog.name' | translate }}
 				</mat-label>
@@ -33,18 +26,14 @@
 			</mat-form-field>
 			<p
 				class="supplier-form-dialog__field-error"
-				[class.supplier-form-dialog__field-error--visible]="showNameError()"
+				[class.supplier-form-dialog__field-error_visible]="showNameError()"
 			>
-				{{ showNameError() ? (nameErrorKey()! | translate) : '\u00A0' }}
+				{{ showNameError() ? (nameErrorKey()! | translate) : '' }}
 			</p>
 		</div>
 
-		<div class="supplier-form-dialog__field">
-			<mat-form-field
-				appearance="outline"
-				subscriptSizing="dynamic"
-				[class.supplier-form-dialog__field--invalid]="showApiUrlError()"
-			>
+		<div class="supplier-form-dialog__field gap-1">
+			<mat-form-field appearance="outline" subscriptSizing="dynamic">
 				<mat-label>
 					{{ 'suppliersPage.supplierFormDialog.apiUrl' | translate }}
 				</mat-label>
@@ -59,14 +48,14 @@
 			</mat-form-field>
 			<p
 				class="supplier-form-dialog__field-error"
-				[class.supplier-form-dialog__field-error--visible]="showApiUrlError()"
+				[class.supplier-form-dialog__field-error_visible]="showApiUrlError()"
 			>
-				{{ showApiUrlError() ? (apiUrlErrorKey()! | translate) : '\u00A0' }}
+				{{ showApiUrlError() ? (apiUrlErrorKey()! | translate) : '' }}
 			</p>
 		</div>
 
 		<div class="supplier-form-dialog__field">
-			<div class="supplier-form-dialog__meta">
+			<div class="supplier-form-dialog__meta gap-4 pb-4">
 				<mat-form-field
 					class="supplier-form-dialog__code"
 					appearance="outline"
@@ -83,33 +72,25 @@
 				</mat-form-field>
 
 				<mat-checkbox
-					class="supplier-form-dialog__active"
 					[ngModel]="isActive()"
 					(ngModelChange)="isActive.set($event)"
 				>
 					{{ 'suppliersPage.supplierFormDialog.isActive' | translate }}
 				</mat-checkbox>
 			</div>
-			<p class="supplier-form-dialog__field-error" aria-hidden="true">&nbsp;</p>
 		</div>
 
 		<div
-			class="supplier-form-dialog__logo"
-			[class.supplier-form-dialog__logo--dragging]="logoDragging()"
-			[class.supplier-form-dialog__logo--has-preview]="!!displayLogo()"
+			class="supplier-form-dialog__logo gap-2"
+			[class.supplier-form-dialog__logo_dragging]="logoDragging()"
 		>
-			<div class="supplier-form-dialog__logo-label">
+			<div>
 				{{ 'suppliersPage.supplierFormDialog.logo' | translate }}
 			</div>
 
 			<div
-				class="supplier-form-dialog__logo-dropzone"
-				role="button"
-				tabindex="0"
-				[attr.aria-disabled]="submitting()"
+				class="supplier-form-dialog__logo-dropzone gap-2 rounded-xl px-4 py-5 min-h-37"
 				(click)="openLogoPicker()"
-				(keydown.enter)="openLogoPicker()"
-				(keydown.space)="$event.preventDefault(); openLogoPicker()"
 				(dragenter)="onLogoDragEnter($event)"
 				(dragover)="onLogoDragOver($event)"
 				(dragleave)="onLogoDragLeave($event)"
@@ -118,14 +99,14 @@
 				@if (displayLogo(); as previewUrl) {
 					<div class="supplier-form-dialog__logo-thumb">
 						<img
-							class="supplier-form-dialog__logo-preview"
+							class="supplier-form-dialog__logo-preview w-20 h-20 rounded-lg"
 							[src]="previewUrl"
-							alt=""
+							alt="logo"
 						/>
 						<button
 							mat-icon-button
 							type="button"
-							class="supplier-form-dialog__logo-clear"
+							class="supplier-form-dialog__logo-clear w-7! h-7!"
 							[disabled]="submitting()"
 							(click)="clearLogo($event)"
 						>
@@ -136,7 +117,9 @@
 						{{ 'suppliersPage.supplierFormDialog.logoReplaceHint' | translate }}
 					</span>
 				} @else {
-					<mat-icon class="supplier-form-dialog__logo-icon">
+					<mat-icon
+						class="supplier-form-dialog__logo-icon text-5xl! w-12! h-12!"
+					>
 						cloud_upload
 					</mat-icon>
 					<span class="supplier-form-dialog__logo-hint">
@@ -163,27 +146,4 @@
 			}
 		</div>
 	</div>
-</mat-dialog-content>
-
-<mat-dialog-actions align="end">
-	<button mat-stroked-button mat-dialog-close [disabled]="submitting()">
-		{{ 'common.cancel' | translate }}
-	</button>
-	<button
-		mat-flat-button
-		color="primary"
-		[disabled]="!formValid()"
-		(click)="submit()"
-	>
-		@if (submitting()) {
-			<mat-spinner diameter="20" />
-		} @else {
-			{{
-				(isEdit
-					? 'suppliersPage.supplierFormDialog.editSubmit'
-					: 'suppliersPage.supplierFormDialog.createSubmit'
-				) | translate
-			}}
-		}
-	</button>
-</mat-dialog-actions>
+</app-dialog-shell>

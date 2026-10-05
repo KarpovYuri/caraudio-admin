@@ -1,6 +1,9 @@
-<div class="delete-supplier-dialog__header" mat-dialog-title>
-	<h2 class="delete-supplier-dialog__title">
-		{{ 'suppliersPage.deleteSupplierDialog.title' | translate }}
+<div class="dialog-shell__header gap-2 pt-5!" mat-dialog-title>
+	<h2
+		class="dialog-shell__title"
+		[class.dialog-shell__title_danger]="titleVariant() === 'danger'"
+	>
+		{{ titleKey() | translate }}
 	</h2>
 	<button
 		mat-icon-button
@@ -13,12 +16,7 @@
 </div>
 
 <mat-dialog-content>
-	<p class="delete-supplier-dialog__message">
-		{{
-			'suppliersPage.deleteSupplierDialog.message'
-				| translate: { name: data.supplier.name }
-		}}
-	</p>
+	<ng-content />
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
@@ -28,14 +26,15 @@
 	<button
 		mat-flat-button
 		type="button"
-		class="delete-supplier-dialog__confirm"
-		[disabled]="submitting()"
-		(click)="confirm()"
+		[class.dialog-shell__primary_danger]="primaryVariant() === 'danger'"
+		[color]="primaryVariant() === 'primary' ? 'primary' : undefined"
+		[disabled]="primaryDisabled() || submitting()"
+		(click)="onPrimaryClick()"
 	>
 		@if (submitting()) {
 			<mat-spinner diameter="20" />
 		} @else {
-			{{ 'common.delete' | translate }}
+			{{ primaryLabelKey() | translate }}
 		}
 	</button>
 </mat-dialog-actions>
