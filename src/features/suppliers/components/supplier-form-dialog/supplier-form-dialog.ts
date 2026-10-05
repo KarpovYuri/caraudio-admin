@@ -8,23 +8,16 @@ import {
 	viewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatIconButton } from '@angular/material/button';
 import { MatCheckbox } from '@angular/material/checkbox';
-import {
-	MAT_DIALOG_DATA,
-	MatDialogActions,
-	MatDialogClose,
-	MatDialogContent,
-	MatDialogRef,
-	MatDialogTitle,
-} from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
 import { MatIcon } from '@angular/material/icon';
-import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { TranslatePipe } from '@ngx-translate/core';
 import { firstValueFrom } from 'rxjs';
 import { SuppliersService } from '@features/suppliers/services/suppliers.service';
 import { Supplier } from '@features/suppliers/models/supplier.models';
+import { DialogShell } from '@shared/ui/dialogs';
 
 const ACCEPTED_LOGO_TYPES = new Set([
 	'image/jpeg',
@@ -64,18 +57,13 @@ function isValidHttpUrl(value: string): boolean {
 	host: { class: 'supplier-form-dialog' },
 	imports: [
 		FormsModule,
-		MatButton,
+		DialogShell,
 		MatIconButton,
 		MatCheckbox,
-		MatDialogActions,
-		MatDialogClose,
-		MatDialogContent,
-		MatDialogTitle,
 		MatFormField,
 		MatIcon,
 		MatInput,
 		MatLabel,
-		MatProgressSpinner,
 		TranslatePipe,
 	],
 	templateUrl: './supplier-form-dialog.html',

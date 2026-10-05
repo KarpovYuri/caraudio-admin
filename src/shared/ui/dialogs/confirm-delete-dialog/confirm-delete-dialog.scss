@@ -1,26 +1,5 @@
 .confirm-delete-dialog {
-	&__header {
-		align-items: center;
-		display: flex;
-		justify-content: space-between;
-
-		&::before {
-			display: none;
-		}
-	}
-
-	&__title {
-		color: var(--mat-sys-error);
-		flex: 1;
-		min-width: 0;
-
-		@media (width < 400px) {
-			font-size: 1.2rem;
-		}
-	}
-
-	&__confirm {
-		--mat-button-filled-container-color: var(--mat-sys-error);
-		--mat-button-filled-label-text-color: var(--mat-sys-on-error);
+	&__message {
+		margin: 0;
 	}
 }

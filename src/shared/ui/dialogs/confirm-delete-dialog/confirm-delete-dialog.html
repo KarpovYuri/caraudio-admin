@@ -1,38 +1,12 @@
-<div class="confirm-delete-dialog__header gap-2 pt-5!" mat-dialog-title>
-	<h2 class="confirm-delete-dialog__title">
-		{{ titleKey | translate }}
-	</h2>
-	<button
-		mat-icon-button
-		type="button"
-		mat-dialog-close
-		[disabled]="submitting()"
-	>
-		<mat-icon>close</mat-icon>
-	</button>
-</div>
-
-<mat-dialog-content>
+<app-dialog-shell
+	[titleKey]="titleKey"
+	titleVariant="danger"
+	[submitting]="submitting()"
+	primaryLabelKey="common.delete"
+	primaryVariant="danger"
+	(primaryClick)="confirm()"
+>
 	<p class="confirm-delete-dialog__message">
 		{{ messageKey | translate: data.messageParams }}
 	</p>
-</mat-dialog-content>
-
-<mat-dialog-actions align="end">
-	<button mat-stroked-button mat-dialog-close [disabled]="submitting()">
-		{{ 'common.cancel' | translate }}
-	</button>
-	<button
-		mat-flat-button
-		type="button"
-		class="confirm-delete-dialog__confirm"
-		[disabled]="submitting()"
-		(click)="confirm()"
-	>
-		@if (submitting()) {
-			<mat-spinner diameter="20" />
-		} @else {
-			{{ 'common.delete' | translate }}
-		}
-	</button>
-</mat-dialog-actions>
+</app-dialog-shell>

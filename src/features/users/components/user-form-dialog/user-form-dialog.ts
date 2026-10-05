@@ -1,23 +1,15 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatButton, MatIconButton } from '@angular/material/button';
-import {
-	MAT_DIALOG_DATA,
-	MatDialogActions,
-	MatDialogClose,
-	MatDialogContent,
-	MatDialogRef,
-	MatDialogTitle,
-} from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
 import { MatSelect } from '@angular/material/select';
 import { MatOption } from '@angular/material/core';
 import { MatIcon } from '@angular/material/icon';
-import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { TranslatePipe } from '@ngx-translate/core';
 import { firstValueFrom } from 'rxjs';
 import { User, UserRole } from '@features/users/models/user.models';
 import { UsersService } from '@features/users/services/users.service';
+import { DialogShell } from '@shared/ui/dialogs';
 
 export interface UserFormDialogData {
 	user?: User;
@@ -28,19 +20,13 @@ export interface UserFormDialogData {
 	host: { class: 'user-form-dialog' },
 	imports: [
 		FormsModule,
-		MatButton,
-		MatIconButton,
-		MatDialogActions,
-		MatDialogClose,
-		MatDialogContent,
-		MatDialogTitle,
+		DialogShell,
 		MatFormField,
 		MatIcon,
 		MatInput,
 		MatLabel,
 		MatSelect,
 		MatOption,
-		MatProgressSpinner,
 		TranslatePipe,
 	],
 	templateUrl: './user-form-dialog.html',

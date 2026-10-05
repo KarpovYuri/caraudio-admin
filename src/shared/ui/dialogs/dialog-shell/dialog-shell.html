@@ -1,0 +1,40 @@
+<div class="dialog-shell__header gap-2 pt-5!" mat-dialog-title>
+	<h2
+		class="dialog-shell__title"
+		[class.dialog-shell__title--danger]="titleVariant() === 'danger'"
+	>
+		{{ titleKey() | translate }}
+	</h2>
+	<button
+		mat-icon-button
+		type="button"
+		mat-dialog-close
+		[disabled]="submitting()"
+	>
+		<mat-icon>close</mat-icon>
+	</button>
+</div>
+
+<mat-dialog-content>
+	<ng-content />
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+	<button mat-stroked-button mat-dialog-close [disabled]="submitting()">
+		{{ 'common.cancel' | translate }}
+	</button>
+	<button
+		mat-flat-button
+		type="button"
+		[class.dialog-shell__primary--danger]="primaryVariant() === 'danger'"
+		[color]="primaryVariant() === 'primary' ? 'primary' : undefined"
+		[disabled]="primaryDisabled() || submitting()"
+		(click)="onPrimaryClick()"
+	>
+		@if (submitting()) {
+			<mat-spinner diameter="20" />
+		} @else {
+			{{ primaryLabelKey() | translate }}
+		}
+	</button>
+</mat-dialog-actions>

@@ -1,18 +1,14 @@
-<div class="supplier-form-dialog__header" mat-dialog-title>
-	<h2 class="supplier-form-dialog__title">
-		{{ titleKey | translate }}
-	</h2>
-	<button
-		mat-icon-button
-		type="button"
-		mat-dialog-close
-		[disabled]="submitting()"
-	>
-		<mat-icon>close</mat-icon>
-	</button>
-</div>
-
-<mat-dialog-content>
+<app-dialog-shell
+	[titleKey]="titleKey"
+	[submitting]="submitting()"
+	[primaryLabelKey]="
+		isEdit
+			? 'suppliersPage.supplierFormDialog.editSubmit'
+			: 'suppliersPage.supplierFormDialog.createSubmit'
+	"
+	[primaryDisabled]="!formValid()"
+	(primaryClick)="submit()"
+>
 	<div class="supplier-form-dialog__form">
 		<div class="supplier-form-dialog__field">
 			<mat-form-field
@@ -163,27 +159,4 @@
 			}
 		</div>
 	</div>
-</mat-dialog-content>
-
-<mat-dialog-actions align="end">
-	<button mat-stroked-button mat-dialog-close [disabled]="submitting()">
-		{{ 'common.cancel' | translate }}
-	</button>
-	<button
-		mat-flat-button
-		color="primary"
-		[disabled]="!formValid()"
-		(click)="submit()"
-	>
-		@if (submitting()) {
-			<mat-spinner diameter="20" />
-		} @else {
-			{{
-				(isEdit
-					? 'suppliersPage.supplierFormDialog.editSubmit'
-					: 'suppliersPage.supplierFormDialog.createSubmit'
-				) | translate
-			}}
-		}
-	</button>
-</mat-dialog-actions>
+</app-dialog-shell>

@@ -1,18 +1,14 @@
-<div class="user-form-dialog__header" mat-dialog-title>
-	<h2 class="user-form-dialog__title">
-		{{ titleKey | translate }}
-	</h2>
-	<button
-		mat-icon-button
-		type="button"
-		mat-dialog-close
-		[disabled]="submitting()"
-	>
-		<mat-icon>close</mat-icon>
-	</button>
-</div>
-
-<mat-dialog-content>
+<app-dialog-shell
+	[titleKey]="titleKey"
+	[submitting]="submitting()"
+	[primaryLabelKey]="
+		isEdit
+			? 'usersPage.userFormDialog.editSubmit'
+			: 'usersPage.userFormDialog.createSubmit'
+	"
+	[primaryDisabled]="!formValid()"
+	(primaryClick)="submit()"
+>
 	<div class="user-form-dialog__form">
 		<div class="user-form-dialog__field">
 			<mat-form-field
@@ -89,27 +85,4 @@
 			</p>
 		}
 	</div>
-</mat-dialog-content>
-
-<mat-dialog-actions align="end">
-	<button mat-stroked-button mat-dialog-close [disabled]="submitting()">
-		{{ 'common.cancel' | translate }}
-	</button>
-	<button
-		mat-flat-button
-		color="primary"
-		[disabled]="!formValid()"
-		(click)="submit()"
-	>
-		@if (submitting()) {
-			<mat-spinner diameter="20" />
-		} @else {
-			{{
-				(isEdit
-					? 'usersPage.userFormDialog.editSubmit'
-					: 'usersPage.userFormDialog.createSubmit'
-				) | translate
-			}}
-		}
-	</button>
-</mat-dialog-actions>
+</app-dialog-shell>

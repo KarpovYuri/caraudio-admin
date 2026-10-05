@@ -4,19 +4,10 @@ import {
 	inject,
 	signal,
 } from '@angular/core';
-import { MatButton, MatIconButton } from '@angular/material/button';
-import {
-	MAT_DIALOG_DATA,
-	MatDialogActions,
-	MatDialogClose,
-	MatDialogContent,
-	MatDialogRef,
-	MatDialogTitle,
-} from '@angular/material/dialog';
-import { MatIcon } from '@angular/material/icon';
-import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { TranslatePipe } from '@ngx-translate/core';
 import { firstValueFrom, isObservable, Observable } from 'rxjs';
+import { DialogShell } from '@shared/ui/dialogs/dialog-shell/dialog-shell';
 
 export interface ConfirmDeleteDialogData {
 	titleKey?: string;
@@ -28,17 +19,7 @@ export interface ConfirmDeleteDialogData {
 @Component({
 	selector: 'app-confirm-delete-dialog',
 	host: { class: 'confirm-delete-dialog' },
-	imports: [
-		MatButton,
-		MatIconButton,
-		MatDialogActions,
-		MatDialogClose,
-		MatDialogContent,
-		MatDialogTitle,
-		MatIcon,
-		MatProgressSpinner,
-		TranslatePipe,
-	],
+	imports: [DialogShell, TranslatePipe],
 	templateUrl: './confirm-delete-dialog.html',
 	styleUrl: './confirm-delete-dialog.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
