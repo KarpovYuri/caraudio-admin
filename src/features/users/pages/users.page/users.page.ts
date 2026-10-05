@@ -12,7 +12,6 @@ import { Router } from '@angular/router';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
 import { MatChipsModule } from '@angular/material/chips';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -27,13 +26,12 @@ import { User, UserRoleFilter } from '@features/users/models/user.models';
 import { UsersService } from '@features/users/services/users.service';
 import { MatIcon } from '@angular/material/icon';
 import { DeleteUserDialog, UserFormDialog } from '@features/users/components';
-import { EmptyState, ListFilters } from '@shared/ui/layout';
+import { EmptyState, ListFilters, PageLoader } from '@shared/ui/layout';
 import { PageHeader } from '@shared/ui/layout/page-header/page-header';
 
 @Component({
 	selector: 'app-users-page',
 	imports: [
-		MatProgressSpinner,
 		MatPaginator,
 		TranslatePipe,
 		MatIcon,
@@ -42,6 +40,7 @@ import { PageHeader } from '@shared/ui/layout/page-header/page-header';
 		PageHeader,
 		ListFilters,
 		EmptyState,
+		PageLoader,
 	],
 	templateUrl: './users.page.html',
 	styleUrl: './users.page.scss',

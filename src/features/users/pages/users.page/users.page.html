@@ -17,9 +17,7 @@
 	/>
 
 	@if (loading()) {
-		<div class="users-page__loader">
-			<mat-spinner diameter="50" />
-		</div>
+		<app-page-loader />
 	} @else if (total() === 0) {
 		<app-empty-state messageKey="usersPage.empty" />
 	} @else {

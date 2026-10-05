@@ -11,14 +11,6 @@
 	flex-direction: column;
 	width: 100%;
 
-	&__loader {
-		align-items: center;
-		display: flex;
-		flex: 1;
-		justify-content: center;
-		width: 100%;
-	}
-
 	&__table-wrap {
 		overflow-x: auto;
 		width: 100%;
