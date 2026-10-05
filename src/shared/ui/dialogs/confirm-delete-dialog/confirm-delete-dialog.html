@@ -1,6 +1,6 @@
-<div class="delete-supplier-dialog__header" mat-dialog-title>
-	<h2 class="delete-supplier-dialog__title">
-		{{ 'suppliersPage.deleteSupplierDialog.title' | translate }}
+<div class="confirm-delete-dialog__header gap-2 pt-5!" mat-dialog-title>
+	<h2 class="confirm-delete-dialog__title">
+		{{ titleKey | translate }}
 	</h2>
 	<button
 		mat-icon-button
@@ -13,11 +13,8 @@
 </div>
 
 <mat-dialog-content>
-	<p class="delete-supplier-dialog__message">
-		{{
-			'suppliersPage.deleteSupplierDialog.message'
-				| translate: { name: data.supplier.name }
-		}}
+	<p class="confirm-delete-dialog__message">
+		{{ messageKey | translate: data.messageParams }}
 	</p>
 </mat-dialog-content>
 
@@ -28,7 +25,7 @@
 	<button
 		mat-flat-button
 		type="button"
-		class="delete-supplier-dialog__confirm"
+		class="confirm-delete-dialog__confirm"
 		[disabled]="submitting()"
 		(click)="confirm()"
 	>

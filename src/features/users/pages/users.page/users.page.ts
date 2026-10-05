@@ -25,7 +25,8 @@ import {
 import { User, UserRoleFilter } from '@features/users/models/user.models';
 import { UsersService } from '@features/users/services/users.service';
 import { MatIcon } from '@angular/material/icon';
-import { DeleteUserDialog, UserFormDialog } from '@features/users/components';
+import { UserFormDialog } from '@features/users/components';
+import { ConfirmDeleteDialog } from '@shared/ui/dialogs';
 import { EmptyState, ListFilters, PageLoader } from '@shared/ui/layout';
 import { PageHeader } from '@shared/ui/layout/page-header/page-header';
 
@@ -172,8 +173,13 @@ export class UsersPage implements OnInit {
 
 		const deleted = await firstValueFrom(
 			this.dialog
-				.open(DeleteUserDialog, {
-					data: { user },
+				.open(ConfirmDeleteDialog, {
+					data: {
+						titleKey: 'usersPage.deleteUserDialog.title',
+						messageKey: 'usersPage.deleteUserDialog.message',
+						messageParams: { login: user.login },
+						deleteFn: () => this.usersService.deleteUser(user.id),
+					},
 					width: '400px',
 				})
 				.afterClosed()

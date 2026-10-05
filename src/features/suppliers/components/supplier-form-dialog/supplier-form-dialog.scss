@@ -5,6 +5,11 @@
 		gap: 8px;
 		justify-content: space-between;
 		padding-top: 20px;
+
+		// MDC title ::before becomes a flex item and adds leading gap
+		&::before {
+			display: none;
+		}
 	}
 
 	&__title {

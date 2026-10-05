@@ -24,10 +24,10 @@ import {
 } from '@features/suppliers/models/supplier.models';
 import { SuppliersService } from '@features/suppliers/services/suppliers.service';
 import {
-	DeleteSupplierDialog,
 	SupplierFormDialog,
 	SuppliersList,
 } from '@features/suppliers/components';
+import { ConfirmDeleteDialog } from '@shared/ui/dialogs';
 import { EmptyState, ListFilters, PageLoader } from '@shared/ui/layout';
 import { PageHeader } from '@shared/ui/layout/page-header/page-header';
 
@@ -159,8 +159,13 @@ export class SuppliersPage implements OnInit {
 	async deleteSupplier(supplier: Supplier) {
 		const deleted = await firstValueFrom(
 			this.dialog
-				.open(DeleteSupplierDialog, {
-					data: { supplier },
+				.open(ConfirmDeleteDialog, {
+					data: {
+						titleKey: 'suppliersPage.deleteSupplierDialog.title',
+						messageKey: 'suppliersPage.deleteSupplierDialog.message',
+						messageParams: { name: supplier.name },
+						deleteFn: () => this.suppliersService.deleteSupplier(supplier.id),
+					},
 					width: '400px',
 				})
 				.afterClosed()
