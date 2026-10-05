@@ -4,7 +4,6 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
 import { MatSelect } from '@angular/material/select';
 import { MatOption } from '@angular/material/core';
-import { MatIcon } from '@angular/material/icon';
 import { TranslatePipe } from '@ngx-translate/core';
 import { firstValueFrom } from 'rxjs';
 import { User, UserRole } from '@features/users/models/user.models';
@@ -22,7 +21,6 @@ export interface UserFormDialogData {
 		FormsModule,
 		DialogShell,
 		MatFormField,
-		MatIcon,
 		MatInput,
 		MatLabel,
 		MatSelect,

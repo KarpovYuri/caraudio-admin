@@ -1,7 +1,7 @@
 <div class="dialog-shell__header gap-2 pt-5!" mat-dialog-title>
 	<h2
 		class="dialog-shell__title"
-		[class.dialog-shell__title--danger]="titleVariant() === 'danger'"
+		[class.dialog-shell__title_danger]="titleVariant() === 'danger'"
 	>
 		{{ titleKey() | translate }}
 	</h2>
@@ -26,7 +26,7 @@
 	<button
 		mat-flat-button
 		type="button"
-		[class.dialog-shell__primary--danger]="primaryVariant() === 'danger'"
+		[class.dialog-shell__primary_danger]="primaryVariant() === 'danger'"
 		[color]="primaryVariant() === 'primary' ? 'primary' : undefined"
 		[disabled]="primaryDisabled() || submitting()"
 		(click)="onPrimaryClick()"

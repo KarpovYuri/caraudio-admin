@@ -15,15 +15,6 @@
 		mat-form-field {
 			width: 100%;
 		}
-
-		&--invalid {
-			--mat-form-field-outlined-focus-label-text-color: var(--mat-sys-error);
-			--mat-form-field-outlined-focus-outline-color: var(--mat-sys-error);
-			--mat-form-field-outlined-hover-label-text-color: var(--mat-sys-error);
-			--mat-form-field-outlined-hover-outline-color: var(--mat-sys-error);
-			--mat-form-field-outlined-label-text-color: var(--mat-sys-error);
-			--mat-form-field-outlined-outline-color: var(--mat-sys-error);
-		}
 	}
 
 	&__field-error {
@@ -33,7 +24,7 @@
 		margin: 0 0 8px;
 		min-height: 1.3em;
 
-		&--visible {
+		&_visible {
 			color: var(--mat-sys-error, #b3261e);
 		}
 	}

@@ -14,7 +14,7 @@
 		margin: 0;
 		min-width: 0;
 
-		&--danger {
+		&_danger {
 			color: var(--mat-sys-error);
 		}
 
@@ -24,7 +24,7 @@
 		}
 	}
 
-	&__primary--danger {
+	&__primary_danger {
 		--mat-button-filled-container-color: var(--mat-sys-error);
 		--mat-button-filled-label-text-color: var(--mat-sys-on-error);
 	}
