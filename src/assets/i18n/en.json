@@ -87,6 +87,7 @@
 		"search": "Search by login",
 		"addUser": "Add user",
 		"columns": {
+			"avatar": "Avatar",
 			"login": "Login",
 			"role": "Role"
 		},
@@ -109,6 +110,11 @@
 			"loginRequired": "Login is required",
 			"passwordRequired": "Password is required",
 			"passwordTooShort": "At least 6 characters",
+			"avatar": "Avatar",
+			"avatarHint": "Drag a file here or click",
+			"avatarReplaceHint": "Click or drag to replace",
+			"avatarFormats": "JPEG, PNG, WebP, GIF or SVG",
+			"avatarInvalidType": "Unsupported file type",
 			"submitError": "Failed to save user",
 			"createSubmit": "Create",
 			"editSubmit": "Save"

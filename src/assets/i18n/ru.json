@@ -87,6 +87,7 @@
 		"search": "Поиск по логину",
 		"addUser": "Добавить пользователя",
 		"columns": {
+			"avatar": "Аватар",
 			"login": "Логин",
 			"role": "Роль"
 		},
@@ -109,6 +110,11 @@
 			"loginRequired": "Укажите логин",
 			"passwordRequired": "Укажите пароль",
 			"passwordTooShort": "Минимум 6 символов",
+			"avatar": "Аватар",
+			"avatarHint": "Перетащите файл сюда или нажмите",
+			"avatarReplaceHint": "Нажмите или перетащите, чтобы заменить",
+			"avatarFormats": "JPEG, PNG, WebP, GIF или SVG",
+			"avatarInvalidType": "Неподдерживаемый тип файла",
 			"submitError": "Не удалось сохранить пользователя",
 			"createSubmit": "Создать",
 			"editSubmit": "Сохранить"
