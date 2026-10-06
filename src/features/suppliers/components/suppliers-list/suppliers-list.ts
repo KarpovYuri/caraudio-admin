@@ -7,16 +7,23 @@ import {
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatIcon } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { TranslatePipe } from '@ngx-translate/core';
 import { map } from 'rxjs';
 import { Supplier } from '@features/suppliers/models/supplier.models';
+import { CopyableUrl } from '@features/suppliers/components/copyable-url/copyable-url';
+import { Badge, RowActions, Thumb } from '@shared/ui/components';
 
 @Component({
 	selector: 'app-suppliers-list',
-	imports: [MatTableModule, MatChipsModule, MatIcon, TranslatePipe],
+	imports: [
+		MatTableModule,
+		TranslatePipe,
+		Badge,
+		RowActions,
+		Thumb,
+		CopyableUrl,
+	],
 	templateUrl: './suppliers-list.html',
 	styleUrl: './suppliers-list.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,

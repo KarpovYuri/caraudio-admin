@@ -10,19 +10,6 @@
 		flex-direction: column;
 	}
 
-	&__avatar {
-		flex-shrink: 0;
-		object-fit: cover;
-
-		&_placeholder {
-			align-items: center;
-			background: color-mix(in srgb, currentcolor 8%, transparent);
-			color: var(--mat-sys-on-surface-variant);
-			display: flex;
-			justify-content: center;
-		}
-	}
-
 	&__card-header {
 		align-items: center;
 		display: flex;
@@ -39,40 +26,8 @@
 		white-space: nowrap;
 	}
 
-	&__role-label {
-		display: block;
-		min-width: 12ch;
-		text-align: center;
-	}
-
-	&__actions {
-		align-items: center;
-		display: flex;
-		flex-shrink: 0;
-		justify-content: flex-end;
-	}
-
-	&__action-btn {
-		align-items: center;
-		cursor: pointer;
-		display: inline-flex;
-		justify-content: center;
-
-		&:hover {
-			background: color-mix(in srgb, currentcolor 12%, transparent);
-		}
-	}
-
-	&__action-btn_danger {
-		color: var(--mat-sys-error);
-	}
-
 	&__table {
-		.mat-column-avatar {
-			width: 1%;
-			white-space: nowrap;
-		}
-
+		.mat-column-avatar,
 		.mat-column-role,
 		.mat-column-actions {
 			width: 1%;

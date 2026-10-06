@@ -1,0 +1,23 @@
+@if (canEdit() || canDelete()) {
+	<div class="row-actions" [class.row-actions_end]="alignEnd()">
+		@if (canEdit()) {
+			<button
+				type="button"
+				class="row-actions__btn rounded-full w-10 h-10"
+				(click)="edit.emit()"
+			>
+				<mat-icon>edit</mat-icon>
+			</button>
+		}
+
+		@if (canDelete()) {
+			<button
+				type="button"
+				class="row-actions__btn row-actions__btn_danger rounded-full w-10 h-10"
+				(click)="remove.emit()"
+			>
+				<mat-icon>delete</mat-icon>
+			</button>
+		}
+	</div>
+}
