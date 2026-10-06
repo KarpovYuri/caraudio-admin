@@ -1,0 +1,13 @@
+.thumb {
+	display: block;
+	flex-shrink: 0;
+	object-fit: cover;
+
+	&_placeholder {
+		align-items: center;
+		background: color-mix(in srgb, var(--mat-sys-on-surface) 8%, transparent);
+		color: var(--mat-sys-on-surface-variant);
+		display: flex;
+		justify-content: center;
+	}
+}

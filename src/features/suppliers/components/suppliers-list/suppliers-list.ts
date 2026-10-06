@@ -12,11 +12,11 @@ import { MatTableModule } from '@angular/material/table';
 import { TranslatePipe } from '@ngx-translate/core';
 import { map } from 'rxjs';
 import { Supplier } from '@features/suppliers/models/supplier.models';
-import { Badge, RowActions } from '@shared/ui/components';
+import { Badge, RowActions, Thumb } from '@shared/ui/components';
 
 @Component({
 	selector: 'app-suppliers-list',
-	imports: [MatTableModule, MatIcon, TranslatePipe, Badge, RowActions],
+	imports: [MatTableModule, MatIcon, TranslatePipe, Badge, RowActions, Thumb],
 	templateUrl: './suppliers-list.html',
 	styleUrl: './suppliers-list.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,

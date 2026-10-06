@@ -8,19 +8,7 @@
 			<article class="suppliers-list__card gap-3 p-4 rounded-xl">
 				<div class="suppliers-list__card-header gap-3">
 					<div class="suppliers-list__card-top gap-3">
-						@if (supplier.logo) {
-							<img
-								class="suppliers-list__logo h-10 w-10 rounded-lg"
-								[src]="supplier.logo"
-								[alt]="supplier.name"
-							/>
-						} @else {
-							<div
-								class="suppliers-list__logo suppliers-list__logo_placeholder h-10 w-10 rounded-lg"
-							>
-								<mat-icon>image</mat-icon>
-							</div>
-						}
+						<app-thumb [src]="supplier.logo" [alt]="supplier.name" />
 
 						<div class="suppliers-list__card-heading gap-0.5">
 							<h3 class="suppliers-list__card-title">
@@ -77,19 +65,7 @@
 					{{ 'suppliersPage.columns.logo' | translate }}
 				</th>
 				<td mat-cell *matCellDef="let supplier">
-					@if (supplier.logo) {
-						<img
-							class="suppliers-list__logo h-10 w-10 rounded-lg"
-							[src]="supplier.logo"
-							[alt]="supplier.name"
-						/>
-					} @else {
-						<div
-							class="suppliers-list__logo suppliers-list__logo_placeholder h-10 w-10 rounded-lg"
-						>
-							<mat-icon>image</mat-icon>
-						</div>
-					}
+					<app-thumb [src]="supplier.logo" [alt]="supplier.name" />
 				</td>
 			</ng-container>
 

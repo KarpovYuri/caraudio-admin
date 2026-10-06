@@ -1,0 +1,7 @@
+@if (src(); as imageSrc) {
+	<img class="thumb h-10 w-10 rounded-lg" [src]="imageSrc" [alt]="alt()" />
+} @else {
+	<div class="thumb thumb_placeholder h-10 w-10 rounded-lg">
+		<mat-icon>{{ icon() }}</mat-icon>
+	</div>
+}
