@@ -35,18 +35,15 @@
 					</div>
 
 					<div class="suppliers-list__card-meta gap-3">
-						<mat-chip-set>
-							<mat-chip [highlighted]="supplier.isActive">
-								<span class="suppliers-list__status-label">
-									{{
-										(supplier.isActive
-											? 'suppliersPage.status.active'
-											: 'suppliersPage.status.inactive'
-										) | translate
-									}}
-								</span>
-							</mat-chip>
-						</mat-chip-set>
+						<app-badge
+							[highlighted]="supplier.isActive"
+							[label]="
+								(supplier.isActive
+									? 'suppliersPage.status.active'
+									: 'suppliersPage.status.inactive'
+								) | translate
+							"
+						/>
 
 						<div class="suppliers-list__actions">
 							<button
@@ -156,18 +153,15 @@
 					{{ 'suppliersPage.columns.isActive' | translate }}
 				</th>
 				<td mat-cell *matCellDef="let supplier">
-					<mat-chip-set>
-						<mat-chip [highlighted]="supplier.isActive">
-							<span class="suppliers-list__status-label">
-								{{
-									(supplier.isActive
-										? 'suppliersPage.status.active'
-										: 'suppliersPage.status.inactive'
-									) | translate
-								}}
-							</span>
-						</mat-chip>
-					</mat-chip-set>
+					<app-badge
+						[highlighted]="supplier.isActive"
+						[label]="
+							(supplier.isActive
+								? 'suppliersPage.status.active'
+								: 'suppliersPage.status.inactive'
+							) | translate
+						"
+					/>
 				</td>
 			</ng-container>
 

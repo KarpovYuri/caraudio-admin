@@ -21,13 +21,11 @@
 						</div>
 					}
 					<h3 class="users-list__card-title">{{ user.login }}</h3>
-					<mat-chip-set>
-						<mat-chip [highlighted]="user.role === 'admin'">
-							<span class="users-list__role-label">
-								{{ 'usersPage.roles.' + user.role | translate }}
-							</span>
-						</mat-chip>
-					</mat-chip-set>
+					<app-badge
+						[highlighted]="user.role === 'admin'"
+						[label]="'usersPage.roles.' + user.role | translate"
+						minWidth="12ch"
+					/>
 				</div>
 
 				<div class="users-list__actions">
@@ -83,13 +81,11 @@
 					{{ 'usersPage.columns.role' | translate }}
 				</th>
 				<td mat-cell *matCellDef="let user">
-					<mat-chip-set>
-						<mat-chip [highlighted]="user.role === 'admin'">
-							<span class="users-list__role-label">
-								{{ 'usersPage.roles.' + user.role | translate }}
-							</span>
-						</mat-chip>
-					</mat-chip-set>
+					<app-badge
+						[highlighted]="user.role === 'admin'"
+						[label]="'usersPage.roles.' + user.role | translate"
+						minWidth="12ch"
+					/>
 				</td>
 			</ng-container>
 

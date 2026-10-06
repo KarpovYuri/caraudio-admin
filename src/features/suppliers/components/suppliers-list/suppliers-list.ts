@@ -7,16 +7,16 @@ import {
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { MatChipsModule } from '@angular/material/chips';
 import { MatIcon } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { TranslatePipe } from '@ngx-translate/core';
 import { map } from 'rxjs';
 import { Supplier } from '@features/suppliers/models/supplier.models';
+import { Badge } from '@shared/ui/components';
 
 @Component({
 	selector: 'app-suppliers-list',
-	imports: [MatTableModule, MatChipsModule, MatIcon, TranslatePipe],
+	imports: [MatTableModule, MatIcon, TranslatePipe, Badge],
 	templateUrl: './suppliers-list.html',
 	styleUrl: './suppliers-list.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
