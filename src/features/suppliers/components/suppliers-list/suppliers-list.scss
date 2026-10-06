@@ -10,10 +10,6 @@
 		flex-direction: column;
 	}
 
-	&__card &__api-url-copy {
-		opacity: 1;
-	}
-
 	&__card-header {
 		align-items: center;
 		display: flex;
@@ -55,43 +51,6 @@
 
 		> app-row-actions {
 			margin-left: auto;
-		}
-	}
-
-	&__api-url-copy {
-		align-items: center;
-		cursor: pointer;
-		display: inline-flex;
-		justify-content: center;
-
-		&:hover {
-			background: color-mix(in srgb, currentcolor 12%, transparent);
-		}
-	}
-
-	&__api-url {
-		align-items: center;
-		display: flex;
-		flex: 1;
-		min-width: 0;
-
-		&-text {
-			flex: 1;
-			min-width: 0;
-			overflow: hidden;
-			text-overflow: ellipsis;
-			white-space: nowrap;
-		}
-
-		&-copy {
-			@media (hover: hover) and (pointer: fine) {
-				opacity: 0;
-			}
-		}
-
-		&:hover &-copy,
-		&:focus-within &-copy {
-			opacity: 1;
 		}
 	}
 

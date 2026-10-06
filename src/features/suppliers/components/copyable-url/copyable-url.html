@@ -1,0 +1,13 @@
+<div
+	class="copyable-url gap-1"
+	[class.copyable-url_copy-visible]="copyAlwaysVisible()"
+>
+	<span class="copyable-url__text">{{ url() }}</span>
+	<button
+		type="button"
+		class="copyable-url__copy rounded-full w-10 h-10"
+		(click)="copied.emit(url())"
+	>
+		<mat-icon>content_copy</mat-icon>
+	</button>
+</div>
