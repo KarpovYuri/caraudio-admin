@@ -28,22 +28,11 @@
 					/>
 				</div>
 
-				<div class="users-list__actions">
-					<button
-						type="button"
-						class="users-list__action-btn rounded-full w-10 h-10"
-						(click)="onEdit(user)"
-					>
-						<mat-icon>edit</mat-icon>
-					</button>
-					<button
-						type="button"
-						class="users-list__action-btn users-list__action-btn_danger rounded-full w-10 h-10"
-						(click)="onRemove(user)"
-					>
-						<mat-icon>delete</mat-icon>
-					</button>
-				</div>
+				<app-row-actions
+					alignEnd
+					(edit)="onEdit(user)"
+					(remove)="onRemove(user)"
+				/>
 			</article>
 		}
 	} @else {
@@ -92,22 +81,7 @@
 			<ng-container matColumnDef="actions">
 				<th mat-header-cell *matHeaderCellDef></th>
 				<td mat-cell *matCellDef="let user">
-					<div class="users-list__actions">
-						<button
-							type="button"
-							class="users-list__action-btn rounded-full w-10 h-10"
-							(click)="onEdit(user)"
-						>
-							<mat-icon>edit</mat-icon>
-						</button>
-						<button
-							type="button"
-							class="users-list__action-btn users-list__action-btn_danger rounded-full w-10 h-10"
-							(click)="onRemove(user)"
-						>
-							<mat-icon>delete</mat-icon>
-						</button>
-					</div>
+					<app-row-actions (edit)="onEdit(user)" (remove)="onRemove(user)" />
 				</td>
 			</ng-container>
 

@@ -45,23 +45,10 @@
 							"
 						/>
 
-						<div class="suppliers-list__actions">
-							<button
-								type="button"
-								class="suppliers-list__action-btn rounded-full w-10 h-10"
-								(click)="onEdit(supplier)"
-							>
-								<mat-icon>edit</mat-icon>
-							</button>
-
-							<button
-								type="button"
-								class="suppliers-list__action-btn suppliers-list__action-btn_danger rounded-full w-10 h-10"
-								(click)="onRemove(supplier)"
-							>
-								<mat-icon>delete</mat-icon>
-							</button>
-						</div>
+						<app-row-actions
+							(edit)="onEdit(supplier)"
+							(remove)="onRemove(supplier)"
+						/>
 					</div>
 				</div>
 
@@ -168,22 +155,10 @@
 			<ng-container matColumnDef="actions">
 				<th mat-header-cell *matHeaderCellDef></th>
 				<td mat-cell *matCellDef="let supplier">
-					<div class="suppliers-list__actions">
-						<button
-							type="button"
-							class="suppliers-list__action-btn rounded-full w-10 h-10"
-							(click)="onEdit(supplier)"
-						>
-							<mat-icon>edit</mat-icon>
-						</button>
-						<button
-							type="button"
-							class="suppliers-list__action-btn suppliers-list__action-btn_danger rounded-full w-10 h-10"
-							(click)="onRemove(supplier)"
-						>
-							<mat-icon>delete</mat-icon>
-						</button>
-					</div>
+					<app-row-actions
+						(edit)="onEdit(supplier)"
+						(remove)="onRemove(supplier)"
+					/>
 				</td>
 			</ng-container>
 

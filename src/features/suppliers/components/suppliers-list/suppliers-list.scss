@@ -80,13 +80,6 @@
 		}
 	}
 
-	&__actions {
-		align-items: center;
-		display: flex;
-		flex-shrink: 0;
-	}
-
-	&__action-btn,
 	&__api-url-copy {
 		align-items: center;
 		cursor: pointer;
@@ -96,10 +89,6 @@
 		&:hover {
 			background: color-mix(in srgb, currentcolor 12%, transparent);
 		}
-	}
-
-	&__action-btn_danger {
-		color: var(--mat-sys-error);
 	}
 
 	&__api-url {
