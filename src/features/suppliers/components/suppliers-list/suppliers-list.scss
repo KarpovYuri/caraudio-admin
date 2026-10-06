@@ -17,11 +17,8 @@
 	&__card-header {
 		align-items: center;
 		display: flex;
-
-		@media (width <= 576px) {
-			align-items: stretch;
-			flex-direction: column;
-		}
+		justify-content: space-between;
+		min-width: 0;
 	}
 
 	&__card-top {
@@ -50,21 +47,15 @@
 		font: var(--mat-sys-body-small);
 	}
 
-	&__card-meta {
+	&__card-footer {
 		align-items: center;
 		display: flex;
-		flex-shrink: 0;
-
-		@media (width <= 576px) {
-			justify-content: space-between;
-		}
-	}
-
-	&__card-row {
-		display: flex;
-		flex-direction: column;
-		gap: 4px;
 		min-width: 0;
+		width: 100%;
+
+		> app-row-actions {
+			margin-left: auto;
+		}
 	}
 
 	&__api-url-copy {
@@ -81,8 +72,8 @@
 	&__api-url {
 		align-items: center;
 		display: flex;
+		flex: 1;
 		min-width: 0;
-		width: 100%;
 
 		&-text {
 			flex: 1;

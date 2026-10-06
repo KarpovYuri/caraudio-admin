@@ -22,26 +22,19 @@
 						</div>
 					</div>
 
-					<div class="suppliers-list__card-meta gap-3">
-						<app-badge
-							[highlighted]="supplier.isActive"
-							[label]="
-								(supplier.isActive
-									? 'suppliersPage.status.active'
-									: 'suppliersPage.status.inactive'
-								) | translate
-							"
-						/>
-
-						<app-row-actions
-							(edit)="onEdit(supplier)"
-							(remove)="onRemove(supplier)"
-						/>
-					</div>
+					<app-badge
+						[highlighted]="supplier.isActive"
+						[label]="
+							(supplier.isActive
+								? 'suppliersPage.status.active'
+								: 'suppliersPage.status.inactive'
+							) | translate
+						"
+					/>
 				</div>
 
-				@if (supplier.apiUrl) {
-					<div class="suppliers-list__card-row">
+				<div class="suppliers-list__card-footer gap-1">
+					@if (supplier.apiUrl) {
 						<div class="suppliers-list__api-url gap-1">
 							<span class="suppliers-list__api-url-text">
 								{{ supplier.apiUrl }}
@@ -54,8 +47,13 @@
 								<mat-icon>content_copy</mat-icon>
 							</button>
 						</div>
-					</div>
-				}
+					}
+
+					<app-row-actions
+						(edit)="onEdit(supplier)"
+						(remove)="onRemove(supplier)"
+					/>
+				</div>
 			</article>
 		}
 	} @else {
