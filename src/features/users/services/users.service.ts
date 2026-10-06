@@ -8,6 +8,7 @@ import {
 	ListUsersResponse,
 	UpdateUserRequest,
 	UpdateUserResponse,
+	UploadUserAvatarResponse,
 } from '@features/users/models/user.models';
 
 @Injectable({ providedIn: 'root' })
@@ -44,6 +45,16 @@ export class UsersService {
 		return this.http.patch<UpdateUserResponse>(
 			`${this.apiUrl}/users/${userId}`,
 			data
+		);
+	}
+
+	uploadAvatar(userId: string, file: File) {
+		const formData = new FormData();
+		formData.append('avatar', file);
+
+		return this.http.post<UploadUserAvatarResponse>(
+			`${this.apiUrl}/users/${userId}/avatar`,
+			formData
 		);
 	}
 

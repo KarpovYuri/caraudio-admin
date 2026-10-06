@@ -72,6 +72,70 @@
 			<p class="user-form-dialog__field-error" aria-hidden="true">&nbsp;</p>
 		</div>
 
+		<div
+			class="user-form-dialog__avatar gap-2"
+			[class.user-form-dialog__avatar_dragging]="avatarDragging()"
+		>
+			<div>
+				{{ 'usersPage.userFormDialog.avatar' | translate }}
+			</div>
+
+			<div
+				class="user-form-dialog__avatar-dropzone gap-2 rounded-xl px-4 py-5 min-h-37"
+				(click)="openAvatarPicker()"
+				(dragenter)="onAvatarDragEnter($event)"
+				(dragover)="onAvatarDragOver($event)"
+				(dragleave)="onAvatarDragLeave($event)"
+				(drop)="onAvatarDrop($event)"
+			>
+				@if (displayAvatar(); as previewUrl) {
+					<div class="user-form-dialog__avatar-thumb">
+						<img
+							class="user-form-dialog__avatar-preview w-20 h-20 rounded-lg"
+							[src]="previewUrl"
+							alt="avatar"
+						/>
+						<button
+							mat-icon-button
+							type="button"
+							class="user-form-dialog__avatar-clear w-7! h-7!"
+							[disabled]="submitting()"
+							(click)="clearAvatar($event)"
+						>
+							<mat-icon>close</mat-icon>
+						</button>
+					</div>
+					<span class="user-form-dialog__avatar-hint">
+						{{ 'usersPage.userFormDialog.avatarReplaceHint' | translate }}
+					</span>
+				} @else {
+					<mat-icon class="user-form-dialog__avatar-icon text-5xl! w-12! h-12!">
+						cloud_upload
+					</mat-icon>
+					<span class="user-form-dialog__avatar-hint">
+						{{ 'usersPage.userFormDialog.avatarHint' | translate }}
+					</span>
+					<span class="user-form-dialog__avatar-formats">
+						{{ 'usersPage.userFormDialog.avatarFormats' | translate }}
+					</span>
+				}
+			</div>
+
+			<input
+				#avatarInput
+				class="user-form-dialog__avatar-input"
+				type="file"
+				[accept]="acceptedAvatarTypes"
+				(change)="onAvatarSelected($event)"
+			/>
+
+			@if (avatarError(); as errorKey) {
+				<p class="user-form-dialog__avatar-error">
+					{{ errorKey | translate }}
+				</p>
+			}
+		</div>
+
 		@if (submitError(); as errorKey) {
 			<p class="user-form-dialog__submit-error">
 				{{ errorKey | translate }}

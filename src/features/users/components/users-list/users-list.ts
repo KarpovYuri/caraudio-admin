@@ -1,0 +1,48 @@
+import {
+	ChangeDetectionStrategy,
+	Component,
+	inject,
+	input,
+	output,
+} from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIcon } from '@angular/material/icon';
+import { MatTableModule } from '@angular/material/table';
+import { TranslatePipe } from '@ngx-translate/core';
+import { map } from 'rxjs';
+import { User } from '@features/users/models/user.models';
+
+@Component({
+	selector: 'app-users-list',
+	imports: [MatTableModule, MatChipsModule, MatIcon, TranslatePipe],
+	templateUrl: './users-list.html',
+	styleUrl: './users-list.scss',
+	changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class UsersList {
+	private readonly breakpointObserver = inject(BreakpointObserver);
+
+	readonly users = input.required<User[]>();
+
+	readonly edit = output<User>();
+	readonly remove = output<User>();
+
+	readonly displayedColumns = ['avatar', 'login', 'role', 'actions'] as const;
+
+	readonly isCompact = toSignal(
+		this.breakpointObserver
+			.observe('(width <= 576px)')
+			.pipe(map((state) => state.matches)),
+		{ initialValue: false }
+	);
+
+	onEdit(user: User) {
+		this.edit.emit(user);
+	}
+
+	onRemove(user: User) {
+		this.remove.emit(user);
+	}
+}

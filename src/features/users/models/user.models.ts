@@ -6,6 +6,7 @@ export interface User {
 	id: string;
 	login: string;
 	role: UserRole | string;
+	avatar?: string;
 	createdAt?: string;
 	updatedAt?: string;
 }
@@ -41,5 +42,9 @@ export interface UpdateUserRequest {
 }
 
 export interface UpdateUserResponse {
+	user: User;
+}
+
+export interface UploadUserAvatarResponse {
 	user: User;
 }

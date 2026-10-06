@@ -7,25 +7,19 @@ import {
 	OnInit,
 	signal,
 } from '@angular/core';
-import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
-import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatTableModule } from '@angular/material/table';
-import { MatChipsModule } from '@angular/material/chips';
-import { TranslatePipe } from '@ngx-translate/core';
 import {
 	debounceTime,
 	distinctUntilChanged,
 	firstValueFrom,
-	map,
 	Subject,
 } from 'rxjs';
 import { User, UserRoleFilter } from '@features/users/models/user.models';
 import { UsersService } from '@features/users/services/users.service';
-import { MatIcon } from '@angular/material/icon';
-import { UserFormDialog } from '@features/users/components';
+import { UserFormDialog, UsersList } from '@features/users/components';
 import { ConfirmDeleteDialog } from '@shared/ui/dialogs';
 import { EmptyState, ListFilters, PageLoader } from '@shared/ui/layout';
 import { PageHeader } from '@shared/ui/layout/page-header/page-header';
@@ -34,14 +28,11 @@ import { PageHeader } from '@shared/ui/layout/page-header/page-header';
 	selector: 'app-users-page',
 	imports: [
 		MatPaginator,
-		TranslatePipe,
-		MatIcon,
-		MatTableModule,
-		MatChipsModule,
 		PageHeader,
 		ListFilters,
 		EmptyState,
 		PageLoader,
+		UsersList,
 	],
 	templateUrl: './users.page.html',
 	styleUrl: './users.page.scss',
@@ -51,23 +42,14 @@ export class UsersPage implements OnInit {
 	private usersService = inject(UsersService);
 	private router = inject(Router);
 	private dialog = inject(MatDialog);
-	private breakpointObserver = inject(BreakpointObserver);
 	private destroyRef = inject(DestroyRef);
 
-	readonly displayedColumns = ['login', 'role', 'actions'] as const;
 	readonly pageSize = 10;
 	readonly roleFilterOptions = [
 		'all',
 		'admin',
 		'user',
 	] as const satisfies readonly UserRoleFilter[];
-
-	readonly isCompact = toSignal(
-		this.breakpointObserver
-			.observe('(width <= 768px)')
-			.pipe(map((state) => state.matches)),
-		{ initialValue: false }
-	);
 
 	loading = signal(true);
 	users = signal<User[]>([]);
@@ -152,9 +134,7 @@ export class UsersPage implements OnInit {
 		}
 	}
 
-	async editUser(user: User, event?: Event) {
-		event?.stopPropagation();
-
+	async editUser(user: User) {
 		const updated = await firstValueFrom(
 			this.dialog
 				.open(UserFormDialog, {
@@ -168,9 +148,7 @@ export class UsersPage implements OnInit {
 		}
 	}
 
-	async deleteUser(user: User, event?: Event) {
-		event?.stopPropagation();
-
+	async deleteUser(user: User) {
 		const deleted = await firstValueFrom(
 			this.dialog
 				.open(ConfirmDeleteDialog, {
